@@ -26,27 +26,27 @@
             <!-- <button class="btn" onclick="updateProgress()">Update Progress</button> -->
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form>
+            <form action="enroll.php" onsubmit="validateEnroll();return false;">
                 <h2>Student Recruitment Form</h2>
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" value="Jemimah Omao" readonly>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" value="nyakesh@system.com" readonly>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <input type="tel" id="phone" name="phone" value="+25472200002" readonly>
                 </div>
                 <div class="form-group">
                     <label for="program">Previuos Qualification</label>
-                    <input type="text" id="qualification" name="qualification" required>
+                    <input type="text" id="qualification" name="qualification">
                 </div>
                 <div class="form-group">
                     <label for="program">Program of Interest:</label>
-                    <select id="program" name="program" required>
+                    <select id="program" name="program">
                         <option value="">Please select a program</option>
                         <option value="bsc">B.Sc. in Computer Science</option>
                         <option value="ba">B.A. in English</option>
@@ -58,12 +58,12 @@
                     <textarea id="message" name="message"></textarea>
                 </div> -->
                 <div class="form-group">
-                    <button type="submit" class="btn" onclick="window.location.href='Application.html'">Enroll</button>
+                    <button type="submit" class="btn">Enroll</button>
                 </div>
             </form>
-
         </div>
     </div>
+    <script src="../js/validations.js"></script>
     <script>
         let progress = 25; // Set the initial progress here
         let progressBar = document.getElementById("progress-bar");

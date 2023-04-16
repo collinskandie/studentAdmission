@@ -69,3 +69,20 @@ function validateRegister() {
     return false;
   }
 }
+//enrollment form validator
+function validateEnroll(){
+  var prevQualif = document.getElementById("qualification").value;
+  var programIntrest = document.getElementById("program").value;
+  
+  if (prevQualif == ""){
+    alert("Qualification cannot be null");
+    return false;
+  }
+  if (programIntrest == ""){
+    alert("Please select your program of interest");
+    return false;
+  }
+  
+  window.location.href='Application.html'
+
+}
