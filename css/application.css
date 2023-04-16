@@ -5,15 +5,13 @@ form {
     width: 80%;
     max-width: 600px;
     margin: 0 auto;
-  }
-  
-  h2 {
+}
+h2 {
     text-align: center;
-  }
-  
-  .form-row {
+}
+.form-row {
     margin-bottom: 20px;
-  }
+}
   
   label {
     display: block;
