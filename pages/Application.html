@@ -1,0 +1,298 @@
+</html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Application Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/application.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>CUEA Online Admission</h1>
+        <div style="text-align: center;">
+            <img src="../imgs/logo.png" style="display: block; margin: 0
+                    auto;">
+        </div>
+        <div class="page-content" style="text-align: center;">
+            <h3>Welcome</h3>
+            <h5>Your progress</h5>
+            <div class="progress">
+                <div class="bar" id="progress-bar"></div>
+            </div>
+            <div class="percentage" id="percentage"></div>
+        </div>
+        <div style="align-content:center; margin-top: 50px;">
+            <form>
+                <h2>Student Application Form</h2>
+                <h3>Student details</h3>
+                <div class="form-row">
+                    <label for="name">Student Full Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="contacts">Phone Number</label>
+                            <input type="number" id="number" name="number">
+                        </div>
+                    </div>
+                </div>                
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="phone">ID/Passport</label>
+                            <input type="number" id="docNumber" name="docNumber" placeholder="Use Birth Number if null">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-row">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob">
+                    </div>
+                    <div class="form-row">
+
+                        <label for="nationality">Nationality:</label>
+                        <input type="text" id="nationality" name="nationality">
+                    </div>
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">Please select your gender</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="maritalStatus">Marital Status</label>
+                            <select id="maritalStatus" name="maritalStatus">
+                                <option value="">Please select your marital
+                                    status</option>
+                                <option value="bsc">Single</option>
+                                <option value="ba">Married</option>
+                                <option value="bs">Widowed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="impared">Impared</label>
+                            <select id="impared" name="impared">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <div class="form-row">
+                                <label for="religion">Religion</label>
+                                <input type="text" id="religion" name="religion">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Guardian Details</h3>
+                <div class="form-row">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="sponsname" name="sponsname">
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="relationship">Relationship:</label>
+                            <input type="text" id="relationship" name="relationship">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="contacts">Address</label>
+                            <input type="text" id="address" name="address">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="contacts">Phone Number</label>
+                            <input type="number" id="gaurdian_number" name="gaurdian_number">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="contacts">Email Address</label>
+                            <input type="email" id="gaurdian_email" name="gaurdian-email">
+                        </div>
+                    </div>
+                </div>
+                <h3>Sponsor Details</h3>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="relationship">Sponsor:</label>
+                            <input type="text" id="sponsrelationship" name="sponsrelationship"
+                                placeholder="e.g Parent/Bank/NGO">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="name">Name</label>
+                            <input type="text" id="sponsname" name="name">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="contacts">Address</label>
+                            <input type="text" id="sponaddress" name="sponaddress">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="contacts">Phone Number:</label>
+                            <input type="number" id="spon_number" name="spon_number">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="contacts">Email Address</label>
+                    <input type="email" id="spon_email" name="spon_email">
+                </div>
+                <h3>Program Details</h3>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="level">Level of Studies</label>
+                                <select id="level" name="level" required>
+                                    <option value="">Please select a level</option>
+                                    <option value="phd">PHD</option>
+                                    <option value="bachelors">Bachelors Degree</option>
+                                    <option value="cert">Certificate</option>
+                                    <option value="dip">Diploma</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="program">Program of Interest:</label>
+                                <select id="program" name="program" required>
+                                    <option value="">Please select a program</option>
+                                    <option value="bsc">B.Sc. in Computer Science</option>
+                                    <option value="ba">B.A. in English</option>
+                                    <option value="bs">B.Sc. in Mathematics</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="program">Student Type</label>
+                                <select id="sponsor_type" name="sponsor_type" required>
+                                    <option value="">Please select a program</option>
+                                    <option value="gov">Government Sponsered</option>
+                                    <option value="self">Self Sponsored</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="relationship">Study Mode</label>
+                            <select id="mode" name="mode" required>
+                                <option value="">Please select a program</option>
+                                <option value="ftime">Full-time</option>
+                                <option value="ptime">Part-time</option>
+                                <option value="online">Online</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3>Academic Profile</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Institute">Institutions Attended</label>
+                        <textarea type="textarea" id="Institute" name="Institute"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="Qualification">Qualifications</label>
+                    <textarea type="text" id="quali" name="quali"></textarea>
+                </div>
+                <div class="columns-container">
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="IndexNo">Index No</label>
+                            <input type="text" id="indexnu" name="indexnu" placeholder="Kenyan High School">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="certNo">Certificate No</label>
+                            <input type="text" id="certNo" name="certNo"
+                                placeholder="School leaving certificate number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="studentBefore">Student before?</label>
+                    <select id="studentbefore" name="studentbefore" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- show enroll buttons -->
+
+
+    <script>
+        let progress = 50; // Set the initial progress here
+        let progressBar = document.getElementById("progress-bar");
+        let percentage = document.getElementById("percentage");
+
+        progressBar.style.width = progress + "%";
+        percentage.innerHTML = progress + "%";
+
+        function updateProgress() {
+            progress += 10; // Increment the progress by 10 on each click
+            if (progress > 100) {
+                progress = 100; // Set the progress to 100 if it exceeds 100
+            }
+            progressBar.style.width = progress + "%";
+            percentage.innerHTML = progress + "%";
+        }
+    </script>
+</body>
+
+</html>

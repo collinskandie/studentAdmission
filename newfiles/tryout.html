@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Progress Record</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f1f1f1;
+		}
+		
+		.container {
+			margin: 50px auto;
+			max-width: 600px;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		
+		h1 {
+			font-size: 32px;
+			margin-top: 0;
+			text-align: center;
+		}
+		
+		.progress {
+			background-color: #ddd;
+			border-radius: 5px;
+			height: 20px;
+			margin-bottom: 20px;
+			overflow: hidden;
+		}
+		
+		.bar {
+			background-color: #4CAF50;
+			height: 100%;
+			width: 0%;
+		}
+		
+		.percentage {
+			color: #4CAF50;
+			font-size: 18px;
+			font-weight: bold;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+		
+		.btn {
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			display: block;
+			margin: 20px auto 0;
+		}
+		
+		.btn:hover {
+			background-color: #3e8e41;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>My Progress Record</h1>
+		<div class="progress">
+			<div class="bar" id="progress-bar"></div>
+		</div>
+		<div class="percentage" id="percentage"></div>
+		<button class="btn" onclick="updateProgress()">Update Progress</button>
+	</div>
+	<script>
+		let progress = 50; // Set the initial progress here
+		let progressBar = document.getElementById("progress-bar");
+		let percentage = document.getElementById("percentage");
+		
+		progressBar.style.width = progress + "%";
+		percentage.innerHTML = progress + "%";
+		
+		function updateProgress() {
+			progress += 10; // Increment the progress by 10 on each click
+			if (progress > 100) {
+				progress = 100; // Set the progress to 100 if it exceeds 100
+			}
+			progressBar.style.width = progress + "%";
+			percentage.innerHTML = progress + "%";
+		}
+	</script>
+</body>
+</html>

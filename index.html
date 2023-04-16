@@ -1,0 +1,57 @@
+ </html>
+ <!DOCTYPE html>
+ <html>
+
+ <head>
+     <title>Home page</title>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./css/index.css">
+ </head>
+
+ <body>
+     <div class="container">
+         <h1>CUEA Online Admission</h1>
+         <div style="text-align: center;">
+             <img src="./imgs/logo.png" style="display: block; margin: 0 auto;">
+         </div>
+         <div class="page-content" style="text-align: center;">
+             <h3>Welcome</h3>
+             <h5>Your progress</h5>
+             <div class="progress">
+                 <div class="bar" id="progress-bar"></div>
+             </div>
+             <div class="percentage" id="percentage"></div>
+             <!-- <button class="btn" onclick="updateProgress()">Update Progress</button> -->
+         </div>
+         <div style="align-content:center; margin-top: 50px;">
+             <button class="btn-action" onclick="window.location.href='./pages/Enroll.html'" style="text-align: center;">Proceed to Enroll</button>
+         </div>
+         
+         <div style="align-content:center; margin-top: 50px; text-align: center;">
+         If exhisting application proceed to 
+             <button class="btn-action" onclick="window.location.href='./pages/Application.html'">Proceed to Application</button>
+         </div>
+     </div>
+     <!-- show enroll buttons -->
+
+     <script>
+         let progress = 0; // Set the initial progress here
+         let progressBar = document.getElementById("progress-bar");
+         let percentage = document.getElementById("percentage");
+
+         progressBar.style.width = progress + "%";
+         percentage.innerHTML = progress + "%";
+
+         function updateProgress() {
+             progress += 10; // Increment the progress by 10 on each click
+             if (progress > 100) {
+                 progress = 100; // Set the progress to 100 if it exceeds 100
+             }
+             progressBar.style.width = progress + "%";
+             percentage.innerHTML = progress + "%";
+         }
+     </script>
+ </body>
+
+ </html>
