@@ -26,7 +26,7 @@
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form>
+            <form action="" onsubmit="validateApplication();return false;">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">
@@ -183,7 +183,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="level">Level of Studies</label>
-                                <select id="level" name="level" required>
+                                <select id="level" name="level" >
                                     <option value="">Please select a level</option>
                                     <option value="phd">PHD</option>
                                     <option value="bachelors">Bachelors Degree</option>
@@ -197,7 +197,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="program">Program of Interest:</label>
-                                <select id="program" name="program" required>
+                                <select id="program" name="program" >
                                     <option value="">Please select a program</option>
                                     <option value="bsc">B.Sc. in Computer Science</option>
                                     <option value="ba">B.A. in English</option>
@@ -212,7 +212,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="program">Student Type</label>
-                                <select id="sponsor_type" name="sponsor_type" required>
+                                <select id="sponsor_type" name="sponsor_type" >
                                     <option value="">Please select a program</option>
                                     <option value="gov">Government Sponsered</option>
                                     <option value="self">Self Sponsored</option>
@@ -223,7 +223,7 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="relationship">Study Mode</label>
-                            <select id="mode" name="mode" required>
+                            <select id="mode" name="mode" >
                                 <option value="">Please select a program</option>
                                 <option value="ftime">Full-time</option>
                                 <option value="ptime">Part-time</option>
@@ -261,7 +261,7 @@
 
                 <div class="form-row">
                     <label for="studentBefore">Student before?</label>
-                    <select id="studentbefore" name="studentbefore" required>
+                    <select id="studentbefore" name="studentbefore" >
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>
@@ -273,8 +273,7 @@
 
         </div>
     </div>
-    <!-- show enroll buttons -->
-
+    <script src="../js/validations.js"></script>
 
     <script>
         let progress = 50; // Set the initial progress here

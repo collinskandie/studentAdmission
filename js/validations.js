@@ -60,7 +60,8 @@ function validateRegister() {
     return false;
   }
   // Check if password has a number, an uppercase letter, and a symbol
-  var passwordPattern =/^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+  var passwordPattern =
+    /^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
 
   if (!passwordPattern.test(password)) {
     alert(
@@ -70,19 +71,61 @@ function validateRegister() {
   }
 }
 //enrollment form validator
-function validateEnroll(){
+function validateEnroll() {
   var prevQualif = document.getElementById("qualification").value;
   var programIntrest = document.getElementById("program").value;
-  
-  if (prevQualif == ""){
+
+  if (prevQualif == "") {
     alert("Qualification cannot be null");
     return false;
   }
-  if (programIntrest == ""){
+  if (programIntrest == "") {
     alert("Please select your program of interest");
     return false;
   }
-  
-  window.location.href='Application.html'
+  window.location.href = "Application.html";
+}
+/// code to validate input data for application
+function validateApplication() {
+  var studentName = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var phoneNumber = document.getElementById("number").value;
+  var IdPassport = document.getElementById("docNumber").value;
+  var dob = document.getElementById("dob").value;
+  var nationality = document.getElementById("nationality").value;
+  var gender = document.getElementById("gender").value;
 
+  if (studentName == "") {
+    alert("Name cannot be null");
+    return false;
+  }
+  if (email == "") {
+    alert("Please enter your email");
+    return false;
+  }
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("Please enter a valid email address.");
+    return false;
+  }
+  if (phoneNumber == "") {
+    alert("Phone number cannot be null");
+    return false;
+  }
+  if (IdPassport == "") {
+    alert("Enter your ID number");
+    return false;
+  }
+  if (dob == "") {
+    alert("Date of birth cannot be null");
+    return false;
+  }
+  if (nationality == "") {
+    alert("Nationality cannot be null");
+    return false;
+  }
+  if (gender == "") {
+    alert("select your gender");
+    return false;
+  }
 }
