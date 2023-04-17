@@ -17,8 +17,7 @@ body {
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+    text-decoration: none;   
 }
 
 .topnav a:hover {
@@ -29,11 +28,30 @@ body {
 /* add styles for user profile and logout button */
 .topnav .user-profile {
     float: right;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.topnav .logout {
+    float: right;  
+    margin-right: 5px; /* reduced from 20px */
 }
 
+.topnav .user-profile,
+.topnav .logout {
+  color: #f2f2f2;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav .user-profile:hover,
+.topnav .logout:hover {
+  background-color: #ddd;
+  color: black;
+}
 /* side navigation */
 .sidenav {
-
+    margin-top: 30px;
     height: 100%;
     width: 250px;
     position: fixed;

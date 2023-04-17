@@ -93,7 +93,25 @@ function validateApplication() {
   var IdPassport = document.getElementById("docNumber").value;
   var dob = document.getElementById("dob").value;
   var nationality = document.getElementById("nationality").value;
+  var nationality = document.getElementById("nationality").value;
   var gender = document.getElementById("gender").value;
+  var impared = document.getElementById("impared").value;
+  var religion = document.getElementById("religion").value;
+  var guardian = document.getElementById("guardian").value;
+  var relationship = document.getElementById("relationship").value;
+  var address = document.getElementById("address").value;
+  var sponsname = document.getElementById("sponsname").value;
+  var sponsrelationship = document.getElementById("sponsrelationship").value;
+  var level = document.getElementById("level").value;
+  var program = document.getElementById("program").value;
+  var sponsor_type = document.getElementById("sponsor_type").value;
+  var mode = document.getElementById("mode").value;
+  var Institute = document.getElementById("Institute").value;
+  var quali = document.getElementById("quali").value;
+  var indexnu = document.getElementById("indexnu").value;
+  var certNo = document.getElementById("certNo").value;
+  var studentbefore = document.getElementById("studentbefore").value;
+ 
 
   if (studentName == "") {
     alert("Name cannot be null");
@@ -126,6 +144,70 @@ function validateApplication() {
   }
   if (gender == "") {
     alert("select your gender");
+    return false;
+  }
+  if (impared == "") {
+    alert("State of imparedness cannot be left blank");
+    return false;
+  }
+  if (religion == "") {
+    alert("Please state your religion");
+    return false;
+  }
+  if (guardian == "") {
+    alert("Guardian name cannot be empty");
+    return false;
+  }
+  if (relationship == "") {
+    alert("Whats your relationship with the guardian");
+    return false;
+  }
+  if (address == "") {
+    alert("Address cannot be blank");
+    return false;
+  }
+  if (sponsname == "") {
+    alert("Sponsor name cannot be blank");
+    return false;
+  }
+  if (sponsrelationship == "") {
+    alert("Please state who is your sponsor");
+    return false;
+  }
+  if (level == "") {
+    alert("Level of education cannot be blank");
+    return false;
+  }
+  if (program == "") {
+    alert("Select a program of choice");
+    return false;
+  }
+  if (sponsor_type == "") {
+    alert("Type of sponsor cannot be blank");
+    return false;
+  }
+  if (mode == "") {
+    alert("Select mode of study");
+    return false;
+  }
+  if (Institute == "") {
+    alert("Details of previous instituition");
+    return false;
+  }
+  if (quali == "") {
+    alert("Previous qualifications cannot be blank");
+    return false;
+  }
+  if (indexnu == "") {
+    alert("Index number cannot be blank");
+    return false;
+  }
+  if (certNo == "") {
+    alert("Certificate number cannot be blank");
+    return false;
+  }
+  if (studentbefore == "") {
+    alert("Cannot be left blank");
     return false;
   }
 }
