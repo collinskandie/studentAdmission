@@ -19,11 +19,7 @@ function validateForm() {
   if (password == "") {
     alert("Please enter a password.");
     return false;
-  }
-
-  // Add additional validation here, such as checking for minimum password length or valid email format.
-
-  alert("Login successful!");
+  }  
 }
 //validate user registration form
 function validateRegister() {
@@ -83,7 +79,7 @@ function validateEnroll() {
     alert("Please select your program of interest");
     return false;
   }
-  window.location.href = "Application.html";
+  
 }
 /// code to validate input data for application
 function validateApplication() {
@@ -92,14 +88,13 @@ function validateApplication() {
   var phoneNumber = document.getElementById("number").value;
   var IdPassport = document.getElementById("docNumber").value;
   var dob = document.getElementById("dob").value;
-  var nationality = document.getElementById("nationality").value;
-  var nationality = document.getElementById("nationality").value;
+  var nationality = document.getElementById("nationality").value; 
   var gender = document.getElementById("gender").value;
   var impared = document.getElementById("impared").value;
   var religion = document.getElementById("religion").value;
-  var guardian = document.getElementById("guardian").value;
-  var relationship = document.getElementById("relationship").value;
-  var address = document.getElementById("address").value;
+  var guardian = document.getElementById("guardianname").value;
+  var relationship = document.getElementById("guard_relation").value;
+  var address = document.getElementById("guard_address").value;
   var sponsname = document.getElementById("sponsname").value;
   var sponsrelationship = document.getElementById("sponsrelationship").value;
   var level = document.getElementById("level").value;

@@ -1,7 +1,6 @@
 </html>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Application Page</title>
     <meta charset="UTF-8">
@@ -11,6 +10,33 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+    if (!isset($_SESSION['user'])) {
+        header('Location: login.php');
+        exit;
+    };
+    $id = $_SESSION['user'];
+    include('../php/conn.php');
+    $sql = "SELECT CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) AS fullname, email, phone FROM students WHERE student_id='$id'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        $fullname = $row['fullname'];
+        $email = $row['email'];
+        $phone = $row['phone'];
+    }
+    $sql_courses = "SELECT * FROM enrollments WHERE student_id ='$id'";
+    $results = mysqli_query($conn, $sql_courses);
+    if (mysqli_num_rows($results) == 1) {
+        $row = mysqli_fetch_assoc($results);
+        $c_id= $row['course_id'];
+        $new_sql= "SELECT course_name FROM courses WHERE course_id='$c_id'";
+        $courses = mysqli_query($conn, $new_sql);
+        $usercourse = mysqli_fetch_assoc($courses);
+       $course = $usercourse['course_name'];
+    }
+    ?>
     <div class="container">
         <h1>CUEA Online Admission</h1>
         <div style="text-align: center;">
@@ -26,27 +52,27 @@
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form action="" onsubmit="validateApplication();return false;">
+            <form action="../php/application.php" onsubmit="return validateApplication();">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">
                     <label for="name">Student Full Name</label>
-                    <input type="text" id="name" name="name">
+                    <input type="text" id="name" name="name" value="<?php echo ($fullname); ?>" readonly>
                 </div>
                 <div class="columns-container">
                     <div class="column">
                         <div class="form-row">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email">
+                            <input type="email" id="email" name="email" value="<?php echo ($email); ?>" readonly>
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-row">
                             <label for="contacts">Phone Number</label>
-                            <input type="number" id="number" name="number">
+                            <input type="number" id="number" name="number" value="<?php echo ($number); ?>" readonly>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="columns-container">
                     <div class="column">
                         <div class="form-row">
@@ -83,9 +109,9 @@
                             <select id="maritalStatus" name="maritalStatus">
                                 <option value="">Please select your marital
                                     status</option>
-                                <option value="bsc">Single</option>
-                                <option value="ba">Married</option>
-                                <option value="bs">Widowed</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="widowed">Widowed</option>
                             </select>
                         </div>
                     </div>
@@ -119,13 +145,13 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="relationship">Relationship:</label>
-                            <input type="text" id="relationship" name="relationship">
+                            <input type="text" id="relationship" name="guard_relation">
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-row">
                             <label for="contacts">Address</label>
-                            <input type="text" id="address" name="address">
+                            <input type="text" id="address" name="guard_address">
                         </div>
                     </div>
                     <div class="column">
@@ -139,7 +165,7 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="contacts">Email Address</label>
-                            <input type="email" id="email" name="gaurdian-email">
+                            <input type="email" id="email" name="gaurdian_email">
                         </div>
                     </div>
                 </div>
@@ -148,14 +174,13 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="relationship">Sponsor:</label>
-                            <input type="text" id="sponsrelationship" name="sponsrelationship"
-                                placeholder="e.g Parent/Bank/NGO">
+                            <input type="text" id="sponsrelationship" name="sponsrelationship" placeholder="e.g Parent/Bank/NGO">
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-row">
                             <label for="name">Name</label>
-                            <input type="text" id="sponsname" name="name">
+                            <input type="text" id="sponsname" name="sponsname">
                         </div>
                     </div>
                 </div>
@@ -183,7 +208,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="level">Level of Studies</label>
-                                <select id="level" name="level" >
+                                <select id="level" name="level">
                                     <option value="">Please select a level</option>
                                     <option value="phd">PHD</option>
                                     <option value="bachelors">Bachelors Degree</option>
@@ -197,12 +222,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="program">Program of Interest:</label>
-                                <select id="program" name="program" >
-                                    <option value="">Please select a program</option>
-                                    <option value="bsc">B.Sc. in Computer Science</option>
-                                    <option value="ba">B.A. in English</option>
-                                    <option value="bs">B.Sc. in Mathematics</option>
-                                </select>
+                                <input type="text" id="program" name="program" value="<?php echo ($course); ?>" readonly>
                             </div>
                         </div>
                     </div>
@@ -212,7 +232,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="studenttype">Student Type</label>
-                                <select id="sponsor_type" name="sponsor_type" >
+                                <select id="sponsor_type" name="sponsor_type">
                                     <option value="">Please select type</option>
                                     <option value="gov">Government Sponsered</option>
                                     <option value="self">Self Sponsored</option>
@@ -223,7 +243,7 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="study_mode">Study Mode</label>
-                            <select id="mode" name="mode" >
+                            <select id="mode" name="mode">
                                 <option value="">Please select a program</option>
                                 <option value="ftime">Full-time</option>
                                 <option value="ptime">Part-time</option>
@@ -253,15 +273,14 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="certNo">Certificate No</label>
-                            <input type="text" id="certNo" name="certNo"
-                                placeholder="School leaving certificate number">
+                            <input type="text" id="certNo" name="certNo" placeholder="School leaving certificate number">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <label for="studentBefore">Student before?</label>
-                    <select id="studentbefore" name="studentbefore" >
+                    <select id="studentbefore" name="studentbefore">
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>
