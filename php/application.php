@@ -4,11 +4,11 @@ include('conn.php');
 if (isset($_POST['submit'])) {
     // Studddent details 
     $student_id = $_SESSION['user'];
-    $id_pass= mysqli_real_escape_string($conn, $_POST['docNumber']);
-    $dob= mysqli_real_escape_string($conn, $_POST['dob']);
-    $nationality= mysqli_real_escape_string($conn, $_POST['nationality']);
-    $gender= mysqli_real_escape_string($conn, $_POST['gender']);
-    $maritalStatus= mysqli_real_escape_string($conn, $_POST['docNumber']);
+    $id_pass = mysqli_real_escape_string($conn, $_POST['docNumber']);
+    $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+    $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $maritalStatus = mysqli_real_escape_string($conn, $_POST['docNumber']);
     $impared = mysqli_real_escape_string($conn, $_POST['impared']);
 
     //guardian table
@@ -33,13 +33,19 @@ if (isset($_POST['submit'])) {
     $qualifications = mysqli_real_escape_string($conn, $_POST['quali']);
     $indexnu = mysqli_real_escape_string($conn, $_POST['indexnu']);
     $certNo = mysqli_real_escape_string($conn, $_POST['certNo']);
-    $studentbefore = mysqli_real_escape_string($conn, $_POST['studentbefore']);    
+    $studentbefore = mysqli_real_escape_string($conn, $_POST['studentbefore']);
 
-    // continue from here 
-    
-    
+    // continue from here    
+
     if (empty($errors)) {
-        
+
+        $sql = "UPDATE students SET id_pass='$id_pass', dob='$dob', nationality='$nationality', gender='$gender', marital_status='$maritalStatus', impared='$impared' WHERE id='$student_id'";
+        if (mysqli_query($conn, $sql)) {
+            $success_message = "You have successfully updated student details";
+        } else {
+            $success_message = "Error occured";
+        }
+
         $sql = "SELECT * FROM enrollments WHERE student_id = '$student_id'";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
