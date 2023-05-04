@@ -52,7 +52,7 @@
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form action="../php/application.php" onsubmit="return validateApplication();">
+            <form action="../php/application.php" onsubmit="return validateApplication();" method="POST">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">
@@ -286,7 +286,7 @@
                     </select>
                 </div>
                 <div class="form-row">
-                    <button type="submit">Submit</button>
+                <button type="submit" class="btn" name="submit">Submit</button>
                 </div>
             </form>
 

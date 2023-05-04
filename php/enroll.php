@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
             header("Location: ../index.php?success_message=" . urlencode($success_message));
         } else {
             // Create a new record in the students table with the user's data
-            $sql_enroll = "INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES ('$student_id', '$course_id')";
+            $sql_enroll = "INSERT INTO enrollments (student_id, course_id) VALUES ('$student_id', '$course_id')";
             mysqli_query($conn, $sql_enroll);
             $sql_qualification = "INSERT INTO student_qualifications (student_id,qualification) VALUES ('$student_id', '$qualification')";
             mysqli_query($conn, $sql_qualification);

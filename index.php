@@ -67,7 +67,7 @@
             ?>
              <div style="align-content:center; margin-top: 50px; text-align: center;">
                  You have an exhisting enrollment awaiting approval, please be patient.
-                 <button class="btn-action" onclick="window.location.href='./pages/application.php'">Proceed to Application</button> -->
+                 <button class="btn-action">Pending Approval</button>
              </div>
 
          <?php
