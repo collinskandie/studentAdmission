@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" value="<?php echo ($phone); ?>" readonly>
+                    <input type="tel" id="phone" name="phone" value="<?php echo ($phone); ?>">
                 </div>
                 <div class="form-group">
                     <label for="program">Previous Qualification</label>

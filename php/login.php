@@ -1,48 +1,35 @@
 <?php
-
 session_start();
 include('conn.php');
 
-if (isset($_SESSION['user_id'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
-// Check if the form has been submitted
-if (isset($_POST['submit'])) {  
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = htmlspecialchars($_POST['email']);
     $password = htmlspecialchars($_POST['password']);
-    // Check if the email exists in the database
-    $sql = "SELECT * FROM students WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) == 1) {
-        // Get the user's data from the database
-        $row = mysqli_fetch_assoc($result);
-        // Check if the password matches the hashed password in the database
+
+    $stmt = $conn->prepare("SELECT * FROM students WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
-            // Store the user's data in the session
-            $_SESSION['user_id'] = $row['student_id'];           
+            $_SESSION['user'] = $row['student_id'];
             $_SESSION['email'] = $row['email'];
-            
-            mysqli_close($conn);           
-            // Redirect to the dashboard page
-            header("Location: ../index.php");
-            // echo("Code imefika hapa");            
+            $_SESSION['username'] = $row['firt_name'];
+            $success_message = "Successful login";
+            header("Location: ../index.php?success_message=" . urlencode($success_message));
             exit();
         } else {
-            // Display an error message if the password is incorrect
-            $error_message = "password hakuna kama hyo.";
+            $error_message = "Invalid email or password";
         }
     } else {
-        // Display an error message if the email is not found in the database
-        $error_message = "Invalid email";
+        $error_message = "Invalid email or password";
     }
-    // display error message on the login page
-    if (isset($error_message)) {
-        // echo '<script>alert("' . $error_message . '");</script>';
-        header("Location: ../pages/login.php?success_message=" . urlencode($error_message));
-    }
+
+    error_log("Login error: " . $error_message);
+    header("Location: ../pages/login.php?error_message=" . urlencode("Invalid email or password"));
+    exit();
 } else {
-    echo ('bruh! you keep on getting stuck. you are in the wrong place again');
+    echo ('You are in the wrong place');
 }
-?>
