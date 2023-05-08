@@ -30,6 +30,7 @@ CREATE TABLE enrollments (
     student_id INT NOT NULL,
     course_id INT NOT NULL,
     enrollment_date DATETIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
@@ -66,7 +67,7 @@ CREATE TABLE progress (
     student_id INT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     progress_level  VARCHAR(50),
-    progress_points INT,
+    progress_points INT NOT NULL,
     message VARCHAR(200)
 );
 CREATE TABLE student_qualifications (
