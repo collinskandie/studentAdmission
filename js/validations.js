@@ -7,7 +7,7 @@ function validateForm() {
     alert("Please enter your email");
     return false;
   }
-  // Regular expression pattern for email validation
+
   var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   //   check if email is the correct format
 
@@ -20,8 +20,6 @@ function validateForm() {
     alert("Please enter a password.");
     return false;
   }
-
-  // Add additional validation here, such as checking for minimum password length or valid email format.
 
   alert("Login successful!");
 }
