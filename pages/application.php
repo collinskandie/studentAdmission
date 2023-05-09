@@ -1,12 +1,72 @@
 </html>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Application Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/application.css">
+    <style>
+        body {
+            background-color: #0b0544;
+        }
+
+        form {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #0b0544;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .columns-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            flex: 1;
+            margin: 2px;
+            /* margin: 0 10px; */
+        }
+    </style>
 </head>
 
 <body>
@@ -30,11 +90,11 @@
     $results = mysqli_query($conn, $sql_courses);
     if (mysqli_num_rows($results) == 1) {
         $row = mysqli_fetch_assoc($results);
-        $c_id= $row['course_id'];
-        $new_sql= "SELECT course_name FROM courses WHERE course_id='$c_id'";
+        $c_id = $row['course_id'];
+        $new_sql = "SELECT course_name FROM courses WHERE course_id='$c_id'";
         $courses = mysqli_query($conn, $new_sql);
         $usercourse = mysqli_fetch_assoc($courses);
-       $course = $usercourse['course_name'];
+        $course = $usercourse['course_name'];
     }
     ?>
     <div class="container">
@@ -286,13 +346,13 @@
                     </select>
                 </div>
                 <div class="form-row">
-                <button type="submit" class="btn" name="submit">Submit</button>
+                    <button type="submit" class="btn" name="submit">Submit</button>
                 </div>
             </form>
 
         </div>
     </div>
-    <script src="../js/validations.js"></script>
+    <!-- <script src="../js/validations.js"></script> -->
 
     <script>
         let progress = 50; // Set the initial progress here
@@ -309,6 +369,131 @@
             }
             progressBar.style.width = progress + "%";
             percentage.innerHTML = progress + "%";
+        }
+        //validate form
+        function validateApplication() {
+            var studentName = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phoneNumber = document.getElementById("number").value;
+            var IdPassport = document.getElementById("docNumber").value;
+            var dob = document.getElementById("dob").value;
+            var nationality = document.getElementById("nationality").value;
+            var gender = document.getElementById("gender").value;
+            var impared = document.getElementById("impared").value;
+            var religion = document.getElementById("religion").value;
+            var guardian = document.getElementById("guardianname").value;
+            var relationship = document.getElementById("guard_relation").value;
+            var address = document.getElementById("guard_address").value;
+            var sponsname = document.getElementById("sponsname").value;
+            var sponsrelationship = document.getElementById("sponsrelationship").value;
+            var level = document.getElementById("level").value;
+            var program = document.getElementById("program").value;
+            var sponsor_type = document.getElementById("sponsor_type").value;
+            var mode = document.getElementById("mode").value;
+            var Institute = document.getElementById("Institute").value;
+            var quali = document.getElementById("quali").value;
+            var indexnu = document.getElementById("indexnu").value;
+            var certNo = document.getElementById("certNo").value;
+            var studentbefore = document.getElementById("studentbefore").value;
+
+
+            if (studentName == "") {
+                alert("Name cannot be null");
+                return false;
+            }
+            if (email == "") {
+                alert("Please enter your email");
+                return false;
+            }
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+            if (phoneNumber == "") {
+                alert("Phone number cannot be null");
+                return false;
+            }
+            if (IdPassport == "") {
+                alert("Enter your ID number");
+                return false;
+            }
+            if (dob == "") {
+                alert("Date of birth cannot be null");
+                return false;
+            }
+            if (nationality == "") {
+                alert("Nationality cannot be null");
+                return false;
+            }
+            if (gender == "") {
+                alert("select your gender");
+                return false;
+            }
+            if (impared == "") {
+                alert("State of imparedness cannot be left blank");
+                return false;
+            }
+            if (religion == "") {
+                alert("Please state your religion");
+                return false;
+            }
+            if (guardian == "") {
+                alert("Guardian name cannot be empty");
+                return false;
+            }
+            if (relationship == "") {
+                alert("Whats your relationship with the guardian");
+                return false;
+            }
+            if (address == "") {
+                alert("Address cannot be blank");
+                return false;
+            }
+            if (sponsname == "") {
+                alert("Sponsor name cannot be blank");
+                return false;
+            }
+            if (sponsrelationship == "") {
+                alert("Please state who is your sponsor");
+                return false;
+            }
+            if (level == "") {
+                alert("Level of education cannot be blank");
+                return false;
+            }
+            if (program == "") {
+                alert("Select a program of choice");
+                return false;
+            }
+            if (sponsor_type == "") {
+                alert("Type of sponsor cannot be blank");
+                return false;
+            }
+            if (mode == "") {
+                alert("Select mode of study");
+                return false;
+            }
+            if (Institute == "") {
+                alert("Details of previous instituition");
+                return false;
+            }
+            if (quali == "") {
+                alert("Previous qualifications cannot be blank");
+                return false;
+            }
+            if (indexnu == "") {
+                alert("Index number cannot be blank");
+                return false;
+            }
+            if (certNo == "") {
+                alert("Certificate number cannot be blank");
+                return false;
+            }
+            if (studentbefore == "") {
+                alert("Cannot be left blank");
+                return false;
+            }
         }
     </script>
 </body>

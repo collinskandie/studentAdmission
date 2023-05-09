@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Admin Panel</title>
     <link rel="stylesheet" href="../../css/admin.css" />
@@ -157,7 +156,6 @@
                 <a href="#" class="btn btn-primary">View More Details</a>
             </div>
         </div>
-
 
     </div>
 </body>

@@ -41,6 +41,7 @@
             border: none;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         /* Style the submit button */
         button[type="submit"] {
             margin-top: 20px;
@@ -51,6 +52,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         /* Hover effect for the submit button */
         button[type="submit"]:hover {
             background-color: #0062cc;
@@ -66,21 +68,47 @@
     <br>
     <div class="container">
         <h1>Change Password</h1>
-        <form action='../php/resetpass.php'method="POST">
+        <form action='../php/resetpass.php' onsubmit="return validateForm();" method="POST">
             <label for="old-password">Email Address</label>
             <input type="email" id="email" name="email" required>
             <!-- <label for="old-password">Old Password</label>
             <input type="password" id="old-password" name="old-password" required> -->
-
             <label for="new-password">New Password</label>
             <input type="password" id="new-password" name="new-password" required>
-
             <label for="confirm-new-password">Confirm New Password</label>
             <input type="password" id="confirm-new-password" name="confirm-new-password" required>
-
             <button type="submit">Change Password</button>
         </form>
     </div>
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("new-password").value;
+            var confirmPassword = document.getElementById("confirm-new-password").value;
+            if (email == "") {
+                alert("Please enter your email");
+                return false;
+            }
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+            if (password == "") {
+                alert("Please enter a password.");
+                return false;
+            }
+            if (password == "") {
+                alert("Please enter your password");
+                return false;
+            }
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+        }
+    </script>
 </body>
 
 </html>

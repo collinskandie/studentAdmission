@@ -7,6 +7,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/enroll-css.css">
+    <style>
+        body {
+            background-color: #0b0544;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        button[type="submit"] {
+            background-color: #0b0544;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0b0544;
+        }
+    </style>
 </head>
 
 <body>
@@ -88,6 +158,21 @@
         progressBar.style.width = progress + "%";
         percentage.innerHTML = progress + "%";
 
+        function validateEnroll() {
+            var prevQualif = document.getElementById("qualification").value;
+            var programIntrest = document.getElementById("program").value;
+
+            if (prevQualif == "") {
+                alert("Qualification cannot be null");
+                return false;
+            }
+            if (programIntrest == "") {
+                alert("Please select your program of interest");
+                return false;
+            }
+
+        }
+        //validate form
         function validateEnroll() {
             var prevQualif = document.getElementById("qualification").value;
             var programIntrest = document.getElementById("program").value;

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>My Website</title>
     <style>
-       
+
     </style>
 </head>
 
@@ -18,8 +16,6 @@
             </div>
         </div>
     </div>
-
-  
     <h1>Welcome to my website!</h1>
     <p>This is the homepage of my website.</p>
 </body>
