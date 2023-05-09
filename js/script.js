@@ -17,7 +17,3 @@ function login() {
       return;
     }
   
-    // If both inputs are valid, proceed with login logic
-    // ...
-
-  
