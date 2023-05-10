@@ -100,16 +100,9 @@
             <td><?= $enrollment['course_id'] ?></td>
             <td><?= $enrollment['course_name'] ?></td>
             <td><?= $enrollment['enrollment_date'] ?></td>
-            <td><?php if ($enrollment['approved_status'] == 0) {
-                  echo "Pending";
-                } else {
-                  echo "Approved";
-                }
-                ?></td>
+            <td><?= $enrollment['approved_status'] ?></td>
             <td>
-              <a href="./action/approve.php?enrollment_id=<?= $enrollment['enrollment_id'] ?>" class="approve-btn">Approve</a>
-              <a href="./action/decline.php/<?= $enrollment['enrollment_id'] ?>" class="decline-btn">Decline</a>
-              <a href="/actyion/details.php/<?= $enrollment['enrollment_id'] ?>" class="view-btn">View Details</a>
+              <a href="./action/approve.php?enrollment_id=<?= $enrollment['enrollment_id'] ?>" class="approve-btn">Details</a>              
             </td>
           </tr>
         <?php endforeach; ?>
@@ -117,4 +110,5 @@
     </table>
   </div>
 </body>
+
 </html>

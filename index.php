@@ -99,12 +99,14 @@
         $id = $_SESSION['user'];
 
         include('./php/conn.php');
+
         $sql = "SELECT * FROM progress WHERE student_id='$id'";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) == 1) {
             $row = mysqli_fetch_assoc($result);
             $level = $row['progress_level'];
             $level_points = $row['progress_points'];
+            $message = $row['message'];
         } else {
             $level = "enroll";
             $level_points = 0;
@@ -150,7 +152,8 @@
             } else if ($level === "application") {
             ?>
              <div style="align-content:center; margin-top: 50px; text-align: center;">
-                 If existing application proceed to
+             <p><?= $message ?></p>
+                 
                  <button class="btn-action" onclick="window.location.href='./pages/application.php'">Proceed to Application</button>
              </div>
          <?php
@@ -166,7 +169,6 @@
             ?>
 
      </div>
-
      <script>
          let progress = <?php echo $level_points; ?>;
          let progressBar = document.getElementById("progress-bar");

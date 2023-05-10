@@ -30,9 +30,12 @@ CREATE TABLE enrollments (
     student_id INT NOT NULL,
     course_id INT NOT NULL,
     enrollment_date DATETIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
+    approved_status VARCHAR(255) NULL,
+    approved_by INT NULL,
+    remarks VARCHAR(500) NULL,
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (course_id) REFERENCES courses(course_id)
+    FOREIGN KEY (approved_by) REFERENCES staff(staff_id)
 );
 CREATE TABLE applications (
     application_id  INT PRIMARY KEY AUTO_INCREMENT,
@@ -91,3 +94,8 @@ CREATE TABLE sponsor (
   email VARCHAR(100) NOT NULL,
   FOREIGN KEY (student_id) REFERENCES students(student_id)
 );
+ALTER TABLE applications
+ADD level_of_study VARCHAR(50) NOT NULL,
+ADD student_type VARCHAR(50) NOT NULL,
+ADD study_mode VARCHAR(50) NOT NULL;
+

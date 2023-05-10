@@ -11,6 +11,7 @@
     <style>
         body {
             background-color: #0b0544;
+            /* color:#fff; */
         }
 
         form {
@@ -90,13 +91,76 @@
     $results = mysqli_query($conn, $sql_courses);
     if (mysqli_num_rows($results) == 1) {
         $row = mysqli_fetch_assoc($results);
+        $enrollments_id= $row['enrollment_id'];
         $c_id = $row['course_id'];
         $new_sql = "SELECT course_name FROM courses WHERE course_id='$c_id'";
         $courses = mysqli_query($conn, $new_sql);
         $usercourse = mysqli_fetch_assoc($courses);
         $course = $usercourse['course_name'];
     }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $docNumber = mysqli_real_escape_string($conn, $_POST['docNumber']);
+        $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+        $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+        $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
+        $maritalStatus = mysqli_real_escape_string($conn, $_POST['maritalStatus']);
+        $impared = mysqli_real_escape_string($conn, $_POST['impared']);
+        $religion = mysqli_real_escape_string($conn, $_POST['religion']);
+        $guardianname = mysqli_real_escape_string($conn, $_POST['guardianname']);
+        $guard_relation = mysqli_real_escape_string($conn, $_POST['guard_relation']);
+        $guard_address = mysqli_real_escape_string($conn, $_POST['guard_address']);
+        $gaurdian_number = mysqli_real_escape_string($conn, $_POST['gaurdian_number']);
+        $gaurdian_email = mysqli_real_escape_string($conn, $_POST['gaurdian_email']);
+        $sponsrelationship = mysqli_real_escape_string($conn, $_POST['sponsrelationship']);
+        $sponsname = mysqli_real_escape_string($conn, $_POST['sponsname']);
+        $sponaddress = mysqli_real_escape_string($conn, $_POST['sponaddress']);
+        $spon_number = mysqli_real_escape_string($conn, $_POST['spon_number']);
+        $spon_email = mysqli_real_escape_string($conn, $_POST['spon_email']);
+        $level = mysqli_real_escape_string($conn, $_POST['level']);
+        $program = mysqli_real_escape_string($conn, $_POST['program']);
+        $sponsor_type = mysqli_real_escape_string($conn, $_POST['sponsor_type']);
+        $mode = mysqli_real_escape_string($conn, $_POST['mode']);
+        $Institute = mysqli_real_escape_string($conn, $_POST['Institute']);
+        $quali = mysqli_real_escape_string($conn, $_POST['quali']);
+        $indexnu = mysqli_real_escape_string($conn, $_POST['indexnu']);
+        $certNo = mysqli_real_escape_string($conn, $_POST['certNo']);
+        $studentbefore = mysqli_real_escape_string($conn, $_POST['studentbefore']);
+
+        //update student table
+        if ($id) {
+            $updateStudent = "UPDATE students SET id_passport='$docNumber', dob='$dob',nationality='$nationality',gender='$gender',marital_status='$maritalStatus',religion='$religion',parent_first_name='$guardianname',parent_last_name=' ',parent_email='$gaurdian_email',parent_phone='$gaurdian_number' where student_id='$id'";
+            if (mysqli_query($conn, $updateStudent)) {
+                echo "<script>alert('Student record updated successfully.')</script>";
+                //inserrt guardian details
+                $addGuardian = "INSERT INTO guardians (first_name, last_name, email, phone)
+                VALUES ('$guardianname', '', '$gaurdian_email', '$gaurdian_number')";
+                mysqli_query($conn, $addGuardian);
+                //insert sponsors details
+                $addSponsor = "INSERT INTO sponsor (student_id, name, address, phone, email)
+                VALUES ('$id','$sponsname','$sponaddress','$spon_number','$spon_email')";
+                mysqli_query($conn, $addSponsor);
+                //insert into application
+                // application_id, enrollments_id, student_id, level_of_study, student_type, study_mode
+                $apply = "INSERT INTO applications (enrollments_id, student_id, level_of_study, student_type, study_mode)
+                VALUES ('$enrollments_id','$id','$level','$sponsor_type','$mode')";
+                mysqli_query($conn, $apply);
+                $academic = "UPDATE student_qualifications set qualification='$quali',institutions_attended='$Institute', index_no='$indexnu', certificate_no='$certNo', student_before='$studentbefore'";
+                mysqli_query($conn, $academic);
+                //update progress
+                $level = "Final";
+                $level_points = 80;
+                $message = "Your Application has been completely, wait for admission letter to be issued!";
+                $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
+                mysqli_query($conn, $updateProgressSql);
+
+                echo "<script>alert('Successfully Applied for the course');</script>";
+            } else {
+                echo "Problems";
+            }
+        }
+    }
     ?>
+
     <div class="container">
         <h1>CUEA Online Admission</h1>
         <div style="text-align: center;">
@@ -112,7 +176,7 @@
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form action="../php/application.php" onsubmit="return validateApplication();" method="POST">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"onsubmit="return validateApplication();" method="POST">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">
@@ -129,7 +193,7 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="contacts">Phone Number</label>
-                            <input type="number" id="number" name="number" value="<?php echo ($number); ?>" readonly>
+                            <input type="number" id="number" name="number" value="<?php echo ($phone); ?>" readonly>
                         </div>
                     </div>
                 </div>
