@@ -56,13 +56,9 @@
   include("adminnav.php");
   include("../../php/conn.php");
 
-  $sql = "SELECT app.*, CONCAT(stu.first_name, ' ', stu.middle_name, ' ', stu.last_name) AS studentName,  cour.*,
-  enr.enrollment_date FROM applications app  JOIN enrollments enr ON app.enrollments_id = enr.enrollment_id JOIN students stu ON enr.student_id = stu.student_id JOIN courses cour ON enr.course_id = cour.course_id;";
-
+  $sql = "SELECT * FROM applications";
   $result = mysqli_query($conn, $sql);
-  
   ?>
-
   <!-- main content -->
   <div class="main">
     <h1>Active Application</h1>
@@ -72,7 +68,7 @@
       <table>
         <tr>
           <th>Application ID</th>
-          <th>Enrollment ID</th>
+
           <th>Student Name</th>
           <th>Course Name</th>
           <th>Date of Application</th>
@@ -80,13 +76,17 @@
           <th>Student Type</th>
           <th>Study Mode</th>
         </tr>
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <?php while ($row = mysqli_fetch_assoc($result)) {
+          $enrollid = $row['enrollments_id'];
+          $sqlEnroll = "SELECT enrollments.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName, courses.course_name 
+          FROM enrollments INNER JOIN students ON enrollments.student_id = students.student_id INNER JOIN courses ON enrollments.course_id = courses.course_id where enrollment_id= '$enrollid'";
+          $results = mysqli_query($conn, $sqlEnroll);
+          $enrollment = mysqli_fetch_assoc($results); ?>
           <tr>
             <td><?php echo $row['application_id']; ?></td>
-            <td><?php echo $row['enrollments_id']; ?></td>
-            <td><?php echo $row['studentName']; ?></td>
-            <td><?php echo $row['course_name']; ?></td>
-            <td><?php echo $row['enrollment_date']; ?></td>
+            <td><?php echo $enrollment['studentName']; ?></td>
+            <td><?php echo $enrollment['course_name']; ?></td>
+            <td><?php echo $enrollment['enrollment_date']; ?></td>
             <td><?php echo $row['level_of_study']; ?></td>
             <td><?php echo $row['student_type']; ?></td>
             <td><?php echo $row['study_mode']; ?></td>
