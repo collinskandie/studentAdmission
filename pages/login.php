@@ -61,7 +61,7 @@ session_start();
     }
   </style>
   <script>
-    // Check if there's a success message in the URL and display it as a JavaScript alert
+   
     <?php if (isset($_GET['success_message'])) : ?>
       var success_message = "<?php echo $_GET['success_message']; ?>";
       alert(success_message);
@@ -97,6 +97,7 @@ session_start();
         <span id="usernameError" class="error"></span><br />
         <input type="submit" name="submit" value="submit" />
         <p>New user <a href="../pages/Register.php">Register</a></p>
+        <p><a href="../pages/admin/adminlogin.php">Admin login</a></p>
         <p>Forgot password <a href="../pages/resetpass.php">Reset</a></p>
       </form>
     </div>
@@ -122,5 +123,4 @@ session_start();
       }
     </script>
 </body>
-
 </html>

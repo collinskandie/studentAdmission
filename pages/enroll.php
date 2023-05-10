@@ -81,13 +81,31 @@
 
 <body>
     <?php
+    include('../php/conn.php');
     session_start();
+    $id = $_SESSION['user'];
+    $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
+    $results = mysqli_query($conn, $sqlUser);
+    if (mysqli_num_rows($results) == 1) {
+        $row = mysqli_fetch_assoc($results);
+        $userName = $row['first_name'];
+    }
+    ?>
+    <div class="topnav">
+        <a href="../php/logout.php">Logout</a>
+        <div class="dropdown">
+            <button class="dropbtn"><?= $userName; ?></button>
+            <div class="dropdown-content">
+                <a href="../pages/resetpass.php">Change Password</a>
+            </div>
+        </div>
+    </div>
+    <?php
+
     if (!isset($_SESSION['user'])) {
         header('Location: login.php');
         exit;
     };
-    $id = $_SESSION['user'];
-    include('../php/conn.php');
     $sql = "SELECT CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) AS fullname, email, phone FROM students WHERE student_id='$id'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) == 1) {

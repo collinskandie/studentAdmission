@@ -120,6 +120,12 @@
         }
 
         ?>
+     <script>
+         <?php if (isset($_GET['error_message'])) : ?>
+             var success_message = "<?php echo $_GET['error_message']; ?>";
+             alert(success_message);
+         <?php endif; ?>
+     </script>
      <div class="topnav">
          <a href="php/logout.php">Logout</a>
          <div class="dropdown">
@@ -152,13 +158,19 @@
             } else if ($level === "application") {
             ?>
              <div style="align-content:center; margin-top: 50px; text-align: center;">
-             <p><?= $message ?></p>
-                 
+                 <p><?= $message ?></p>
                  <button class="btn-action" onclick="window.location.href='./pages/application.php'">Proceed to Application</button>
              </div>
          <?php
-            } else {
+            } else if ($level === "Final") {
             ?>
+             <div style="align-content:center; margin-top: 50px; text-align: center;">
+                 <p><?= $message ?></p>
+                 <button class="btn-action" onclick="window.location.href='./pages/application-letter.php'">Proceed to Download application letter</button>
+             </div>
+             <?php
+             } else {
+             ?>
              <div style="align-content:center; margin-top: 50px; text-align: center;">
                  You have an exhisting enrollment awaiting approval, please be patient.
                  <button class="btn-action">Pending Approval</button>

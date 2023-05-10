@@ -55,6 +55,11 @@
   <?php
   include("adminnav.php");
   include("../../php/conn.php");
+  session_start();
+  if(!$_SESSION['role']){
+    // echo "<script>alert('You are not authorized to view this page')</script>";   
+    header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
+  }
 
   $sql = "SELECT * FROM applications";
   $result = mysqli_query($conn, $sql);

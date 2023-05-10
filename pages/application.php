@@ -67,18 +67,109 @@
             margin: 2px;
             /* margin: 0 10px; */
         }
+
+        /* Style for the top navigation bar */
+        .topnav {
+            overflow: hidden;
+            background-color: white;
+            position: fixed;
+            margin-left: -10px;
+            top: 0;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Style for the links in the top navigation bar */
+        .topnav a {
+            float: right;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        /* Style for the active link in the top navigation bar */
+        .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Style for the user profile dropdown in the top navigation bar */
+        .topnav .dropdown {
+            float: right;
+            overflow: hidden;
+        }
+
+        /* Style for the user profile dropdown button in the top navigation bar */
+        .topnav .dropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: black;
+            padding: 14px 16px;
+            background-color: inherit;
+            margin: 0;
+        }
+
+        /* Style for the user profile dropdown content in the top navigation bar */
+        .topnav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        /* Style for the user profile dropdown links in the top navigation bar */
+        .topnav .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        /* Style for the user profile dropdown links on hover in the top navigation bar */
+        .topnav .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the user profile dropdown content when the user clicks on the dropdown button in the top navigation bar */
+        .topnav .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
     <?php
+    include('../php/conn.php');
     session_start();
+    $id = $_SESSION['user'];
+    $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
+    $results = mysqli_query($conn, $sqlUser);
+    if (mysqli_num_rows($results) == 1) {
+        $row = mysqli_fetch_assoc($results);
+        $userName = $row['first_name'];
+    }
+    ?>
+    <div class="topnav">
+        <a href="../php/logout.php">Logout</a>
+        <div class="dropdown">
+            <button class="dropbtn"><?= $userName; ?></button>
+            <div class="dropdown-content">
+                <a href="../pages/resetpass.php">Change Password</a>
+            </div>
+        </div>
+    </div>
+    <?php
     if (!isset($_SESSION['user'])) {
         header('Location: login.php');
         exit;
     };
-    $id = $_SESSION['user'];
-    include('../php/conn.php');
+
     $sql = "SELECT CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) AS fullname, email, phone FROM students WHERE student_id='$id'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) == 1) {
@@ -91,7 +182,7 @@
     $results = mysqli_query($conn, $sql_courses);
     if (mysqli_num_rows($results) == 1) {
         $row = mysqli_fetch_assoc($results);
-        $enrollments_id= $row['enrollment_id'];
+        $enrollments_id = $row['enrollment_id'];
         $c_id = $row['course_id'];
         $new_sql = "SELECT course_name FROM courses WHERE course_id='$c_id'";
         $courses = mysqli_query($conn, $new_sql);
@@ -153,7 +244,8 @@
                 $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
                 mysqli_query($conn, $updateProgressSql);
 
-                echo "<script>alert('Successfully Applied for the course');</script>";
+                echo "<script>alert('Successfully Applied for the course, proceed to download your admission letter');</script>";
+                header("Location: ../index.php");
             } else {
                 echo "Problems";
             }
@@ -176,7 +268,7 @@
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"onsubmit="return validateApplication();" method="POST">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateApplication();" method="POST">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">

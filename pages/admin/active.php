@@ -53,6 +53,12 @@
 
 <body>
   <?php
+  session_start();
+  if(! $_SESSION['role']){
+         
+    header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
+  }
+
   include("adminnav.php");
   include("../../php/conn.php");
 
@@ -72,7 +78,6 @@
     }
   }
   ?>
-
   <!-- main content -->
   <div class="main">
     <h1>Active Enrollment status</h1>

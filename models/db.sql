@@ -99,3 +99,21 @@ ADD level_of_study VARCHAR(50) NOT NULL,
 ADD student_type VARCHAR(50) NOT NULL,
 ADD study_mode VARCHAR(50) NOT NULL;
 
+CREATE TABLE faculties (
+  id INT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE departments (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  faculty_id INT NOT NULL,
+  FOREIGN KEY (faculty_id) REFERENCES faculties(id)
+);
+ALTER TABLE courses
+ADD department_id INT NOT NULL,
+ADD CONSTRAINT fk_course_department
+FOREIGN KEY (department_id)
+REFERENCES departments(id);
+
+ALTER TABLE faculties ADD description VARCHAR(255) NOT NULL AFTER name;

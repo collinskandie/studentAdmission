@@ -9,9 +9,11 @@
 <body>
   <?php
   include("adminnav.php");
-
-  //more actions here
-
+  session_start();
+  if(!$_SESSION['role']){
+    // echo "<script>alert('You are not authorized to view this page')</script>";   
+    header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
+  }
   ?>
 
   <!-- main content -->
