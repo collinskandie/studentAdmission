@@ -7,7 +7,6 @@ session_start();
 <head>
   <meta charset="UTF-8" />
   <title>Login Page</title>
-  <link rel="stylesheet" href="../css/Login.css" />
   <style>
     body {
       background-color: #0b0544;
@@ -62,6 +61,10 @@ session_start();
   </style>
   <script>
    
+    <?php if (isset($_GET['error_message'])) : ?>
+      var success_message = "<?php echo $_GET['error_message']; ?>";
+      alert(success_message);
+    <?php endif; ?>
     <?php if (isset($_GET['success_message'])) : ?>
       var success_message = "<?php echo $_GET['success_message']; ?>";
       alert(success_message);

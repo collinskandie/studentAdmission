@@ -4,6 +4,7 @@ include('conn.php');
 if (isset($_POST['submit'])) {
     $qualification= mysqli_real_escape_string($conn, $_POST['qualification']);
     $course_id = mysqli_real_escape_string($conn, $_POST['program']);
+    // $phone = mysqli_real_escape_string($conn, $_POST['phone']);
     $student_id = $_SESSION['user'];
     $level = 'enroll_pending';
     $level_points = 25;

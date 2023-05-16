@@ -141,11 +141,7 @@
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<?php echo ($email); ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" value="<?php echo ($phone); ?>">
-                </div>
+                </div>                
                 <div class="form-group">
                     <label for="program">Previous Qualification</label>
                     <textarea type="text" id="qualification" name="qualification"></textarea>

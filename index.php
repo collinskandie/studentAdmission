@@ -168,6 +168,13 @@
                  <p><?= $message ?></p>
                  <button class="btn-action" onclick="window.location.href='./pages/application-letter.php'">Proceed to Download application letter</button>
              </div>
+             <?php            
+            } else if ($level === "declined") {
+            ?>
+             <div style="align-content:center; margin-top: 50px; text-align: center;">
+                 <p><?= $message ?></p>
+                 <button class="btn-action" >Your application has been rejected, try again next time</button>
+             </div>
              <?php
              } else {
              ?>

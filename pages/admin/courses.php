@@ -102,6 +102,19 @@
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+
+        .submit_course input[type='submit'] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit_course input[type='submit']:hover {
+            background-color: #3e8e41;
+        }
     </style>
 </head>
 
@@ -113,6 +126,8 @@
     }
     include("adminnav.php");
     include("../../php/conn.php");
+
+
 
     // Check if the course form has been submitted
     if (isset($_POST['submit_course'])) {
@@ -126,8 +141,8 @@
         $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
         if (mysqli_query($conn, $sql)) {
             // If the course was successfully added, redirect to the courses page
-            header("Location: courses.php");
-            exit;
+            echo "<script>alert('Course added suceessfully.')</script>";
+            // exit;
         } else {
             // If an error occurred, display an error message
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -161,9 +176,19 @@
                 }
                 ?>
             </select><br>
-            <input type="submit" name="submit_course" value="Add Course">
+            <input type="submit" class="submit_course" name="submit_course" value="Add Course">
         </form>
         <table>
+            <?php
+            //show delete success and error message
+            if (isset($_GET['success_message'])) {
+                $success_message = $_GET['success_message'];
+                echo "<div class='success-message'>$success_message</div>";
+            } elseif (isset($_GET['error_message'])) {
+                $error_message = $_GET['error_message'];
+                echo "<div class='error-message'>$error_message</div>";
+            }
+            ?>
             <thead>
                 <tr>
                     <th>Course ID</th>
@@ -171,6 +196,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Department</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -191,6 +217,12 @@
                     echo '<td>' . $row['course_description'] . '</td>';
                     echo '<td>' . $row['course_price'] . '</td>';
                     echo '<td>' . $row['department_name'] . '</td>';
+                    ?>
+                    <td>
+                        <a href="./action/delete.php?course_id=<?= $row["course_id"] ?>" class="delete-btn"
+                            style="background-color: red; color:white;">Delete</a>
+                    </td>
+                    <?php
                     echo '</tr>';
                 }
                 ?>

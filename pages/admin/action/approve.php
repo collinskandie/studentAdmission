@@ -1,3 +1,5 @@
+<!-- <? session_start();
+?> -->
 <!DOCTYPE html>
 <html>
 
@@ -137,10 +139,63 @@
 <link rel="stylesheet" href="../../../css/admin.css" />
 
 <body>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+    <div class="topnav">
+        <div class="top_nav">
+            <a href="../../resetpass.php" class="user-profile">User Profile</a>
+            <a href="../../../php/logout.php" class="logout">Logout</a>
+        </div>
+    </div>
+    <!-- side navigation -->
+    <div class="sidenav">
+        <div style="text-align: center">
+            <img src="../../../imgs/logo.png" style="display: block; margin: 0 auto" />
+        </div>
+        <div class="side_nav">
+            <a href="../admin.php">Home</a>
+            <a href="../active.php">Active Enrollment</a>
+            <a href="../application.php">Active Applications</a>
+            <div class="dropdown">
+                <a class="dropbtn">Reports ▼</a>
+                <div class="dropdown-content">
+                    <a href="../faculties.php">Faculties</a>
+                    <a href="../departments.php">Departments</a>
+                    <a href="../courses.php">Courses</a>
+                    <a href="../perdepart.php">Students per Department</a>
+                    <a href="../perfacult.php">Students per Faculty</a>
+                    <a href="../perlevel.php">Students per level</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <?php
-    include("./adminnav.php");
-    include("../../../php/conn.php");
     session_start();
+    // include("./adminnav.php");
+    include("../../../php/conn.php");
+
     $enrollment_id = $_GET['enrollment_id'];
     $sql = "SELECT enrollments.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName, courses.course_name 
     FROM enrollments 
@@ -161,7 +216,9 @@
         // get the enrollment ID and action from the form data
         $enrollment_id = filter_input(INPUT_POST, 'enrollment_id', FILTER_VALIDATE_INT);
         $action = mysqli_real_escape_string($conn, $_POST['status']);
-        $approvedBy = mysqli_real_escape_string($conn, $_POST['approved_by']);
+
+        $approvedBy = $_SESSION['user'];
+        // echo( $approvedBy);
         $comments = mysqli_real_escape_string($conn, $_POST['comments']);
 
         if ($enrollment_id) {
@@ -175,13 +232,20 @@
                 if (mysqli_num_rows($studentidResult) > 0) {
                     $studentidRow = mysqli_fetch_assoc($studentidResult);
                     $studentid = $studentidRow['student_id'];
-                    $level = "application";
-                    $level_points = 50;
-                    $message = "Enrollment has been approved.";
+
 
                     $getProgressSql = "SELECT * FROM progress WHERE student_id = $studentid";
                     $progressResult = mysqli_query($conn, $getProgressSql);
+                    if ($action == "Approved") {
+                        $level = "application";
+                        $level_points = 50;
+                        $message = "Enrollment has been approved.";
 
+                    } else {
+                        $level = "declined";
+                        $level_points = 0;
+                        $message = "Enrollment has been declined.";
+                    }
                     if (mysqli_num_rows($progressResult) > 0) {
                         $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $studentid";
                     } else {
@@ -217,9 +281,15 @@
                 Details
             </div>
             <div class="card-body">
-                <h5 class="card-title"><?= $enrollment['course_name'] ?></h5>
-                <p class="card-text">Student Name: <?= $enrollment['studentName'] ?></p>
-                <p class="card-text">Enrollment Date: <?= $enrollment['enrollment_date'] ?></p>
+                <h5 class="card-title">
+                    <?= $enrollment['course_name'] ?>
+                </h5>
+                <p class="card-text">Student Name:
+                    <?= $enrollment['studentName'] ?>
+                </p>
+                <p class="card-text">Enrollment Date:
+                    <?= $enrollment['enrollment_date'] ?>
+                </p>
                 Accademic Details
                 <table>
                     <thead>
@@ -237,14 +307,22 @@
 
                         if (mysqli_num_rows($result) > 0) {
                             while ($enroll = mysqli_fetch_assoc($result)) {
-                        ?>
+                                ?>
                                 <tr>
-                                    <td><?= $enroll['qualification'] ?></td>
-                                    <td><?= $enroll['updated_at'] ?></td>
-                                    <td><?= $enroll['institutions_attended'] ?></td>
-                                    <td><?= $enroll['certificate_no'] ?></td>
+                                    <td>
+                                        <?= $enroll['qualification'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $enroll['updated_at'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $enroll['institutions_attended'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $enroll['certificate_no'] ?>
+                                    </td>
                                 </tr>
-                        <?php
+                                <?php
                             }
                         } else {
                             echo ("<tr><td colspan='4'>No records found</td></tr>");
@@ -252,7 +330,9 @@
                         ?>
                     </tbody>
                 </table>
-                <p class="card-text text-success">Status: <?= $enrollment['approved_status'] ?></p>
+                <p class="card-text text-success">Status:
+                    <?= $enrollment['approved_status'] ?>
+                </p>
                 <br>
                 <br>
 
@@ -292,10 +372,10 @@
                     const approvalForm = document.querySelector('#approval-form');
                     const declineForm = document.querySelector('#decline-form');
 
-                    approveBtn.addEventListener('click', function() {
+                    approveBtn.addEventListener('click', function () {
                         approvalForm.style.display = 'block';
                     });
-                    declineBtn.addEventListener('click', function() {
+                    declineBtn.addEventListener('click', function () {
                         declineForm.style.display = 'block';
                     });
                 </script>

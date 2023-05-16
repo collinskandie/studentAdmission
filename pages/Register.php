@@ -3,7 +3,6 @@
 
 <head>
   <title>Registration Form</title>
-  <link rel="stylesheet" href="../css/Register.css">
   <style>
     body {
       background-color: #0b0544;
@@ -70,7 +69,7 @@
       <label for="fname">First Name:</label>
       <input type="text" id="first_name" name="firstName">
       <label for="middleName">Middle Name:</label>
-      <input type="text" id="middle_name" name="lastName">
+      <input type="text" id="middle_name" name="middleName">
       <label for="lastName">Last Name:</label>
       <input type="text" id="last_name" name="lastName">
       <label for="email">Email:</label>

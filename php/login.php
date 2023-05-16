@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../index.php?success_message=" . urlencode($success_message));
             exit();
         } else {
-            $error_message = "Invalid email or password";
+            $error_message = "Invalid password";
         }
     } else {
-        $error_message = "Invalid email or password";
+        $error_message = "Invalid email";
     }
 
     error_log("Login error: " . $error_message);

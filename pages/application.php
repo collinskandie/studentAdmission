@@ -1,4 +1,4 @@
-</html>
+﻿</html>
 <!DOCTYPE html>
 <html>
 
@@ -219,9 +219,10 @@
 
         //update student table
         if ($id) {
+            // echo $dob;
             $updateStudent = "UPDATE students SET id_passport='$docNumber', dob='$dob',nationality='$nationality',gender='$gender',marital_status='$maritalStatus',religion='$religion',parent_first_name='$guardianname',parent_last_name=' ',parent_email='$gaurdian_email',parent_phone='$gaurdian_number' where student_id='$id'";
             if (mysqli_query($conn, $updateStudent)) {
-                echo "<script>alert('Student record updated successfully.')</script>";
+                // echo "<script>alert('Student record updated successfully.')</script>";
                 //inserrt guardian details
                 $addGuardian = "INSERT INTO guardians (first_name, last_name, email, phone)
                 VALUES ('$guardianname', '', '$gaurdian_email', '$gaurdian_number')";
@@ -243,9 +244,8 @@
                 $message = "Your Application has been completely, wait for admission letter to be issued!";
                 $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
                 mysqli_query($conn, $updateProgressSql);
-
-                echo "<script>alert('Successfully Applied for the course, proceed to download your admission letter');</script>";
-                header("Location: ../index.php");
+                $success_message ="Successfully Applied for the course, proceed to download your admission letter";
+                header("Location: ../index.php?message=<?=$success_message ?>");
             } else {
                 echo "Problems";
             }
@@ -285,7 +285,7 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="contacts">Phone Number</label>
-                            <input type="number" id="number" name="number" value="<?php echo ($phone); ?>" readonly>
+                            <input type="number" id="number" name="number" value="<?php echo ($phone); ?>">
                         </div>
                     </div>
                 </div>
