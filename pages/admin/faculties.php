@@ -85,6 +85,7 @@
 </head>
 
 <body>
+
     <?php
     session_start();
     if (!$_SESSION['role']) {
@@ -113,9 +114,18 @@
     ?>
     <div class="main">
         <h1>Active Enrollment status</h1>
+        <form method='post' class='faculty-form'>
+            <label for='name'>Name:</label>
+            <input type='text' name='name' id='name'>
+            <label for='description'>Description:</label>
+            <textarea name='description' id='description'></textarea>
+            <br>
+            <input type='submit' name='submit' value='Add Faculty'>
+        </form>
+
         <?php
         echo "<table>";
-        echo "<tr><th>ID</th><th>Name</th><th>Description</th></tr>";
+        echo "<tr><th>ID</th><th>Name</th><th>Description</th><th>Action</th></tr>";
 
         // Loop through each row in the result set and display it in a table row
         if (mysqli_num_rows($result) > 0) {
@@ -124,6 +134,11 @@
                 echo "<td>" . $row["id"] . "</td>";
                 echo "<td>" . $row["name"] . "</td>";
                 echo "<td>" . $row["description"] . "</td>";
+        ?>
+                <td>
+                    <a href="./action/deletefaculty.php?id=<?= $row["id"] ?>" class="delete-btn" style="background-color: red; color:white;">Delete</a>
+                </td>
+        <?php
                 echo "</tr>";
             }
         } else {
@@ -135,15 +150,6 @@
         // Close the database connection
         mysqli_close($conn);
         ?>
-        <form method='post' class='faculty-form'>
-            <label for='name'>Name:</label>
-            <input type='text' name='name' id='name'>
-            <label for='description'>Description:</label>
-            <textarea name='description' id='description'></textarea>
-            <br>
-            <input type='submit' name='submit' value='Add Faculty'>
-        </form>
-
 
     </div>
 </body>

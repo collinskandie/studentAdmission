@@ -119,7 +119,7 @@
     <div class="login-box">
         <h1>CUEA Online Admission</h1>
         <div style="text-align: center">
-            <img src="../imgs/logo.png" style="display: block; margin: 0 auto" />
+            <img src="../../imgs/logo.png" style="display: block; margin: 0 auto" />
         </div>
         <h1>Admin Login</h1>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateForm();" method="POST">

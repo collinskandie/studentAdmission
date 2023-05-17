@@ -156,10 +156,11 @@
     }
     $sqlQualif = "SELECT * FROM student_qualifications WHERE student_id='$id'";
     $qualifications = mysqli_query($conn, $sqlQualif);
-    if (mysqli_num_rows($results) == 1) {
-        $qualifData = mysqli_fetch_assoc($qualifications);
-        $qualification = $qualifData['qualification'];
-    }
+
+    $qualifData = mysqli_fetch_assoc($qualifications);
+    $qualification = $qualifData['qualification'];
+
+
     ?>
     <div class="topnav">
         <a href="../php/logout.php">Logout</a>
@@ -266,7 +267,7 @@
                     auto;">
         </div>
         <div class="page-content" style="text-align: center;">
-            <h3>Welcome <?=$fullname?></h3>
+            <h3>Welcome <?= $fullname ?></h3>
             <h5>Your progress</h5>
             <div class="progress">
                 <div class="bar" id="progress-bar"></div>
@@ -432,10 +433,10 @@
                                 <label for="level">Level of Studies</label>
                                 <select id="level" name="level">
                                     <option value="">Please select a level</option>
-                                    <option value="phd">PHD</option>
-                                    <option value="bachelors">Bachelors Degree</option>
-                                    <option value="cert">Certificate</option>
-                                    <option value="dip">Diploma</option>
+                                    <option value="PHD">PHD</option>
+                                    <option value="Bachelors Degree">Bachelors Degree</option>
+                                    <option value="Certificate">Certificate</option>
+                                    <option value="Diploma">Diploma</option>
                                 </select>
                             </div>
                         </div>
@@ -456,8 +457,8 @@
                                 <label for="studenttype">Student Type</label>
                                 <select id="sponsor_type" name="sponsor_type">
                                     <option value="">Please select type</option>
-                                    <option value="gov">Government Sponsered</option>
-                                    <option value="self">Self Sponsored</option>
+                                    <option value="governmenr">Government Sponsered</option>
+                                    <option value="self-sponserd">Self Sponsored</option>
                                 </select>
                             </div>
                         </div>
@@ -467,8 +468,8 @@
                             <label for="study_mode">Study Mode</label>
                             <select id="mode" name="mode">
                                 <option value="">Please select a program</option>
-                                <option value="ftime">Full-time</option>
-                                <option value="ptime">Part-time</option>
+                                <option value="fulltime">Full-time</option>
+                                <option value="parttime">Part-time</option>
                                 <option value="online">Online</option>
                             </select>
                         </div>
@@ -483,6 +484,7 @@
                 </div>
                 <div class="form-row">
                     <label for="Qualification">Qualifications</label>
+
                     <textarea type="text" id="quali" name="quali" value="<?php echo ($qualification); ?>"></textarea>
                 </div>
                 <div class="columns-container">
@@ -584,7 +586,7 @@
                 alert("Date of birth cannot be null");
                 return false;
             }
-            var selectedDate = new Date(dob);
+            var selectedDate = dob
             var today = new Date();
             today.setHours(0, 0, 0, 0);
             // Compare the selected date with today's date

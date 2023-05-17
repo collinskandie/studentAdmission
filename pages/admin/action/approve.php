@@ -240,22 +240,22 @@
                     }
                     if (mysqli_query($conn, $updateProgressSql)) {
                         $error_message = "Progress saved successfully";
-                        // header("Location: ../active.php?error_message=" . urlencode($error_message));
+                        header("Location: ../active.php?error_message=" . urlencode($error_message));
                     } else {
                         $error_message = 'Error updating progress record: " . mysqli_error($conn) . "';
-                        // header("Location: ../active.php?error_message=" . urlencode($error_message));
+                        header("Location: ../active.php?error_message=" . urlencode($error_message));
                     }
                 } else {
                     $error_message = "No student selected')</script>";
-                    // header("Location: ../active.php?error_message=" . urlencode($error_message));
+                    header("Location: ../active.php?error_message=" . urlencode($error_message));
                 }
             } else {
                 $error_message = "Error updating enrollment record: ";
-                // header("Location: ../active.php?error_message=" . urlencode($error_message));
+                header("Location: ../active.php?error_message=" . urlencode($error_message));
             }
         } else {
             $error_message = "Invalid enrollment ID";
-            // header("Location: ../active.php?error_message=" . urlencode($error_message));
+            header("Location: ../active.php?error_message=" . urlencode($error_message));
         }
     }
 
@@ -326,9 +326,11 @@
                 </p>
                 <br>
                 <br>
-
-                <button class="approve-btn">Approve</button>
-                <button class="decline-btn">Decline</button>
+                <?php
+                if ($enrollment['approved_status'] == "Pending") {
+                    echo '<button class="approve-btn">Approve</button>';
+                    echo ' <button class="decline-btn">Decline</button>';
+                } ?>
                 <br>
                 <br>
                 <form id="approval-form" method="POST" style="display:none">
