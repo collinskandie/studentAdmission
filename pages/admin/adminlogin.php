@@ -130,7 +130,7 @@
             <input type="password" id="password" name="password" />
             <span id="usernameError" class="error"></span><br />
             <input type="submit" name="submit" value="submit" />
-            <p>Student login <a href="../../pages/login.php">Register</a></p>
+            <p>Student login <a href="../../pages/login.php">Student Login</a></p>
             <p>Create Account <a href="../admin/createUser.php">Register</a></p>
             <!-- <p>Forgot password <a href="../pages/resetpass.php">Reset</a></p> -->
         </form>

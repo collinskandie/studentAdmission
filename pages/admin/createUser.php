@@ -108,7 +108,7 @@
     <div class="registration-box">
         <h1>CUEA Online Admission</h1>
         <div style="text-align: center;">
-            <img src="../imgs/logo.png" style="display: block; margin: 0 auto;">
+            <img src="../../imgs/logo.png" style="display: block; margin: 0 auto;">
         </div>
         <!--   -->
         <h1>Staff Register</h1>
