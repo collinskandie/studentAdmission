@@ -434,9 +434,11 @@
                                 <select id="level" name="level">
                                     <option value="">Please select a level</option>
                                     <option value="PHD">PHD</option>
+                                    <option value="Masters">Masters</option>
                                     <option value="Bachelors Degree">Bachelors Degree</option>
                                     <option value="Certificate">Certificate</option>
                                     <option value="Diploma">Diploma</option>
+                                    
                                 </select>
                             </div>
                         </div>
