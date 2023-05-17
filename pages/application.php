@@ -156,10 +156,11 @@
     }
     $sqlQualif = "SELECT * FROM student_qualifications WHERE student_id='$id'";
     $qualifications = mysqli_query($conn, $sqlQualif);
-    if (mysqli_num_rows($results) == 1) {
-        $qualifData = mysqli_fetch_assoc($qualifications);
-        $qualification = $qualifData['qualification'];
-    }
+
+    $qualifData = mysqli_fetch_assoc($qualifications);
+    $qualification = $qualifData['qualification'];
+
+
     ?>
     <div class="topnav">
         <a href="../php/logout.php">Logout</a>
@@ -266,7 +267,7 @@
                     auto;">
         </div>
         <div class="page-content" style="text-align: center;">
-            <h3>Welcome <?=$fullname?></h3>
+            <h3>Welcome <?= $fullname ?></h3>
             <h5>Your progress</h5>
             <div class="progress">
                 <div class="bar" id="progress-bar"></div>
@@ -483,6 +484,7 @@
                 </div>
                 <div class="form-row">
                     <label for="Qualification">Qualifications</label>
+
                     <textarea type="text" id="quali" name="quali" value="<?php echo ($qualification); ?>"></textarea>
                 </div>
                 <div class="columns-container">
@@ -584,7 +586,7 @@
                 alert("Date of birth cannot be null");
                 return false;
             }
-            var selectedDate = new Date(dob);
+            var selectedDate = dob
             var today = new Date();
             today.setHours(0, 0, 0, 0);
             // Compare the selected date with today's date

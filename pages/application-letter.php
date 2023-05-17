@@ -144,9 +144,9 @@
 </head>
 
 <body>
-<?php
-    include('../php/conn.php');
+    <?php
     session_start();
+    include('../php/conn.php');
     $id = $_SESSION['user'];
     $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
     $results = mysqli_query($conn, $sqlUser);
@@ -174,9 +174,9 @@
     }
     $applications = "SELECT * from applications where student_id='$id'";
     $appli = mysqli_query($conn, $applications);
-    if (mysqli_num_rows($appli) == 1) {
-        $application = mysqli_fetch_assoc($appli);
-    }
+    mysqli_num_rows($appli);
+    $myApplication = mysqli_fetch_assoc($appli);
+
     $enroll = "SELECT enrollments.*, courses.* FROM enrollments JOIN courses ON enrollments.course_id = courses.course_id WHERE enrollments.student_id = '$id'";
     $enrolls = mysqli_query($conn, $enroll);
     if (mysqli_num_rows($enrolls) == 1) {
@@ -194,7 +194,7 @@
         <div class="page-content">
             <h1>Admission Letter</h1>
             <p>Dear <?= $firstName; ?> <?= $lastName; ?></p>
-            <p>We are pleased to inform you that you have been admitted into our institution for the <strong><?= $application['level_of_study'] ?></strong> program in <strong><?= $enrollment['course_name'] ?></strong>. Your classes will begin on <strong>1st June 2023</strong>. Please ensure that you are present and punctual for all your classes.</p>
+            <p>We are pleased to inform you that you have been admitted into our institution for the <strong><?= $myApplication['level_of_study'] ?></strong> program in <strong><?= $enrollment['course_name'] ?></strong>. Your classes will begin on <strong>1st June 2023</strong>. Please ensure that you are present and punctual for all your classes.</p>
             <p>Program: <strong><?= $enrollment['course_name'] ?></strong> </p>
             <p>Student ID: <strong><?= $id ?></strong></p>
             <p>Tuition: <strong>KSH <?= $enrollment['course_price'] ?></strong></p>
