@@ -146,7 +146,6 @@
 <body>
     <?php
     include('../php/conn.php');
-
     $id = $_SESSION['user'];
     $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
     $results = mysqli_query($conn, $sqlUser);
@@ -160,17 +159,8 @@
     $qualifData = mysqli_fetch_assoc($qualifications);
     $qualification = $qualifData['qualification'];
 
-
     ?>
-    <div class="topnav">
-        <a href="../php/logout.php">Logout</a>
-        <div class="dropdown">
-            <button class="dropbtn"><?= $userName; ?></button>
-            <div class="dropdown-content">
-                <a href="../pages/resetpass.php">Change Password</a>
-            </div>
-        </div>
-    </div>
+
     <?php
     if (!isset($_SESSION['user'])) {
         header('Location: login.php');
@@ -252,13 +242,25 @@
                 $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
                 mysqli_query($conn, $updateProgressSql);
                 $success_message = "Successfully Applied for the course, proceed to download your admission letter";
-                header("Location: ../index.php?message=<?=$success_message ?>");
+                header("Location: ../index.php?message=" . urlencode($success_message));
+                // header("Location: ../index.php?message=" . urlencode($success_message));
             } else {
                 echo "Problems";
             }
         }
+        $success_message = "Successfully Applied for the course, proceed to download your admission letter";
+        header("Location: ../index.php?message=" . urlencode($success_message));
     }
     ?>
+    <div class="topnav">
+        <a href="../php/logout.php">Logout</a>
+        <div class="dropdown">
+            <button class="dropbtn"><?php echo $userName; ?></button>
+            <div class="dropdown-content">
+                <a href="../pages/resetpass.php">Change Password</a>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <h1>CUEA Online Admission</h1>
@@ -292,7 +294,7 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="contacts">Phone Number</label>
-                            <input type="number" id="number" name="number" value="<?php echo ($phone); ?>">
+                            <input type="number" id="number" name="phone" value="<?php echo ($phone); ?>">
                         </div>
                     </div>
                 </div>
@@ -438,7 +440,7 @@
                                     <option value="Bachelors Degree">Bachelors Degree</option>
                                     <option value="Certificate">Certificate</option>
                                     <option value="Diploma">Diploma</option>
-                                    
+
                                 </select>
                             </div>
                         </div>
