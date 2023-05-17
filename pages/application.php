@@ -433,10 +433,10 @@
                                 <label for="level">Level of Studies</label>
                                 <select id="level" name="level">
                                     <option value="">Please select a level</option>
-                                    <option value="phd">PHD</option>
-                                    <option value="bachelors">Bachelors Degree</option>
-                                    <option value="cert">Certificate</option>
-                                    <option value="dip">Diploma</option>
+                                    <option value="PHD">PHD</option>
+                                    <option value="Bachelors Degree">Bachelors Degree</option>
+                                    <option value="Certificate">Certificate</option>
+                                    <option value="Diploma">Diploma</option>
                                 </select>
                             </div>
                         </div>
@@ -457,8 +457,8 @@
                                 <label for="studenttype">Student Type</label>
                                 <select id="sponsor_type" name="sponsor_type">
                                     <option value="">Please select type</option>
-                                    <option value="gov">Government Sponsered</option>
-                                    <option value="self">Self Sponsored</option>
+                                    <option value="governmenr">Government Sponsered</option>
+                                    <option value="self-sponserd">Self Sponsored</option>
                                 </select>
                             </div>
                         </div>
@@ -468,8 +468,8 @@
                             <label for="study_mode">Study Mode</label>
                             <select id="mode" name="mode">
                                 <option value="">Please select a program</option>
-                                <option value="ftime">Full-time</option>
-                                <option value="ptime">Part-time</option>
+                                <option value="fulltime">Full-time</option>
+                                <option value="parttime">Part-time</option>
                                 <option value="online">Online</option>
                             </select>
                         </div>

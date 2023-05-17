@@ -74,43 +74,48 @@
     }
     ?>
     <div class="main">
-
-        <h1>Student per level</h1>
+        <h1>Students per level</h1>
+        <div class="form-group">
+            <label for="level-filter">Filter by Level of Studies:</label>
+            <select id="level-filter" name="level-filter">
+                <option value="">All Levels</option>
+                <option value="PHD">PHD</option>
+                <option value="Bachelors Degree">Bachelors Degree</option>
+                <option value="Certificate">Certificate</option>
+                <option value="Diploma">Diploma</option>
+            </select>
+            <button onclick="applyFilter()">Apply</button>
+        </div>
         <table>
             <thead>
                 <tr>
-                    <th>Studnt ID</th>
-                    <th>Studnt Name</th>
-                    <th>Level</th>                    
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Level</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-                $sql = "SELECT a.*,s.*, e.*, c.*, d.name AS department, f.name AS faculty
-                FROM applications a
-                INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id
-                INNER JOIN courses c ON e.course_id = c.course_id
-                INNER JOIN departments d ON c.department_id = d.id
-                INNER JOIN faculties f ON d.faculty_id = f.id
-                INNER JOIN students s ON a.student_id = s.student_id
-                ";
+                $sql = "SELECT a.*, s.*, e.*, c.*, d.name AS department, f.name AS faculty
+            FROM applications a
+            INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id
+            INNER JOIN courses c ON e.course_id = c.course_id
+            INNER JOIN departments d ON c.department_id = d.id
+            INNER JOIN faculties f ON d.faculty_id = f.id
+            INNER JOIN students s ON a.student_id = s.student_id";
+
                 $result = mysqli_query($conn, $sql);
 
-                // Loop through the result set and display each course as a table row
+                // Loop through the result set and display each student as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
-                    // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . $row['last_name'] . '</td>';
+                    echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
                     echo '<td>' . $row['level_of_study'] . '</td>';
                     echo '</tr>';
                 }
                 ?>
             </tbody>
         </table>
-
     </div>
-</body>
-
-</html>
