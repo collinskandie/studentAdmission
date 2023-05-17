@@ -1,6 +1,6 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Student Enrollment</title>
     <meta charset="UTF-8">
@@ -82,7 +82,7 @@
 <body>
     <?php
     include('../php/conn.php');
-    session_start();
+
     $id = $_SESSION['user'];
     $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
     $results = mysqli_query($conn, $sqlUser);
@@ -141,7 +141,7 @@
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<?php echo ($email); ?>" readonly>
-                </div>                
+                </div>
                 <div class="form-group">
                     <label for="program">Previous Qualification</label>
                     <textarea type="text" id="qualification" name="qualification"></textarea>

@@ -1,4 +1,4 @@
-﻿</html>
+﻿<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -146,13 +146,19 @@
 <body>
     <?php
     include('../php/conn.php');
-    session_start();
+
     $id = $_SESSION['user'];
     $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
     $results = mysqli_query($conn, $sqlUser);
     if (mysqli_num_rows($results) == 1) {
         $row = mysqli_fetch_assoc($results);
         $userName = $row['first_name'];
+    }
+    $sqlQualif = "SELECT * FROM student_qualifications WHERE student_id='$id'";
+    $qualifications = mysqli_query($conn, $sqlQualif);
+    if (mysqli_num_rows($results) == 1) {
+        $qualifData = mysqli_fetch_assoc($qualifications);
+        $qualification = $qualifData['qualification'];
     }
     ?>
     <div class="topnav">
@@ -244,7 +250,7 @@
                 $message = "Your Application has been completely, wait for admission letter to be issued!";
                 $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
                 mysqli_query($conn, $updateProgressSql);
-                $success_message ="Successfully Applied for the course, proceed to download your admission letter";
+                $success_message = "Successfully Applied for the course, proceed to download your admission letter";
                 header("Location: ../index.php?message=<?=$success_message ?>");
             } else {
                 echo "Problems";
@@ -260,7 +266,7 @@
                     auto;">
         </div>
         <div class="page-content" style="text-align: center;">
-            <h3>Welcome</h3>
+            <h3>Welcome <?=$fullname?></h3>
             <h5>Your progress</h5>
             <div class="progress">
                 <div class="bar" id="progress-bar"></div>
@@ -477,7 +483,7 @@
                 </div>
                 <div class="form-row">
                     <label for="Qualification">Qualifications</label>
-                    <textarea type="text" id="quali" name="quali"></textarea>
+                    <textarea type="text" id="quali" name="quali" value="<?php echo ($qualification); ?>"></textarea>
                 </div>
                 <div class="columns-container">
                     <div class="column">
@@ -576,6 +582,15 @@
             }
             if (dob == "") {
                 alert("Date of birth cannot be null");
+                return false;
+            }
+            var selectedDate = new Date(dob);
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            // Compare the selected date with today's date
+            if (selectedDate.getTime() === today.getTime() || selectedDate > today) {
+                // Invalid date: today or a day greater than today
+                alert("Date cannot be today or greater than today");
                 return false;
             }
             if (nationality == "") {

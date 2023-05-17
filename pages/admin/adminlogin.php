@@ -64,6 +64,16 @@
             alert(success_message);
         <?php endif; ?>
     </script>
+    <script>
+        <?php if (isset($_GET['error_message'])) : ?>
+            var success_message = "<?php echo $_GET['error_message']; ?>";
+            alert(success_message);
+        <?php endif; ?>
+        <?php if (isset($_GET['success_message'])) : ?>
+            var success_message = "<?php echo $_GET['success_message']; ?>";
+            alert(success_message);
+        <?php endif; ?>
+    </script>
 </head>
 
 <body>
@@ -79,7 +89,7 @@
         $query = "SELECT * FROM staff WHERE email='$email'";
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) == 1) {
-            $user = mysqli_fetch_assoc($result);            
+            $user = mysqli_fetch_assoc($result);
             if (password_verify($password, $user['password'])) {
                 // session_start();
                 $_SESSION['user'] = $user['staff_id'];
@@ -91,10 +101,12 @@
                 echo $_SESSION['role'];
                 exit();
             } else {
-                $error_message = 'Invalid email or password';
+                // $error_message = 'Invalid email or password';
+                header("Location: ./adminlogin.php?error_message=" . urlencode("Invalid password"));
             }
         } else {
-            $error_message = 'Invalid email or password';
+            // $error_message = 'Invalid emai';
+            header("Location: ./adminlogin.php?error_message=" . urlencode("Invalid email "));
         }
 
         mysqli_close($conn);

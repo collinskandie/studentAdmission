@@ -94,7 +94,7 @@
     <h1>Summary</h1>
     <div class="card-container">
       <div class="card">
-        <h2>Registered Students</h2>
+        <h2>Enrolled Students</h2>
         <h1><?= $all_students['all_students']; ?></h1>
       </div>
       <div class="card">
@@ -125,7 +125,6 @@
         <h2>Departments</h2>
         <h1><?= $department['all_departments']; ?></h1>
       </div>
-
     </div>
   </div>
 </body>

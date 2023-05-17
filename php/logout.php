@@ -100,7 +100,7 @@ session_start();
             <br>
             <br>
             <h3>You have been logged out</h3>
-           <p><a href="../pages/login.php">Login again</a></p>
+           <p><a href="../pages/login.php">Login</a></p>
         </div>
         <!-- validation javascript -->
         
