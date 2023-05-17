@@ -46,6 +46,8 @@
                  <a href="./perdepart.php">Students per Department</a>
                  <a href="./perfacult.php">Students per Faculty</a>
                  <a href="./perlevel.php">Students per level</a>
+                 <a href="./acceptedstudents.php">Accepted Students</a>
+                 <a href="./rejectedstudents.php">Rejected Students</a>
              </div>
          </div>
      </div>
