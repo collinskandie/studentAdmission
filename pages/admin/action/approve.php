@@ -357,7 +357,6 @@
                     <br>
                     <button class="decline-btn">Decline</button>
                 </form>
-
                 <script>
                     const approveBtn = document.querySelector('.approve-btn');
                     const declineBtn = document.querySelector('.decline-btn');

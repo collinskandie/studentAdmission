@@ -1,56 +1,133 @@
- <!-- top navigation -->
- <style>
-     .dropdown {
-         position: relative;
-         display: inline-block;
-     }
+<style>
+    .sidebar {
+        width: 200px;
+        color: white;
 
-     .dropdown-content {
-         display: none;
-         position: absolute;
-         z-index: 1;
-     }
+    }
 
-     .dropdown-content a {
-         color: white;
-         padding: 12px 16px;
-         text-decoration: none;
-         display: block;
-     }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-     .dropdown:hover .dropdown-content {
-         display: block;
-     }
- </style>
- <div class="topnav">
-     <div class="top_nav">
-         <a href="../resetpass.php" class="user-profile">User Profile</a>
-         <a href="../../php/logout.php" class="logout">Logout</a>
-     </div>
- </div>
- <!-- side navigation -->
- <div class="sidenav">
-     <div style="text-align: center">
-         <img src="../../imgs/logo.png" style="display: block; margin: 0 auto" />
-     </div>
-     <div class="side_nav">
-         <a href="admin.php">Home</a>
-         <a href="active.php">Active Enrollment</a>
-         <a href="application.php">Active Applications</a>         
-         <div class="dropdown">
-             <a class="dropbtn">Reports ▼</a>
-             <div class="dropdown-content">
-                 <a href="./faculties.php">Faculties</a>                
-                 <a href="./departments.php">Departments</a>
-                 <a href="./courses.php">Courses</a>
-                 <a href="./perdepart.php">Students per Department</a>
-                 <a href="./perfacult.php">Students per Faculty</a>
-                 <a href="./perlevel.php">Students per level</a>
-                 <a href="./acceptedstudents.php">Accepted Students</a>
-                 <a href="./rejectedstudents.php">Rejected Students</a>
-             </div>
-         </div>
-     </div>
+    #nav li {
+        position: relative;
+    }
 
+    #nav li ul {
+        display: none;
+    }
 
- </div>
+    #nav li.active>ul {
+        display: block;
+    }
+
+    #nav a {
+        display: block;
+        padding: 10px;
+
+        text-decoration: none;
+    }
+
+    #nav a:hover {
+        background-color: #ddd;
+    }
+
+    #nav ul li {
+        padding-left: 20px;
+    }
+</style>
+<div class="topnav">
+    <div class="top_nav">
+        <a href="../resetpass.php" class="user-profile">User Profile</a>
+        <a href="../../php/logout.php" class="logout">Logout</a>
+    </div>
+</div>
+
+<div class="sidenav">
+    <div style="text-align: center">
+        <img src="../../imgs/logo.png" style="display: block; margin: 0 auto" />
+    </div>
+    <div class="sidebar">
+        <a href="admin.php">Home</a>
+        <ul id="nav">
+            <li><a href="#">Enrollments</a>
+                <ul>
+                    <li><a href="active.php">Process</a></li>
+                    <li><a href="acceptedstudents.php">Approved</a></li>
+                    <li><a href="rejectedstudents.php">Rejected</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Application</a>
+                <ul>
+                    <li><a href="#">Process</a></li>
+                    <li><a href="#">Approved</a></li>
+                    <li><a href="#">Rejected</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Reports</a>
+                <ul>
+                    <li><a href="./faculties.php">Faculties</a></li>
+                    <li><a href="./departments.php">Departments</a></li>
+                    <li> <a href="./courses.php">Programs</a></li>
+                    <li> <a href="perfucult.php">Students per Faculty</a></li>
+                    <li> <a href="perdepart.php">Student per Department</a></li>
+                    <li> <a href="perlevel.php">Student per Level</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- <div class="side_nav">
+        <a href="admin.php">Home</a>
+        <div class="dropdown">
+            <a class="dropbtn">Enrollments ▼</a>
+            <div class="dropdown-content">
+                <a href="#">Process</a>
+                <a href="#">Approved</a>
+                <a href="#">Rejected</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a class="dropbtn">Application ▼</a>
+            <div class="dropdown-content">
+                <a href="#">Process</a>
+                <a href="#">Approved</a>
+                <a href="#">Rejected</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a class="dropbtn">Reports ▼</a>
+            <div class="dropdown-content">
+                <a href="./faculties.php">Faculties</a>
+                <a href="./departments.php">Departments</a>
+                <a href="./courses.php">Programs</a>
+                <a href="#">Students per Faculty</a>
+                <a href="#">Student per Department</a>
+                <a href="#">Student per Level</a>
+            </div>
+        </div>
+    </div> -->
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var items = document.querySelectorAll('#nav li');
+
+        for (var i = 0; i < items.length; i++) {
+            items[i].addEventListener('click', function(e) {
+                var clickedItem = e.target.parentElement;
+
+                if (clickedItem.classList.contains('active')) {
+                    clickedItem.classList.remove('active');
+                } else {
+                    var activeItem = document.querySelector('#nav li.active');
+                    if (activeItem) {
+                        activeItem.classList.remove('active');
+                    }
+
+                    clickedItem.classList.add('active');
+                }
+            });
+        }
+    });
+</script>
