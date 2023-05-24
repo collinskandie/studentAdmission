@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Courses</title>
+    <title>programs</title>
     <link rel="stylesheet" href="../../css/admin.css" />
     <style>
         table {
@@ -151,7 +151,7 @@
     ?>
     <div class="main">
 
-        <h1>Add Course</h1>
+        <h1>Add Program</h1>
         <form method="post" action="courses.php" class="add-course-form">
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" required><br>
@@ -191,8 +191,8 @@
             ?>
             <thead>
                 <tr>
-                    <th>Course ID</th>
-                    <th>Course Name</th>
+                    <th>Program ID</th>
+                    <th>Program Name</th>
                     <th>Description</th>
                     <th>Price</th>
                     <th>Department</th>

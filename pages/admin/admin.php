@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -40,7 +43,6 @@
   include("adminnav.php");
   include("../../php/conn.php");
 
-  session_start();
   if (!$_SESSION['role']) {
     header("Location: ../../index.php?");
   }
@@ -86,45 +88,57 @@
   FROM departments";
   $depart = mysqli_query($conn, $departments);
   $department = mysqli_fetch_assoc($depart);
+  // count faculties 
+  $fac = "SELECT COUNT(*) AS faculties
+  FROM faculties";
+  $facs = mysqli_query($conn, $fac);
+  $faculties = mysqli_fetch_assoc($facs);
 
   //more actions here
 
   ?>
   <div class="main">
     <h1>Summary</h1>
+    <h4>Enrollments</h4>
     <div class="card-container">
       <div class="card">
-        <h2>Enrolled Students</h2>
+        <h2>Processed Enrollments</h2>
         <h1><?= $all_students['all_students']; ?></h1>
       </div>
       <div class="card">
-        <h2>Rejected Students</h2>
-        <h1><?= $row['rejected_students_count']; ?></h1>
-      </div>
-      <div class="card">
-        <h2>Accepted Students</h2>
+        <h2>Approved Enrollments</h2>
         <h1><?= $accepted['accepted_students_count']; ?></h1>
       </div>
       <div class="card">
-        <h2>Registered Staff</h2>
-        <h1><?= $allstaff['all_staff']; ?></h1>
+        <h2>Rejected</h2>
+        <h1><?= $row['rejected_students_count']; ?></h1>
+      </div>
+
+    </div>
+    <h4>Applications</h4>
+    <div class="card-container">
+      <div class="card">
+        <h2>On Process </h2>
+        <!-- change this after adding approvals in application db -->
+        <h1><?= $accepted['accepted_students_count']; ?></h1>
       </div>
       <div class="card">
-        <h2>All courses</h2>
+        <h2>Approved application</h2>
+        <!-- add approved counter here  -->
         <h1><?= $courses['all_courses']; ?></h1>
       </div>
       <div class="card">
-        <h2>Applications</h2>
+        <h2>Rejected</h2>
+        <!-- add rejected applictaion counter here  -->
         <h1><?= $appAll['all_application']; ?></h1>
       </div>
-      <div class="card">
-        <h2>Pending Approval</h2>
-        <h1><?= $appPendings['all_pending']; ?></h1>
-      </div>
-      <div class="card">
-        <h2>Departments</h2>
-        <h1><?= $department['all_departments']; ?></h1>
-      </div>
+    </div>
+    <h4>Faculties</h4>
+    <div class="card-container">
+      <a href="faculties.php" class="card" style="text-decoration: none;">
+        <h2>All Faculties</h2>
+        <h1><?= $faculties['faculties']; ?></h1>
+      </a>
     </div>
   </div>
 </body>
