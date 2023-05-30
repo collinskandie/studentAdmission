@@ -70,15 +70,16 @@
                     <li><a href="./faculties.php">Faculties</a></li>
                     <li><a href="./departments.php">Departments</a></li>
                     <li> <a href="./courses.php">Programs</a></li>
-                    <li> <a href="perfucult.php">Students per Faculty</a></li>
-                    <li> <a href="perdepart.php">Student per Department</a></li>
-                    <li> <a href="perlevel.php">Student per Level</a></li>
+                    <li> <a href="./perfacult.php">Students per Faculty</a></li>
+                    <li> <a href="./perdepart.php">Student per Department</a></li>
+                    <li> <a href="./perlevel.php">Student per Level</a></li>
                 </ul>
             </li>
         </ul>
     </div>
 
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var items = document.querySelectorAll('#nav li');
