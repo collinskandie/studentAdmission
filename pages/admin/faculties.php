@@ -204,28 +204,25 @@
                 echo "</tr>";
 
                 // Loop through departments for the current faculty
+                // foreach ($departments as $department) {
+                //     if ($department["faculty_id"] == $faculty["id"]) {
+                //         echo "<tr class='department-row' data-faculty-id='" . $faculty["id"] . "'>";
+                //         echo "<td></td>"; // Empty cell for indentation
+                //         echo "<td>" . $department["name"] . "</td>";
+                //         echo "<td>" . $department["name"] . "</td>";
+                //         echo "<td></td>"; // Empty cell for action column
+                //         echo "</tr>";
+                //     }
+                // }
                 foreach ($departments as $department) {
                     if ($department["faculty_id"] == $faculty["id"]) {
                         echo "<tr class='department-row' data-faculty-id='" . $faculty["id"] . "'>";
                         echo "<td></td>"; // Empty cell for indentation
-                        echo "<td>" . $department["name"] . "</td>";
+                        echo "<td><a href='./sub/coursesperdept.php?dept_id=" . $department["id"] . "'>" . $department["name"] . "</a></td>";
                         echo "<td>" . $department["name"] . "</td>";
                         echo "<td></td>"; // Empty cell for action column
                         echo "</tr>";
-
-                        // Loop through programs and display them for the current department
-                        // foreach ($programs as $program) {
-                        //     if ($program["department_id"] == $department["id"]) {
-                        //         echo "<tr class='program-row' data-depart-id='" .  $department["id"] . "'>";
-                        //         echo "<td></td>"; // Empty cell for indentation
-                        //         echo "<td>" . $program["course_name"] . "</td>";
-                        //         echo "<td>" . $program["course_description"] . "</td>";
-                        //         echo "<td></td>"; // Empty cell for action column
-                        //         echo "</tr>";
-                        //     }
-                        // }
                     }
-                    // echo "<tr><td colspan='4'>No departments found.</td></tr>";
                 }
             }
 

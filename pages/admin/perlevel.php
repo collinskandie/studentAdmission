@@ -74,20 +74,22 @@
     }
     ?>
     <div class="main">
-        <h1>Students per level</h1>
+        <h1>Students per level</h1>      
+        <br>
+        <!-- Add the dropdown menu before the table -->
+
         <div class="form-group">
             <label for="level-filter">Filter by Level of Studies:</label>
-            <select id="level-filter" name="level-filter">
-                <option value="">All Levels</option>
+            <select id="faculty-dropdown" onchange="filterByFaculty()">
+                <option value="all">All Levels</option>
                 <option value="PHD">PHD</option>
                 <option value="Masters">Masters</option>
                 <option value="Bachelors Degree">Bachelors Degree</option>
                 <option value="Certificate">Certificate</option>
                 <option value="Diploma">Diploma</option>
             </select>
-            <button onclick="applyFilter()">Apply</button>
         </div>
-        <table>
+        <table id="student-table">
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -99,12 +101,8 @@
                 <?php
                 // Retrieve existing courses from the database
                 $sql = "SELECT a.*, s.*, e.*, c.*, d.name AS department, f.name AS faculty
-            FROM applications a
-            INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id
-            INNER JOIN courses c ON e.course_id = c.course_id
-            INNER JOIN departments d ON c.department_id = d.id
-                        INNER JOIN faculties f ON d.faculty_id = f.id
-                        INNER JOIN students s ON a.student_id = s.student_id";
+                FROM applications a INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id INNER JOIN courses c ON e.course_id = c.course_id 
+                INNER JOIN departments d ON c.department_id = d.id INNER JOIN faculties f ON d.faculty_id = f.id INNER JOIN students s ON a.student_id = s.student_id";
 
                 // Check if a filter is applied
                 if (isset($_POST['level-filter']) && !empty($_POST['level-filter'])) {
@@ -125,11 +123,23 @@
                 ?>
             </tbody>
         </table>
+
     </div>
     <script>
-        function applyFilter() {
-            var filter = document.getElementById("level-filter").value;
-            document.forms[0].submit();
+        function filterByFaculty() {
+            var selectedFaculty = document.getElementById("faculty-dropdown").value;
+            var tableRows = document.querySelectorAll("#student-table tbody tr");
+
+            tableRows.forEach(function(row) {
+                var facultyCell = row.querySelector("td:nth-child(2)");
+                var facultyName = facultyCell.textContent.trim();
+
+                if (selectedFaculty === "all" || facultyName === selectedFaculty) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         }
     </script>
 </body>

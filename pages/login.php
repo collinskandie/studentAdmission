@@ -60,7 +60,6 @@ session_start();
     }
   </style>
   <script>
-   
     <?php if (isset($_GET['error_message'])) : ?>
       var success_message = "<?php echo $_GET['error_message']; ?>";
       alert(success_message);
@@ -71,6 +70,7 @@ session_start();
     <?php endif; ?>
   </script>
 </head>
+
 <body>
   <?php
   // session_start();
@@ -84,7 +84,6 @@ session_start();
     <?php }
     } ?>
     </div>
-
     <div class="login-box">
       <h1>CUEA Online Admission</h1>
       <div style="text-align: center">
@@ -126,4 +125,5 @@ session_start();
       }
     </script>
 </body>
+
 </html>

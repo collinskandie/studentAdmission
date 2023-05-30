@@ -76,18 +76,35 @@
     <div class="main">
 
         <h1>Student per department</h1>
-        <table>
+        <label>Filter by department:</label>
+        <br>
+        <!-- Add the dropdown menu before the table -->
+        <select id="faculty-dropdown" onchange="filterByFaculty()">
+            <option value="all">All Departments</option>
+            <?php
+            // Retrieve existing faculties from the database
+            $sql = "SELECT * FROM departments";
+            $result = mysqli_query($conn, $sql);
+
+            // Loop through the result set and display each faculty as an option in the dropdown
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
+            }
+            ?>
+        </select>
+        <table id="student-table">
             <thead>
                 <tr>
                     <th>Studnt ID</th>
                     <th>Studnt Name</th>
-                    <th>Department</th>                    
+                    <th>Department</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-                $sql = "SELECT a.*,s.*, e.*, c.*, d.name AS department, f.name AS faculty
+                $sql = "SELECT a.*,s.*, e.*, c.*, d.name AS name, f.name AS faculty
                 FROM applications a
                 INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id
                 INNER JOIN courses c ON e.course_id = c.course_id
@@ -103,14 +120,32 @@
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
                     echo '<td>' . $row['first_name'] . $row['last_name'] . '</td>';
-                    echo '<td>' . $row['department'] . '</td>';
+                    echo '<td>' . $row['name'] . '</td>';
                     echo '</tr>';
                 }
                 ?>
             </tbody>
         </table>
 
+
     </div>
+    <script>
+        function filterByFaculty() {
+            var selectedFaculty = document.getElementById("faculty-dropdown").value;
+            var tableRows = document.querySelectorAll("#student-table tbody tr");
+
+            tableRows.forEach(function(row) {
+                var facultyCell = row.querySelector("td:nth-child(2)");
+                var facultyName = facultyCell.textContent.trim();
+
+                if (selectedFaculty === "all" || facultyName === selectedFaculty) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

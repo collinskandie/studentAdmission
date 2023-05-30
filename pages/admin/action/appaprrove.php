@@ -190,15 +190,20 @@
     // session_start();
     include("../../../php/conn.php");
     $enrollment_id = $_GET['enrollment_id'];
-    $sql = "SELECT enrollments.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName, courses.course_name 
-        FROM enrollments 
-        INNER JOIN students ON enrollments.student_id = students.student_id 
-        INNER JOIN courses ON enrollments.course_id = courses.course_id 
-        WHERE enrollments.enrollment_id = '$enrollment_id'";
+    $error_message = '';
+    $sql = "SELECT a.*, e.*, s.*, CONCAT(s.first_name, ' ', COALESCE(s.middle_name, ''), ' ', s.last_name) AS studentName, e.course_id, c.course_name
+    FROM applications a JOIN students s ON a.student_id = s.student_id JOIN enrollments e ON a.enrollments_id = e.enrollment_id
+    JOIN courses c ON e.course_id = c.course_id WHERE a.application_id = '$enrollment_id'";
     $results = mysqli_query($conn, $sql);
     if (mysqli_num_rows($results) == 1) {
         $enrollment = mysqli_fetch_assoc($results);
         $studentId = $enrollment['student_id'];
+        $studentName = $enrollment['studentName'];
+        $levelOfStudy = $enrollment['level_of_study'];
+        $studentType = $enrollment['student_type'];
+        $studyMode = $enrollment['study_mode'];
+        $courseId = $enrollment['course_id'];
+        $courseName = $enrollment['course_name'];
     } else {
         echo "error";
     }
@@ -207,55 +212,60 @@
         // get the enrollment ID and action from the form data
         $enrollment_id = filter_input(INPUT_POST, 'enrollment_id', FILTER_VALIDATE_INT);
         $action = mysqli_real_escape_string($conn, $_POST['status']);
-
-        $approvedBy = $_SESSION['user'];
-        // echo( $approvedBy);
         $comments = mysqli_real_escape_string($conn, $_POST['comments']);
 
         if ($enrollment_id) {
-            $updateEnrollmentSql = "UPDATE enrollments SET approved_status = '$action', approved_by = '$approvedBy', remarks = '$comments' WHERE enrollment_id = $enrollment_id";
+            $updateEnrollmentSql = "UPDATE applications SET status = '$action' where application_id = $enrollment_id";
             if (mysqli_query($conn, $updateEnrollmentSql)) {
-                //   "<script>alert('Enrollment record updated successfully.')</script>";
-                $getStudentIDSql = "SELECT student_id FROM enrollments WHERE enrollment_id= $enrollment_id ";
+                $getStudentIDSql = "SELECT student_id FROM applications WHERE application_id= $enrollment_id ";
                 $studentidResult = mysqli_query($conn, $getStudentIDSql);
-
                 if (mysqli_num_rows($studentidResult) > 0) {
                     $studentidRow = mysqli_fetch_assoc($studentidResult);
                     $studentid = $studentidRow['student_id'];
                     $getProgressSql = "SELECT * FROM progress WHERE student_id = $studentid";
                     $progressResult = mysqli_query($conn, $getProgressSql);
                     if ($action == "Approved") {
-                        $level = "application";
-                        $level_points = 50;
-                        $message = "Enrollment has been approved.";
+                        $level = "Final";
+                        $level_points = 100;
+                        $message = "Application has been approved.";
+                        $acceptStudent = "INSERT INTO accepted_students (student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name)
+                        values('$studentId','$studentName','$levelOfStudy','$studentType','$studyMode','$courseId','$courseName')";
+                        if (mysqli_query($conn, $acceptStudent)) {
+                            $error_message = "Progress saved successfully";
+                        }
                     } else {
                         $level = "declined";
                         $level_points = 0;
-                        $message = "Enrollment has been declined.";
+                        $message = "Application has been declined.";
                     }
                     if (mysqli_num_rows($progressResult) > 0) {
-                        $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $studentid";
+                        $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$comments' WHERE student_id = $studentid";
                     } else {
                         $updateProgressSql = "INSERT INTO progress (student_id, progress_level, progress_points, message) VALUES ($studentid, '$level', $level_points, '$message')";
                     }
                     if (mysqli_query($conn, $updateProgressSql)) {
                         $error_message = "Progress saved successfully";
-                        header("Location: ../active.php?error_message=" . urlencode($error_message));
+                        // echo ($error_message);
+                        // header("Location: ../active.php?error_message=" . urlencode($error_message));
                     } else {
                         $error_message = 'Error updating progress record: " . mysqli_error($conn) . "';
-                        header("Location: ../active.php?error_message=" . urlencode($error_message));
+                        // header("Location: ../active.php?error_message=" . urlencode($error_message));
+                        // echo ($error_message);
                     }
                 } else {
                     $error_message = "No student selected')</script>";
-                    header("Location: ../active.php?error_message=" . urlencode($error_message));
+                    //header("Location: ../active.php?error_message=" . urlencode($error_message));
+                    // echo ($error_message);
                 }
             } else {
                 $error_message = "Error updating enrollment record: ";
-                header("Location: ../active.php?error_message=" . urlencode($error_message));
+                //header("Location: ../active.php?error_message=" . urlencode($error_message));
+                // echo ($error_message);
             }
         } else {
             $error_message = "Invalid enrollment ID";
-            header("Location: ../active.php?error_message=" . urlencode($error_message));
+            //header("Location: ../active.php?error_message=" . urlencode($error_message));
+            // echo ($error_message);
         }
     }
 
@@ -266,7 +276,7 @@
         <br>
         <br>
         <br>
-        <h1>Action on Enrollment</h1>
+        <h1>Application on process</h1>
         <div class="card">
             <div class="card-header">
                 Details
@@ -322,12 +332,18 @@
                     </tbody>
                 </table>
                 <p class="card-text text-success">Status:
-                    <?= $enrollment['approved_status'] ?>
+                    <?= $enrollment['status'] ?>
                 </p>
                 <br>
+                <?php
+                if ($error_message) {
+                    echo ($error_message);
+                }
+
+                ?>
                 <br>
                 <?php
-                if ($enrollment['approved_status'] == "Pending") {
+                if ($enrollment['status'] == "Pending") {
                     echo '<button class="approve-btn">Approve</button>';
                     echo ' <button class="decline-btn">Decline</button>';
                 } ?>
