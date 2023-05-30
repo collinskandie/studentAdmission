@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>programs</title>
+    <title>Courses</title>
     <link rel="stylesheet" href="../../css/admin.css" />
     <style>
         table {
@@ -114,7 +114,7 @@
 
         .submit_course input[type='submit']:hover {
             background-color: #3e8e41;
-        }       
+        }       g
     </style>
 </head>
 
@@ -191,8 +191,8 @@
             ?>
             <thead>
                 <tr>
-                    <th>Program ID</th>
-                    <th>Program Name</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
                     <th>Description</th>
                     <th>Price</th>
                     <th>Department</th>
