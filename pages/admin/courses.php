@@ -114,7 +114,7 @@
 
         .submit_course input[type='submit']:hover {
             background-color: #3e8e41;
-        }
+        }       
     </style>
 </head>
 
