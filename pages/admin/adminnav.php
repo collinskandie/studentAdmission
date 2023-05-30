@@ -60,9 +60,9 @@
             </li>
             <li><a href="#">Application</a>
                 <ul>
-                    <li><a href="#">Process</a></li>
-                    <li><a href="#">Approved</a></li>
-                    <li><a href="#">Rejected</a></li>
+                    <li><a href="./proceesapp.php">Process</a></li>
+                    <li><a href="./approvedapp.php">Approved</a></li>
+                    <li><a href="./rejectedapp.php">Rejected</a></li>
                 </ul>
             </li>
             <li><a href="#">Reports</a>

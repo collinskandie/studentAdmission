@@ -1,12 +1,9 @@
-<?php session_start();
-$dep_id = $_GET['dept_id'];
-?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="../../../css/admin.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
     <style>
         table {
             border-collapse: collapse;
@@ -56,48 +53,49 @@ $dep_id = $_GET['dept_id'];
 
 <body>
     <?php
-    // session_start();
+    session_start();
     if (!$_SESSION['role']) {
 
         header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
     }
 
     include("adminnav.php");
-    include("../../../php/conn.php");
-    $sql = "SELECT courses.*, departments.name AS department_name
-    FROM courses JOIN departments ON courses.department_id = departments.id  where courses.department_id= $dep_id;";
+    include("../../php/conn.php");
+
+    // $sql = "SELECT enrollments.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName, courses.course_name 
+    // 	FROM enrollments 
+    // 	INNER JOIN students ON enrollments.student_id = students.student_id 
+    // 	INNER JOIN courses ON enrollments.course_id = courses.course_id where approved_status ='Pending'";
+    $sql = "SELECT a.*, e.*, s.student_id, CONCAT(s.first_name, ' ', COALESCE(s.middle_name, ''), ' ', s.last_name) AS studentName, e.course_id, c.course_name
+    FROM applications a JOIN students s ON a.student_id = s.student_id JOIN enrollments e ON a.enrollments_id = e.enrollment_id
+    JOIN courses c ON e.course_id = c.course_id WHERE a.status = 'Approved'";
+
+
     $results = mysqli_query($conn, $sql);
     $enrollments = array();
-    $depsql = "SELECT departments.name AS department_name FROM departments where id= $dep_id";
-    $deptData = mysqli_query($conn, $depsql);
-    if (mysqli_num_rows($deptData) > 0) {
-        // Loop through the rows and add them to the enrollments array
-        while ($row = mysqli_fetch_assoc($deptData)) {
 
-            $deptName  = $row['department_name'];
-        }
-    }
     // Check if any rows were returned
     if (mysqli_num_rows($results) > 0) {
         // Loop through the rows and add them to the enrollments array
         while ($row = mysqli_fetch_assoc($results)) {
             $enrollments[] = $row;
-            $courseData = $enrollments[0];
-            $deptName  = $courseData['department_name'];
         }
     }
     ?>
     <!-- main content -->
     <div class="main">
-        <h1>Programs from <?= $deptName ?> Department</h1>
+        <h1>Pending Approval</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Program ID</th>
-                    <th>Program Name</th>
-                    <th>Description</th>
-                    <th>Program price</th>
-                    <th>Department</th>
+                    <th>Enrollment ID</th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Enrollment Date</th>
+                    <th>Approved Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,14 +104,21 @@ $dep_id = $_GET['dept_id'];
                 if (mysqli_num_rows($results) == 0) {
                     echo "<td>No records</td>";
                 } else {
+
+
                 ?>
                     <?php foreach ($enrollments as $enrollment) : ?>
                         <tr>
+                            <td><?= $enrollment['enrollment_id'] ?></td>
+                            <td><?= $enrollment['student_id'] ?></td>
+                            <td><?= $enrollment['studentName'] ?></td>
                             <td><?= $enrollment['course_id'] ?></td>
                             <td><?= $enrollment['course_name'] ?></td>
-                            <td><?= $enrollment['course_description'] ?></td>
-                            <td><?= $enrollment['course_price'] ?></td>
-                            <td><?= $enrollment['department_name'] ?></td>
+                            <td></td>
+                            <td><?= $enrollment['approved_status'] ?></td>
+                            <td>
+                                <a href="./action/appaprrove.php?enrollment_id=<?= $enrollment['application_id'] ?>" class="approve-btn">Details</a>
+                            </td>
                         </tr>
                 <?php endforeach;
                 } ?>
