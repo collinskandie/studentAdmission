@@ -201,7 +201,6 @@
             } else {
                 echo "<tr><td colspan='3'>No departments found.</td></tr>";
             }
-
             echo "</table>";
 
             // Close the database connection

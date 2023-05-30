@@ -14,7 +14,7 @@ session_start();
     }
 
     .card {
-      width: calc(33.33% - 20px);
+      width: calc(33.33% - 30px);
       margin: 10px;
       padding: 20px;
       box-sizing: border-box;
@@ -28,7 +28,7 @@ session_start();
     }
 
     .card h2 {
-      font-size: 24px;
+      font-size: 18px;
       margin-bottom: 10px;
     }
 
@@ -138,6 +138,13 @@ session_start();
       <a href="faculties.php" class="card" style="text-decoration: none;">
         <h2>All Faculties</h2>
         <h1><?= $faculties['faculties']; ?></h1>
+      </a>
+    </div>
+    <h4>Members</h4>
+    <div class="card-container">
+      <a href="staff.php" class="card" style="text-decoration: none;">
+        <h2>Board members</h2>
+        <h1><?= $allstaff['all_staff']; ?></h1>
       </a>
     </div>
   </div>

@@ -65,7 +65,7 @@
   $sql = "SELECT enrollments.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName, courses.course_name 
 		FROM enrollments 
 		INNER JOIN students ON enrollments.student_id = students.student_id 
-		INNER JOIN courses ON enrollments.course_id = courses.course_id where approved_status ='Pending'";
+		INNER JOIN courses ON enrollments.course_id = courses.course_id where approved_status ='Approved'";
 
   $results = mysqli_query($conn, $sql);
   $enrollments = array();
@@ -80,7 +80,7 @@
   ?>
   <!-- main content -->
   <div class="main">
-    <h1>Pending Approval</h1>
+    <h1>Approvaled Students</h1>
     <table>
       <thead>
         <tr>

@@ -117,3 +117,4 @@ FOREIGN KEY (department_id)
 REFERENCES departments(id);
 
 ALTER TABLE faculties ADD description VARCHAR(255) NOT NULL AFTER name;
+ALTER TABLE applications ADD COLUMN status VARCHAR(10) DEFAULT 'Pending';

@@ -9,7 +9,7 @@
         /* Style for the top navigation bar */
         .topnav {
             overflow: hidden;
-            background-color: white;
+            background-color: #0b0544;
             position: fixed;
             margin-left: -10px;
             top: 0;
@@ -348,7 +348,7 @@
                 <form id="decline-form" method="POST" style="display:none">
                     <input type="hidden" name="enrollment_id" value="<?= $enrollment_id ?>">
                     <input type="hidden" name="approved_by" value="<?= $_SESSION['user'] ?>">
-                    <input type="hidden" name="status" value="Declined">
+                    <input type="hidden" name="status" value="Rejected">
                     <label for="email">Comments</label>
                     <br>
                     <br>
