@@ -91,7 +91,10 @@
                     $_SESSION['last_name'] = $last_name;
                     $_SESSION['email'] = $email;
                     $_SESSION['role'] = $role;
-                    $user = $_SESSION['user'];
+                    $staff = "SELECT staff_id FROM staff WHERE email =$email";
+                    $staffID = mysqli_query($conn, $staff);
+                    $staff_ID = mysqli_fetch_assoc($staffID);
+                    $user = $staff_ID['staff_id'];
                     // Close the database connection
                     $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
                     VALUES ('Add new staff user','$user',CURDATE(), CURTIME(),'add user','staff','admin')";
@@ -116,7 +119,8 @@
         </div>
         <!--   -->
         <h1>Staff Register</h1>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateRegister();" method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateRegister();"
+            method="POST">
             <label for="fname">First Name:</label>
             <input type="text" id="first_name" name="firstName">
             <label for="middleName">Middle Name:</label>
