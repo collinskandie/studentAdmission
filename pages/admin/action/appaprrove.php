@@ -4,7 +4,7 @@
 
 <head>
     <title>Admin Panel</title>
-    <!-- <link rel="stylesheet" href="../../../css/admin.css" /> -->
+    <link rel="stylesheet" href="../../../css/admin.css" />
     <style>
         /* Style for the top navigation bar */
         .topnav {
