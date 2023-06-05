@@ -67,20 +67,25 @@
     <?php
     session_start();
     if (!$_SESSION['role']) {
+
         header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
     }
+
     include("adminnav.php");
     include("../../php/conn.php");
-    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //     $sem = mysqli_real_escape_string($conn, $_POST['semester']);
-    //     $year = mysqli_real_escape_string($conn, $_POST['year']);
-    //     $sql = "SELECT * FROM accepted_students WHERE semester = '$sem' AND year = $year";
-    //     $results = mysqli_query($conn, $sql);
-    // } else {
-        $sql = "SELECT * FROM applications";
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $sem = mysqli_real_escape_string($conn, $_POST['semester']);
+        $year = mysqli_real_escape_string($conn, $_POST['year']);
+
+        $sql = "SELECT * FROM accepted_students WHERE semester = '$sem' AND year = $year";
         $results = mysqli_query($conn, $sql);
-    // }
+    } else {
+        $sql = "SELECT * FROM accepted_students";
+        $results = mysqli_query($conn, $sql);
+    }
     $enrollments = array();
+
 
     // Check if any rows were returned
     if (mysqli_num_rows($results) > 0) {
@@ -121,46 +126,47 @@
             <tbody>
                 <!-- loop through the enrollments and display each row -->
                 <?php
-                // if (mysqli_num_rows($results) == 0) {
-                //     echo "<td>No records</td>";
-                // } else {
+                if (mysqli_num_rows($results) == 0) {
+                    echo "<td>No records</td>";
+                } else {
 
 
-                // 
+                    // 
                 ?>
-                <?php foreach ($enrollments as $enrollment) : ?>
-                    <tr>
-                        <!-- student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name, semester, year -->
-                        <td><?= $enrollment['student_id'] ?></td>
-                        <td><?= $enrollment['student_name'] ?></td>
-                        <td><?= $enrollment['level_of_study'] ?></td>
+                    <?php foreach ($enrollments as $enrollment) : ?>
+                        <tr>
+                            <!-- student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name, semester, year -->
+                            <td><?= $enrollment['student_id'] ?></td>
+                            <td><?= $enrollment['student_name'] ?></td>
+                            <td><?= $enrollment['level_of_study'] ?></td>
 
-                        <td> <?php
-                                if ($enrollment['student_type'] == "gov") {
-                                    echo ("Government Sponsered");
+                            <td> <?php
+                                    if ($enrollment['student_type'] == "gov") {
+                                        echo ("Government Sponsered");
+                                    } else {
+                                        echo ("Self-Sponsored");
+                                    } ?>
+                            </td>
+                            <td>
+                                <?php
+                                if ($enrollment['study_mode'] == "full-time") {
+                                    echo ("Full Time");
                                 } else {
-                                    echo ("Self-Sponsored");
+                                    echo ("Part Time");
                                 } ?>
-                        </td>
-                        <td>
-                            <?php
-                            if ($enrollment['study_mode'] == "full-time") {
-                                echo ("Full Time");
-                            } else {
-                                echo ("Part Time");
-                            } ?>
-                        </td>
-                        <td><?= $enrollment['course_id'] ?></td>
-                        <td><?= $enrollment['course_name'] ?></td>
-                        <td><?= $enrollment['semester'] ?></td>
-                        <td><?= $enrollment['year'] ?></td>
-                    </tr>
+                            </td>
+                            <td><?= $enrollment['course_id'] ?></td>
+                            <td><?= $enrollment['course_name'] ?></td>
+                            <td><?= $enrollment['semester'] ?></td>
+                            <td><?= $enrollment['year'] ?></td>
+                        </tr>
                 <?php endforeach;
-                //  } 
+                }
                 ?>
             </tbody>
         </table>
     </div>
+
 </body>
 
 </html>
