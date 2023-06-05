@@ -73,6 +73,7 @@
                     <li> <a href="./perfacult.php">Students per Faculty</a></li>
                     <li> <a href="./perdepart.php">Student per Department</a></li>
                     <li> <a href="./perlevel.php">Student per Level</a></li>
+                    <li> <a href="./students.php">Student per program</a></li>
                 </ul>
             </li>
             <li><a href="logs.php">Activity logs</a></li>
