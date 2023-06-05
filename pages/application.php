@@ -241,6 +241,9 @@
                 $message = "Your Application has been completely, wait for admission letter to be issued!";
                 $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
                 mysqli_query($conn, $updateProgressSql);
+                $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                VALUES ('Application','$student_id',CURDATE(), CURTIME(),'Enrollments','enrollments')";
+                mysqli_query($conn, $sql);
                 $success_message = "Successfully Applied for the course, proceed to download your admission letter";
                 header("Location: ../index.php?message=" . urlencode($success_message));
                 // header("Location: ../index.php?message=" . urlencode($success_message));

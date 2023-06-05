@@ -209,6 +209,7 @@
         $action = mysqli_real_escape_string($conn, $_POST['status']);
 
         $approvedBy = $_SESSION['user'];
+        $user = $_SESSION['user'];
         // echo( $approvedBy);
         $comments = mysqli_real_escape_string($conn, $_POST['comments']);
 
@@ -240,6 +241,9 @@
                     }
                     if (mysqli_query($conn, $updateProgressSql)) {
                         $error_message = "Progress saved successfully";
+                        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                        VALUES ('Approve enrollment','$user',CURDATE(), CURTIME(),'approve enrollments','enrollments')";
+                        mysqli_query($conn, $sqllogs);
                         header("Location: ../active.php?error_message=" . urlencode($error_message));
                     } else {
                         $error_message = 'Error updating progress record: " . mysqli_error($conn) . "';

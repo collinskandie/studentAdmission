@@ -114,7 +114,7 @@
 
         .submit_course input[type='submit']:hover {
             background-color: #3e8e41;
-        }       
+        }
     </style>
 </head>
 
@@ -136,10 +136,14 @@
         $description = $_POST['description'];
         $price = $_POST['price'];
         $department_id = $_POST['department_id'];
+        $user = $_SESSION['user'];
 
         // Insert the new course into the database
         $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
         if (mysqli_query($conn, $sql)) {
+            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                VALUES ('Add new program','$user',CURDATE(), CURTIME(),'add courses','courses')";
+            mysqli_query($conn, $sqllogs);
             // If the course was successfully added, redirect to the courses page
             echo "<script>alert('Course added suceessfully.')</script>";
             // exit;
@@ -217,12 +221,11 @@
                     echo '<td>' . $row['course_description'] . '</td>';
                     echo '<td>' . $row['course_price'] . '</td>';
                     echo '<td>' . $row['department_name'] . '</td>';
-                    ?>
+                ?>
                     <td>
-                        <a href="./action/delete.php?course_id=<?= $row["course_id"] ?>" class="delete-btn"
-                            style="background-color: red; color:white;">Delete</a>
+                        <a href="./action/delete.php?course_id=<?= $row["course_id"] ?>" class="delete-btn" style="background-color: red; color:white;">Delete</a>
                     </td>
-                    <?php
+                <?php
                     echo '</tr>';
                 }
                 ?>

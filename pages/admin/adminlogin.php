@@ -97,6 +97,10 @@
                 $_SESSION['username'] = $user['first_name'];
                 $_SESSION['role'] = $user['role'];
                 $success_message = "Successful login";
+                $user =$_SESSION['user'];
+                $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                VALUES ('Admin login','$user',CURDATE(), CURTIME(),'login','staff')";
+                mysqli_query($conn, $sqllogs);
                 header('Location: ./admin.php?success_message=" . urlencode($success_message)');
                 echo $_SESSION['role'];
                 exit();

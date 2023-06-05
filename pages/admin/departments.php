@@ -151,7 +151,11 @@
             // Insert the new department into the database
             $sql = "INSERT INTO departments (name, faculty_id) VALUES ('$name', '$faculty_id')";
             if (mysqli_query($conn, $sql)) {
-                echo "New department added successfully.";
+                $user = $_SESSION['user'];
+                $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                VALUES ('Created department $name','$user',CURDATE(), CURTIME(),'create','departments')";
+                mysqli_query($conn, $sqllogs);
+                echo "$name department added successfully.";
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }

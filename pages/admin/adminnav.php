@@ -75,6 +75,7 @@
                     <li> <a href="./perlevel.php">Student per Level</a></li>
                 </ul>
             </li>
+            <li><a href="logs.php">Activity logs</a></li>
         </ul>
     </div>
 

@@ -30,6 +30,16 @@ if (isset($_POST['submit'])) {
                 $_SESSION['middle_name'] = $middle_name;
                 $_SESSION['last_name'] = $last_name;
                 $_SESSION['email'] = $email;
+
+                //fetch student details and s ave logs
+                $student = "SELECT student_id FROM students WHERE email =$email";
+                $studentid = mysqli_query($conn, $student);
+                $student_id = mysqli_fetch_assoc($studentid);
+                $user= $student_id['student_id'];
+                //save logs
+                $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                VALUES ('Registration','$user',CURDATE(), CURTIME(),'registrations','students')";
+                mysqli_query($conn, $sql);
                 // Close the database connection
                 mysqli_close($conn);
                 // Redirect to the success page

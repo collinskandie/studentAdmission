@@ -204,6 +204,7 @@
         $studyMode = $enrollment['study_mode'];
         $courseId = $enrollment['course_id'];
         $courseName = $enrollment['course_name'];
+        $user = $_SESSION['role'];
     } else {
         echo "error";
     }
@@ -247,6 +248,9 @@
                         $error_message = "Progress saved successfully";
                         // echo ($error_message);
                         // header("Location: ../active.php?error_message=" . urlencode($error_message));
+                        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+                        VALUES ('Approve applications','$user',CURDATE(), CURTIME(),'approve application','applications')";
+                        mysqli_query($conn, $sqllogs);
                     } else {
                         $error_message = 'Error updating progress record: " . mysqli_error($conn) . "';
                         // header("Location: ../active.php?error_message=" . urlencode($error_message));

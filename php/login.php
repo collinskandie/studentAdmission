@@ -17,7 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user'] = $row['student_id'];
             $_SESSION['email'] = $row['email'];
             $_SESSION['username'] = $row['firt_name'];
-            $success_message = "Successful login";
+            $user = $_SESSION['user'];
+            $success_message = "Successful login";           
+            //record action on logs table
+            $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+            VALUES ('login','$user',CURDATE(), CURTIME(),'Authentication','students')";
+            mysqli_query($conn, $sql);
             header("Location: ../index.php?success_message=" . urlencode($success_message));
             exit();
         } else {

@@ -1,17 +1,21 @@
 <?php
 session_start();
+include('conn.php');
+$user = $_SESSION['user'];
+$sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+VALUES ('Logout','$user',CURDATE(), CURTIME(),'User logout','students')";
+mysqli_query($conn, $sql);
+
 session_destroy();
 // header('location:index.php');
 ?>
-<?php
-session_start();
-?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8" />
-    <title>Login Page</title>
+    <title>Logout Page</title>
     <link rel="stylesheet" href="../css/Login.css" />
     <style>
         body {
@@ -28,9 +32,11 @@ session_start();
             max-width: 600px;
         }
 
-        h1, h3 {
+        h1,
+        h3 {
             text-align: center;
         }
+
         p {
             text-align: center;
         }
@@ -100,10 +106,10 @@ session_start();
             <br>
             <br>
             <h3>You have been logged out</h3>
-           <p><a href="../pages/login.php">Login</a></p>
+            <p><a href="../pages/login.php">Login</a></p>
         </div>
         <!-- validation javascript -->
-        
+
 </body>
 
 </html>

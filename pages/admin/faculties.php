@@ -141,11 +141,14 @@
     if (isset($_POST['submit'])) {
         $name = sanitize($_POST['name']);
         $description = sanitize($_POST['description']);
-
         $insertSql = "INSERT INTO faculties (name, description) VALUES ('$name', '$description')";
         $insertResult = mysqli_query($conn, $insertSql);
 
         if ($insertResult) {
+            $user = $_SESSION['user'];
+            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
+            VALUES ('Created department $name','$user',CURDATE(), CURTIME(),'create faculty description: $description','faculties')";
+            mysqli_query($conn, $sqllogs);
             echo "<script>alert('Faculty added successfully');</script>";
         } else {
             echo "<script>alert('Failed to add faculty');</script>";
