@@ -67,25 +67,20 @@
     <?php
     session_start();
     if (!$_SESSION['role']) {
-
         header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
     }
-
     include("adminnav.php");
     include("../../php/conn.php");
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $sem = mysqli_real_escape_string($conn, $_POST['semester']);
-        $year = mysqli_real_escape_string($conn, $_POST['year']);
-
-        $sql = "SELECT * FROM accepted_students WHERE semester = '$sem' AND year = $year";
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //     $sem = mysqli_real_escape_string($conn, $_POST['semester']);
+    //     $year = mysqli_real_escape_string($conn, $_POST['year']);
+    //     $sql = "SELECT * FROM accepted_students WHERE semester = '$sem' AND year = $year";
+    //     $results = mysqli_query($conn, $sql);
+    // } else {
+        $sql = "SELECT * FROM applications";
         $results = mysqli_query($conn, $sql);
-    } else {
-        $sql = "SELECT * FROM accepted_students";
-        $results = mysqli_query($conn, $sql);
-    }
+    // }
     $enrollments = array();
-
 
     // Check if any rows were returned
     if (mysqli_num_rows($results) > 0) {
@@ -166,21 +161,6 @@
             </tbody>
         </table>
     </div>
-    <script>
-        // Get the input field
-        const yearInput = document.getElementById("year-input");
-        // Get the current year
-        const currentYear = new Date().getFullYear();
-        // Set the default value of the input field to the current year
-        yearInput.value = currentYear;
-        // Add an event listener to check if the input is empty
-        yearInput.addEventListener("blur", function() {
-            // If the input is empty, set the value to the current year
-            if (yearInput.value.trim() === "") {
-                yearInput.value = currentYear;
-            }
-        });
-    </script>
 </body>
 
 </html>

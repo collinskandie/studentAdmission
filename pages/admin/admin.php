@@ -93,14 +93,29 @@ session_start();
   FROM faculties";
   $facs = mysqli_query($conn, $fac);
   $faculties = mysqli_fetch_assoc($facs);
+  // count enrolments 
+  $enrollments = "SELECT COUNT(*) AS all_enrolments
+  FROM enrollments";
+  $enroll = mysqli_query($conn, $enrollments);
+  $enrollments = mysqli_fetch_assoc($enroll);
+  // count applications 
+  $applications = "SELECT COUNT(*) AS all_applications
+  FROM applications";
+  $appli = mysqli_query($conn, $applications);
+  $applications = mysqli_fetch_assoc($appli);
 
-  //more actions here
+
 
   ?>
   <div class="main">
     <h1>Summary</h1>
     <h4>Enrollments</h4>
     <div class="card-container">
+      <!-- all enrolments  -->
+      <div class="card">
+        <h2>All Enrolments </h2>
+        <h1><?= $enrollments['all_enrolments']; ?></h1>
+      </div>
       <div class="card">
         <h2>Process </h2>
         <h1><?= $all_students['all_students']; ?></h1>
@@ -117,6 +132,12 @@ session_start();
     </div>
     <h4>Applications</h4>
     <div class="card-container">
+      <!-- all aplications  -->
+      <div class="card">
+        <h2>All applications</h2>
+        <!-- change this after adding approvals in application db -->
+        <h1><?= $applications['all_applications']; ?></h1>
+      </div>
       <div class="card">
         <h2>Process </h2>
         <!-- change this after adding approvals in application db -->

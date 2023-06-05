@@ -36,18 +36,18 @@
     #nav ul li {
         padding-left: 20px;
     }
-    
-    .semester-dropdown {
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 200px;
-        }
 
-        .semester-dropdown option {
-            padding: 8px;
-        }
+    .semester-dropdown {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+    }
+
+    .semester-dropdown option {
+        padding: 8px;
+    }
 </style>
 <div class="topnav">
     <div class="top_nav">
@@ -65,6 +65,7 @@
             <li><a href="sessions.php">Sessions</a></li>
             <li><a href="#">Enrollments</a>
                 <ul>
+                    <li><a href="./allenrollments.php">All</a></li>
                     <li><a href="active.php">Process</a></li>
                     <li><a href="approvedenroll.php">Approved</a></li>
                     <li><a href="rejectedenroll.php">Rejected</a></li>
@@ -72,6 +73,7 @@
             </li>
             <li><a href="#">Application</a>
                 <ul>
+                    <li><a href="./allapplications.php">All</a></li>
                     <li><a href="./proceesapp.php">Process</a></li>
                     <li><a href="./approvedapp.php">Approved</a></li>
                     <li><a href="./rejectedapp.php">Rejected</a></li>
