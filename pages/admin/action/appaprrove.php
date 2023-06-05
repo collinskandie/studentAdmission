@@ -208,7 +208,7 @@
         $studyMode = $enrollment['study_mode'];
         $courseId = $enrollment['course_id'];
         $courseName = $enrollment['course_name'];
-        $user = $_SESSION['role'];
+        $user = $_SESSION['user'];
     } else {
         echo "error";
     }
