@@ -105,10 +105,10 @@
                 INNER JOIN departments d ON c.department_id = d.id INNER JOIN faculties f ON d.faculty_id = f.id INNER JOIN students s ON a.student_id = s.student_id";
 
                 // Check if a filter is applied
-                if (isset($_POST['level-filter']) && !empty($_POST['level-filter'])) {
-                    $filter = $_POST['level-filter'];
-                    $sql .= " WHERE s.level_of_study = '$filter'";
-                }
+                // if (isset($_POST['level-filter']) && !empty($_POST['level-filter'])) {
+                //     $filter = $_POST['level-filter'];
+                //     $sql .= " WHERE s.level_of_study = '$filter'";
+                // }
 
                 $result = mysqli_query($conn, $sql);
 
@@ -131,7 +131,7 @@
             var tableRows = document.querySelectorAll("#student-table tbody tr");
 
             tableRows.forEach(function(row) {
-                var facultyCell = row.querySelector("td:nth-child(2)");
+                var facultyCell = row.querySelector("td:nth-child(3)");
                 var facultyName = facultyCell.textContent.trim();
 
                 if (selectedFaculty === "all" || facultyName === selectedFaculty) {

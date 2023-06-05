@@ -80,7 +80,7 @@
   ?>
   <!-- main content -->
   <div class="main">
-    <h1>Pending Approval</h1>
+    <h1>Pending Enrollments</h1>
     <table>
       <thead>
         <tr>

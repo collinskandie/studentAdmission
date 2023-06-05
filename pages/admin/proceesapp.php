@@ -55,7 +55,6 @@
     <?php
     session_start();
     if (!$_SESSION['role']) {
-
         header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
     }
 
@@ -86,7 +85,7 @@
     ?>
     <!-- main content -->
     <div class="main">
-        <h1>Pending Approval</h1>
+        <h1>Pending Applications</h1>
         <form method="GET" action="">
             <label for="sort">Sort</label>
             <select name="sort" id="sort">

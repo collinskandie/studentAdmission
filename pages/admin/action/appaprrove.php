@@ -183,19 +183,11 @@
         </div>
         <div class="side_nav">
             <a href="../admin.php">Home</a>
-            <a href="../active.php">Active Enrollment</a>
-            <a href="../application.php">Active Applications</a>
-            <div class="dropdown">
-                <a class="dropbtn">Reports ▼</a>
-                <div class="dropdown-content">
-                    <a href="../faculties.php">Faculties</a>
-                    <a href="../departments.php">Departments</a>
-                    <a href="../courses.php">Courses</a>
-                    <a href="../perdepart.php">Students per Department</a>
-                    <a href="../perfacult.php">Students per Faculty</a>
-                    <a href="../perlevel.php">Students per level</a>
-                </div>
-            </div>
+            <a href="../active.php">Enrollment</a>
+            <a href="../application.php">Applications</a>
+            <a href="../admin.php">Reports</a>
+
+            
         </div>
     </div>
     <?php

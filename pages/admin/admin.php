@@ -59,7 +59,7 @@ session_start();
   $accepted = mysqli_fetch_assoc($resul);
   //all students
   $allstudents = "SELECT COUNT(*) AS all_students
-  FROM students";
+  FROM enrollments where approved_status = 'Pending' ";
   $students = mysqli_query($conn, $allstudents);
   $all_students = mysqli_fetch_assoc($students);
   //all stuff
@@ -102,15 +102,15 @@ session_start();
     <h4>Enrollments</h4>
     <div class="card-container">
       <div class="card">
-        <h2>Processed Enrollments</h2>
+        <h2>Process </h2>
         <h1><?= $all_students['all_students']; ?></h1>
       </div>
       <div class="card">
-        <h2>Approved Enrollments</h2>
+        <h2>Approved </h2>
         <h1><?= $accepted['accepted_students_count']; ?></h1>
       </div>
       <div class="card">
-        <h2>Rejected</h2>
+        <h2>Rejected </h2>
         <h1><?= $row['rejected_students_count']; ?></h1>
       </div>
 
@@ -118,17 +118,17 @@ session_start();
     <h4>Applications</h4>
     <div class="card-container">
       <div class="card">
-        <h2>On Process </h2>
+        <h2>Process </h2>
         <!-- change this after adding approvals in application db -->
         <h1><?= $accepted['accepted_students_count']; ?></h1>
       </div>
       <div class="card">
-        <h2>Approved application</h2>
+        <h2>Approved </h2>
         <!-- add approved counter here  -->
         <h1><?= $courses['all_courses']; ?></h1>
       </div>
       <div class="card">
-        <h2>Rejected</h2>
+        <h2>Rejected </h2>
         <!-- add rejected applictaion counter here  -->
         <h1><?= $appAll['all_application']; ?></h1>
       </div>
