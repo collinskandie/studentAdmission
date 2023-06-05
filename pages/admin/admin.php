@@ -103,6 +103,21 @@ session_start();
   FROM applications";
   $appli = mysqli_query($conn, $applications);
   $applications = mysqli_fetch_assoc($appli);
+  //process application
+  $processApplication = "SELECT COUNT(*) AS process
+  FROM applications where status ='Pending' ";
+  $appliProcess = mysqli_query($conn, $processApplication);
+  $Pendingappli = mysqli_fetch_assoc($appliProcess);
+  //approved application
+  $approvedApplication = "SELECT COUNT(*) AS approved
+  FROM applications where status ='Approved' ";
+  $ApprovedApp = mysqli_query($conn, $approvedApplication);
+  $approvedApp = mysqli_fetch_assoc($ApprovedApp);
+  //rejected application
+  $declinedApplication = "SELECT COUNT(*) AS declined
+  FROM applications where status ='Declined' ";
+  $DeclineApp = mysqli_query($conn, $declinedApplication);
+  $declindApp = mysqli_fetch_assoc($DeclineApp);
 
 
 
@@ -141,17 +156,17 @@ session_start();
       <div class="card">
         <h2>Process </h2>
         <!-- change this after adding approvals in application db -->
-        <h1><?= $accepted['accepted_students_count']; ?></h1>
+        <h1><?= $Pendingappli['process']; ?></h1>
       </div>
       <div class="card">
         <h2>Approved </h2>
         <!-- add approved counter here  -->
-        <h1><?= $courses['all_courses']; ?></h1>
+        <h1><?= $approvedApp['approved']; ?></h1>
       </div>
       <div class="card">
         <h2>Rejected </h2>
         <!-- add rejected applictaion counter here  -->
-        <h1><?= $appAll['all_application']; ?></h1>
+        <h1><?= $declindApp['declined']; ?></h1>
       </div>
     </div>
     <h4>Faculties</h4>

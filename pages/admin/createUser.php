@@ -91,7 +91,7 @@
                     $_SESSION['last_name'] = $last_name;
                     $_SESSION['email'] = $email;
                     $_SESSION['role'] = $role;
-                    $staff = "SELECT staff_id FROM staff WHERE email =$email";
+                    $staff = "SELECT staff_id FROM staff WHERE email ='$email'";
                     $staffID = mysqli_query($conn, $staff);
                     $staff_ID = mysqli_fetch_assoc($staffID);
                     $user = $staff_ID['staff_id'];

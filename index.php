@@ -6,8 +6,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="./css/index.css">
-     <style>
-         /* Style for the top navigation bar */
+     <style>        
          .topnav {
              overflow: hidden;
              background-color: white;
@@ -16,9 +15,7 @@
              top: 0;
              width: 100%;
              border-radius: 10px;
-         }
-
-         /* Style for the links in the top navigation bar */
+         }        
          .topnav a {
              float: right;
              color: black;
@@ -26,21 +23,15 @@
              padding: 14px 16px;
              text-decoration: none;
              font-size: 17px;
-         }
-
-         /* Style for the active link in the top navigation bar */
+         }        
          .topnav a.active {
              background-color: #4CAF50;
              color: white;
-         }
-
-         /* Style for the user profile dropdown in the top navigation bar */
+         }        
          .topnav .dropdown {
              float: right;
              overflow: hidden;
-         }
-
-         /* Style for the user profile dropdown button in the top navigation bar */
+         }        
          .topnav .dropdown .dropbtn {
              font-size: 17px;
              border: none;
@@ -51,16 +42,14 @@
              margin: 0;
          }
 
-         /* Style for the user profile dropdown content in the top navigation bar */
+         
          .topnav .dropdown-content {
              display: none;
              position: absolute;
              background-color: #f9f9f9;
              min-width: 160px;
              z-index: 1;
-         }
-
-         /* Style for the user profile dropdown links in the top navigation bar */
+         }         
          .topnav .dropdown-content a {
              float: none;
              color: black;
@@ -68,14 +57,10 @@
              text-decoration: none;
              display: block;
              text-align: left;
-         }
-
-         /* Style for the user profile dropdown links on hover in the top navigation bar */
+         }         
          .topnav .dropdown-content a:hover {
              background-color: #ddd;
-         }
-
-         /* Show the user profile dropdown content when the user clicks on the dropdown button in the top navigation bar */
+         }         
          .topnav .dropdown:hover .dropdown-content {
              display: block;
          }
