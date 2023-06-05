@@ -127,7 +127,7 @@
          <?php endif; ?>
      </script>
      <div class="topnav">
-         <a href="php/logout.php">Logout</a>
+         <a href="php/logout.php?user=<?=$id?>">Logout</a>
          <div class="dropdown">
              <button class="dropbtn"><?php echo $userName; ?></button>
              <div class="dropdown-content">
