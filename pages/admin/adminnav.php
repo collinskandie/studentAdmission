@@ -36,6 +36,18 @@
     #nav ul li {
         padding-left: 20px;
     }
+    
+    .semester-dropdown {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .semester-dropdown option {
+            padding: 8px;
+        }
 </style>
 <div class="topnav">
     <div class="top_nav">

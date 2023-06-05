@@ -76,9 +76,8 @@
     <div class="main">
         <h1>Student per faculty</h1>
         <label>Filter by faculty</label>
-        <br>
-        <!-- Add the dropdown menu before the table -->
-        <select id="faculty-dropdown" onchange="filterByFaculty()">
+
+        <select id="faculty-dropdown" onchange="filterByFaculty()" class="semester-dropdown">
             <option value="all">All Faculties</option>
             <?php
             // Retrieve existing faculties from the database
@@ -121,7 +120,7 @@
                     // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] .' '. $row['last_name'] . '</td>';
+                    echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
                     echo '<td>' . $row['faculty'] . '</td>';
                     echo '<td>' . $row['department'] . '</td>';
                     echo '<td>' . $row['course_name'] . '</td>';

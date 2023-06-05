@@ -88,7 +88,7 @@
         <h1>Pending Applications</h1>
         <form method="GET" action="">
             <label for="sort">Sort</label>
-            <select name="sort" id="sort">
+            <select name="sort" id="sort" class="semester-dropdown">
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
             </select>
