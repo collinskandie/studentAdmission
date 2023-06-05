@@ -117,7 +117,7 @@
                                     } else {
                                         echo "Error retrieving student name.";
                                     }
-                                } else {
+                                } else if ($enrollment['user_role'] == "admin") {
                                     $user = $enrollment['actionby'];
                                     $sqluser = "SELECT CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) AS staffName FROM staff where staff_id = $user";
                                     $userNameResult = mysqli_query($conn, $sqluser);
@@ -127,6 +127,8 @@
                                     } else {
                                         echo "Error retrieving staff name.";
                                     }
+                                } else {
+                                    echo ($enrollment['user_role']);
                                 }
                                 ?>
                             </td>

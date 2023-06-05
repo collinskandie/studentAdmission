@@ -1,4 +1,7 @@
-<style>
+<?php 
+// session_start();
+$user =$_SESSION['user'];
+?><style>
     .sidebar {
         width: 200px;
         color: white;
@@ -52,7 +55,7 @@
 <div class="topnav">
     <div class="top_nav">
         <a href="../resetpass.php" class="user-profile">User Profile</a>
-        <a href="../../php/logout.php" class="logout">Logout</a>
+        <a href="../../php/logout.php?user=<?=$user?>" class="logout">Logout</a>
     </div>
 </div>
 <div class="sidenav">
