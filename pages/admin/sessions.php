@@ -169,13 +169,10 @@
     <script>
         // Get the input field
         const yearInput = document.getElementById("year-input");
-
         // Get the current year
         const currentYear = new Date().getFullYear();
-
         // Set the default value of the input field to the current year
         yearInput.value = currentYear;
-
         // Add an event listener to check if the input is empty
         yearInput.addEventListener("blur", function() {
             // If the input is empty, set the value to the current year

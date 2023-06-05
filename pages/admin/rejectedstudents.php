@@ -96,7 +96,6 @@
                 where approved_status = 'Declined'
                 ";
                 $result = mysqli_query($conn, $sql);
-
                 // Loop through the result set and display each course as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
                     // course_id, course_name, course_description, course_price, department_id

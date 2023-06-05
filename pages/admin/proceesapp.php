@@ -92,8 +92,9 @@
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
             </select>
-            <button type="submit" class="approve-btn">Sort</button>
+            <button type="submit" class="approve-btn semester-dropdown">Sort</button>
         </form>
+        <br>
         <table>
             <thead>
                 <tr>
@@ -111,7 +112,7 @@
                 <!-- loop through the enrollments and display each row -->
                 <?php
                 if (mysqli_num_rows($results) == 0) {
-                    echo "<td>No records</td>";
+                    echo "<td colspan='8' style='text-align:center;'>No records</td>";
                 } else {
 
 

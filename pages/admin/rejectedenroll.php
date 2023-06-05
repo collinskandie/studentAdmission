@@ -97,7 +97,7 @@
         <!-- loop through the enrollments and display each row -->
         <?php
         if (mysqli_num_rows($results) == 0) {
-          echo "<td>No records</td>";
+          echo "<td colspan='8' style='text-align:center;'>No records</td>";
         } else {
 
 
