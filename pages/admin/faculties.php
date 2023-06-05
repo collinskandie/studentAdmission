@@ -146,8 +146,8 @@
 
         if ($insertResult) {
             $user = $_SESSION['user'];
-            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-            VALUES ('Created department $name','$user',CURDATE(), CURTIME(),'create faculty description: $description','faculties')";
+            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+            VALUES ('Created department $name','$user',CURDATE(), CURTIME(),'create faculty description: $description','faculties','admin')";
             mysqli_query($conn, $sqllogs);
             echo "<script>alert('Faculty added successfully');</script>";
         } else {

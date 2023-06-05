@@ -91,7 +91,11 @@
                     $_SESSION['last_name'] = $last_name;
                     $_SESSION['email'] = $email;
                     $_SESSION['role'] = $role;
+                    $user = $_SESSION['user'];
                     // Close the database connection
+                    $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                    VALUES ('Add new staff user','$user',CURDATE(), CURTIME(),'add user','staff','admin')";
+                    mysqli_query($conn, $sqllogs);
                     mysqli_close($conn);
                     // Redirect to the success page
                     $success_message = "You have successfully registered. Please login with your credentials.";

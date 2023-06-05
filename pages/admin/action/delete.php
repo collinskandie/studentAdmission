@@ -7,8 +7,8 @@ $sql = "DELETE FROM courses WHERE course_id = $course_id";
 
 if (mysqli_query($conn, $sql)) {
     $user = $_SESSION['user'];
-    $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-    VALUES ('Delete program id $course_id','$user',CURDATE(), CURTIME(),'delete','courses')";
+    $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+    VALUES ('Delete program id $course_id','$user',CURDATE(), CURTIME(),'delete','courses','admin')";
     mysqli_query($conn, $sqllogs);
     $success_message = "Record with ID $course_id deleted successfully.";
     header("Location: ../courses.php?success_message=" . urlencode($success_message));

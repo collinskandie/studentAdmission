@@ -4,8 +4,8 @@ session_start();
 include("../../../php/conn.php");
 $id = $_GET['id'];
 $user = $_SESSION['user'];
-$sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-VALUES ('Delete program id','$user',CURDATE(), CURTIME(),'delete','courses')";
+$sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+VALUES ('Delete program id','$user',CURDATE(), CURTIME(),'delete','courses','admin')";
 mysqli_query($conn, $sqllogs);
 // echo $course_id;
 // you have to delete all course and departments from this 

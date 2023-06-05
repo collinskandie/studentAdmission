@@ -2,8 +2,8 @@
 session_start();
 include('conn.php');
 $user = $_SESSION['user'];
-$sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-VALUES ('Logout','$user',CURDATE(), CURTIME(),'User logout','students')";
+$sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+VALUES ('Logout','$user',CURDATE(), CURTIME(),'User logout','students','student')";
 mysqli_query($conn, $sql);
 
 session_destroy();

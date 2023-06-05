@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($conn, $sql);
     if (mysqli_affected_rows($conn) > 0) {
         $user = $result['student_id'];
-        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-                VALUES ('Reset Password','$user',CURDATE(), CURTIME(),'forgot password','students')";
+        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                VALUES ('Reset Password','$user',CURDATE(), CURTIME(),'forgot password','students','student')";
         mysqli_query($conn, $sqllogs);
         $error_message = "Password updated successfully";
         header("Location: ../pages/login.php?success_message=" . urlencode($error_message));

@@ -35,10 +35,10 @@ if (isset($_POST['submit'])) {
                 $student = "SELECT student_id FROM students WHERE email =$email";
                 $studentid = mysqli_query($conn, $student);
                 $student_id = mysqli_fetch_assoc($studentid);
-                $user= $student_id['student_id'];
+                $user = $student_id['student_id'];
                 //save logs
-                $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-                VALUES ('Registration','$user',CURDATE(), CURTIME(),'registrations','students')";
+                $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                VALUES ('Registration','$user',CURDATE(), CURTIME(),'registrations','students','student')";
                 mysqli_query($conn, $sql);
                 // Close the database connection
                 mysqli_close($conn);

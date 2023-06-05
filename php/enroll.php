@@ -24,8 +24,8 @@ if (isset($_POST['submit'])) {
             mysqli_query($conn, $sql_qualification);
             $sql_progress = "INSERT INTO progress (student_id, progress_level, progress_points) VALUES ('$student_id','$level','$level_points')";
             if (mysqli_query($conn, $sql_progress)) {
-                $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-                VALUES ('Enroll','$student_id',CURDATE(), CURTIME(),'Enrollments','enrollments')";
+                $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                VALUES ('Enroll','$student_id',CURDATE(), CURTIME(),'Enrollments','enrollments','student')";
                 mysqli_query($conn, $sql);
                 $success_message = "Enrolled Successfully, pending approval";
                 header("Location: ../index.php?success_message=" . urlencode($success_message));

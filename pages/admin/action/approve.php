@@ -241,8 +241,8 @@
                     }
                     if (mysqli_query($conn, $updateProgressSql)) {
                         $error_message = "Progress saved successfully";
-                        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-                        VALUES ('Approve enrollment','$user',CURDATE(), CURTIME(),'approve enrollments','enrollments')";
+                        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                        VALUES ('Approve enrollment','$user',CURDATE(), CURTIME(),'approve enrollments','enrollments','admin')";
                         mysqli_query($conn, $sqllogs);
                         header("Location: ../active.php?error_message=" . urlencode($error_message));
                     } else {

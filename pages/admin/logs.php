@@ -62,8 +62,7 @@
     include("adminnav.php");
     include("../../php/conn.php");
 
-    $sql = "SELECT logs.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName FROM logs 
-		INNER JOIN students ON logs.actionby = students.student_id";
+    $sql = "SELECT * FROM logs";
     $results = mysqli_query($conn, $sql);
     $enrollments = array();
 
@@ -101,15 +100,37 @@
                 ?>
                     <?php foreach ($enrollments as $enrollment) : ?>
                         <tr>
-
                             <td><?= $enrollment['id'] ?></td>
                             <td><?= $enrollment['actions'] ?></td>
                             <td><?= $enrollment['category'] ?></td>
                             <td><?= $enrollment['actiontable'] ?></td>
-                            <td><?= $enrollment['studentName'] ?></td>
+                            <td>
+                                <?php
+                                if ($enrollment['user_role'] == "student") {
+                                    $user = $enrollment['actionby'];
+                                    $sqluser = "SELECT CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName FROM students where student_id = $user";
+                                    $userNameResult = mysqli_query($conn, $sqluser);
+                                    if ($userNameResult) {
+                                        $userName = mysqli_fetch_assoc($userNameResult);
+                                        echo ($userName['studentName']);
+                                    } else {
+                                        echo "Error retrieving student name.";
+                                    }
+                                } else {
+                                    $user = $enrollment['actionby'];
+                                    $sqluser = "SELECT CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) AS staffName FROM staff where staff_id = $user";
+                                    $userNameResult = mysqli_query($conn, $sqluser);
+                                    if ($userNameResult) {
+                                        $userName = mysqli_fetch_assoc($userNameResult);
+                                        echo ($userName['staffName']);
+                                    } else {
+                                        echo "Error retrieving staff name.";
+                                    }
+                                }
+                                ?>
+                            </td>
                             <td><?= $enrollment['actiontime'] ?></td>
                             <td><?= $enrollment['actiondate'] ?></td>
-
                         </tr>
                 <?php endforeach;
                 } ?>

@@ -4,7 +4,7 @@
 
 <head>
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="../../../css/admin.css" />
+    <!-- <link rel="stylesheet" href="../../../css/admin.css" /> -->
     <style>
         /* Style for the top navigation bar */
         .topnav {
@@ -155,6 +155,18 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
+        .semester-dropdown {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .semester-dropdown option {
+            padding: 8px;
+        }
     </style>
 </head>
 
@@ -215,6 +227,7 @@
         $action = mysqli_real_escape_string($conn, $_POST['status']);
         $comments = mysqli_real_escape_string($conn, $_POST['comments']);
 
+
         if ($enrollment_id) {
             $updateEnrollmentSql = "UPDATE applications SET status = '$action' where application_id = $enrollment_id";
             if (mysqli_query($conn, $updateEnrollmentSql)) {
@@ -229,9 +242,14 @@
                         $level = "Final";
                         $level_points = 100;
                         $message = "Application has been approved.";
-                        $acceptStudent = "INSERT INTO accepted_students (student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name)
-                        values('$studentId','$studentName','$levelOfStudy','$studentType','$studyMode','$courseId','$courseName')";
+                        $sem = mysqli_real_escape_string($conn, $_POST['semester']);
+                        $year = mysqli_real_escape_string($conn, $_POST['year']);
+                        $acceptStudent = "INSERT INTO accepted_students (student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name,semester,year)
+                        values('$studentId','$studentName','$levelOfStudy','$studentType','$studyMode','$courseId','$courseName','$sem','$year')";
                         if (mysqli_query($conn, $acceptStudent)) {
+                            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                        VALUES ('Approve applications','$user',CURDATE(), CURTIME(),'approve application','applications','admin')";
+                            mysqli_query($conn, $sqllogs);
                             $error_message = "Progress saved successfully";
                         }
                     } else {
@@ -248,8 +266,8 @@
                         $error_message = "Progress saved successfully";
                         // echo ($error_message);
                         // header("Location: ../active.php?error_message=" . urlencode($error_message));
-                        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-                        VALUES ('Approve applications','$user',CURDATE(), CURTIME(),'approve application','applications')";
+                        $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                        VALUES ('Approve applications','$user',CURDATE(), CURTIME(),'approve application','applications','admin')";
                         mysqli_query($conn, $sqllogs);
                     } else {
                         $error_message = 'Error updating progress record: " . mysqli_error($conn) . "';
@@ -357,6 +375,13 @@
                     <input type="hidden" name="enrollment_id" value="<?= $enrollment_id ?>">
                     <input type="hidden" name="approved_by" value="<?= $_SESSION['user'] ?>">
                     <input type="hidden" name="status" value="Approved">
+                    <select class="semester-dropdown" name="semester">
+                        <option value="jan-april">January to April</option>
+                        <option value="may-aug">May-August</option>
+                        <option value="sept-dec">September-December</option>
+                    </select>
+                    <input type="text" id="year-input" class="semester-dropdown" name="year" placeholder="Enter a year">
+                    <br>
                     <label for="email">Comments</label>
                     <br>
                     <br>

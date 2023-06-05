@@ -18,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['email'] = $row['email'];
             $_SESSION['username'] = $row['firt_name'];
             $user = $_SESSION['user'];
-            $success_message = "Successful login";           
+            $success_message = "Successful login";
             //record action on logs table
-            $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-            VALUES ('login','$user',CURDATE(), CURTIME(),'Authentication','students')";
+            $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+            VALUES ('login','$user',CURDATE(), CURTIME(),'Authentication','students','student')";
             mysqli_query($conn, $sql);
             header("Location: ../index.php?success_message=" . urlencode($success_message));
             exit();

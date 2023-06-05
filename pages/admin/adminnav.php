@@ -43,7 +43,6 @@
         <a href="../../php/logout.php" class="logout">Logout</a>
     </div>
 </div>
-
 <div class="sidenav">
     <div style="text-align: center">
         <img src="../../imgs/logo.png" style="display: block; margin: 0 auto" />
@@ -51,6 +50,7 @@
     <div class="sidebar">
         <a href="admin.php">Home</a>
         <ul id="nav">
+            <li><a href="sessions.php">Sessions</a></li>
             <li><a href="#">Enrollments</a>
                 <ul>
                     <li><a href="active.php">Process</a></li>

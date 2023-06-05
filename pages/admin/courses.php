@@ -141,8 +141,8 @@
         // Insert the new course into the database
         $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
         if (mysqli_query($conn, $sql)) {
-            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable) 
-                VALUES ('Add new program','$user',CURDATE(), CURTIME(),'add courses','courses')";
+            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+                VALUES ('Add new program','$user',CURDATE(), CURTIME(),'add courses','courses','admin')";
             mysqli_query($conn, $sqllogs);
             // If the course was successfully added, redirect to the courses page
             echo "<script>alert('Course added suceessfully.')</script>";
