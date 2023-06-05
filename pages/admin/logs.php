@@ -85,6 +85,7 @@
                     <th>Action Category</th>
                     <th>Action Table</th>
                     <th>User Name</th>
+                    <th>User Role</th>
                     <th>Time</th>
                     <th>Date</th>
                 </tr>
@@ -129,6 +130,7 @@
                                 }
                                 ?>
                             </td>
+                            <td><?= $enrollment['user_role'] ?></td>
                             <td><?= $enrollment['actiontime'] ?></td>
                             <td><?= $enrollment['actiondate'] ?></td>
                         </tr>
