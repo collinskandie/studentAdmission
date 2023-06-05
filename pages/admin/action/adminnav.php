@@ -13,8 +13,8 @@
      <div class="side_nav">
          <a onclick="window.location.href = '../admin.php';">Home</a>
 
-         <a href="../../pages/admin/active.php">Active Enrollment</a>
-         <a href="../../pages/admin/proceesapp.php">Active Applications</a>
+         <a href="../../pages/admin/active.php">Enrollment</a>
+         <a href="../../pages/admin/proceesapp.php">Applications</a>
          <a href="../../pages/admin/reports.php">Reports</a>
      </div>
  </div>

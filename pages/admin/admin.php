@@ -59,7 +59,7 @@ session_start();
   $accepted = mysqli_fetch_assoc($resul);
   //all students
   $allstudents = "SELECT COUNT(*) AS all_students
-  FROM students";
+  FROM enrollments where approved_status = 'Pending' ";
   $students = mysqli_query($conn, $allstudents);
   $all_students = mysqli_fetch_assoc($students);
   //all stuff

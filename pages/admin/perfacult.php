@@ -121,7 +121,7 @@
                     // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . $row['last_name'] . '</td>';
+                    echo '<td>' . $row['first_name'] .' '. $row['last_name'] . '</td>';
                     echo '<td>' . $row['faculty'] . '</td>';
                     echo '<td>' . $row['department'] . '</td>';
                     echo '<td>' . $row['course_name'] . '</td>';

@@ -85,10 +85,8 @@
             // Retrieve existing faculties from the database
             $sql = "SELECT * FROM departments";
             $result = mysqli_query($conn, $sql);
-
-            // Loop through the result set and display each faculty as an option in the dropdown
+            // Loop through the result set and display each department as an option in the dropdown
             while ($row = mysqli_fetch_assoc($result)) {
-
                 echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
             }
             ?>
@@ -119,7 +117,7 @@
                     // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . $row['last_name'] . '</td>';
+                    echo '<td>' . $row['first_name'] .' '. $row['last_name'] . '</td>';
                     echo '<td>' . $row['name'] . '</td>';
                     echo '</tr>';
                 }
@@ -127,15 +125,15 @@
             </tbody>
         </table>
 
-
     </div>
     <script>
         function filterByFaculty() {
             var selectedFaculty = document.getElementById("faculty-dropdown").value;
             var tableRows = document.querySelectorAll("#student-table tbody tr");
 
-            tableRows.forEach(function(row) {
-                var facultyCell = row.querySelector("td:nth-child(2)");
+            tableRows.forEach(function (row) {
+                var facultyCell = row.querySelector("td:nth-child(3)");
+
                 var facultyName = facultyCell.textContent.trim();
 
                 if (selectedFaculty === "all" || facultyName === selectedFaculty) {

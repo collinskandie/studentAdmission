@@ -59,7 +59,7 @@ if (!$_SESSION['role']) {
 </head>
 
 <body>
-    <?php   
+    <?php
 
     include("adminnav.php");
     include("../../php/conn.php");
@@ -68,10 +68,11 @@ if (!$_SESSION['role']) {
     // 	FROM enrollments 
     // 	INNER JOIN students ON enrollments.student_id = students.student_id 
     // 	INNER JOIN courses ON enrollments.course_id = courses.course_id where approved_status ='Pending'";
+    $sortOption = isset($_GET['sort']) ? $_GET['sort'] : '';
     $sql = "SELECT a.*, e.*, s.student_id, CONCAT(s.first_name, ' ', COALESCE(s.middle_name, ''), ' ', s.last_name) AS studentName, e.course_id, c.course_name
     FROM applications a JOIN students s ON a.student_id = s.student_id JOIN enrollments e ON a.enrollments_id = e.enrollment_id
     JOIN courses c ON e.course_id = c.course_id WHERE a.status = 'Rejected'";
-     if ($sortOption === 'asc') {
+    if ($sortOption === 'asc') {
         $sql .= " ORDER BY studentName ASC";
     } elseif ($sortOption === 'desc') {
         $sql .= " ORDER BY studentName DESC";
@@ -114,23 +115,36 @@ if (!$_SESSION['role']) {
                 <!-- loop through the enrollments and display each row -->
                 <?php
                 if (mysqli_num_rows($results) == 0) {
-                    echo "<td>No records</td>";
+                    echo "<tr><td colspan='8'>No records</td></tr>";
                 } else {
-                ?>
-                    <?php foreach ($enrollments as $enrollment) : ?>
+                    ?>
+                    <?php foreach ($enrollments as $enrollment): ?>
                         <tr>
-                            <td><?= $enrollment['enrollment_id'] ?></td>
-                            <td><?= $enrollment['student_id'] ?></td>
-                            <td><?= $enrollment['studentName'] ?></td>
-                            <td><?= $enrollment['course_id'] ?></td>
-                            <td><?= $enrollment['course_name'] ?></td>
-                            <td></td>
-                            <td><?= $enrollment['approved_status'] ?></td>
                             <td>
-                                <a href="./action/appaprrove.php?enrollment_id=<?= $enrollment['application_id'] ?>" class="approve-btn">Details</a>
+                                <?= $enrollment['enrollment_id'] ?>
+                            </td>
+                            <td>
+                                <?= $enrollment['student_id'] ?>
+                            </td>
+                            <td>
+                                <?= $enrollment['studentName'] ?>
+                            </td>
+                            <td>
+                                <?= $enrollment['course_id'] ?>
+                            </td>
+                            <td>
+                                <?= $enrollment['course_name'] ?>
+                            </td>
+                            <td></td>
+                            <td>
+                                <?= $enrollment['approved_status'] ?>
+                            </td>
+                            <td>
+                                <a href="./action/appaprrove.php?enrollment_id=<?= $enrollment['application_id'] ?>"
+                                    class="approve-btn">Details</a>
                             </td>
                         </tr>
-                <?php endforeach;
+                    <?php endforeach;
                 } ?>
             </tbody>
         </table>

@@ -80,7 +80,7 @@
   ?>
   <!-- main content -->
   <div class="main">
-    <h1>Approvaled Students</h1>
+    <h1>Approved Enrollments</h1>
     <table>
       <thead>
         <tr>
