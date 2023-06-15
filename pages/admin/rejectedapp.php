@@ -89,7 +89,7 @@ if (!$_SESSION['role']) {
     ?>
     <!-- main content -->
     <div class="main">
-        <h1>Pending Approval</h1>
+        <h1>Rejected Applications</h1>
         <form method="GET" action="">
             <label for="sort">Sort</label>
             <select name="sort" id="sort">

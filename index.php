@@ -1,12 +1,15 @@
- <!DOCTYPE html>
- <html>
+ <!DOCTYPE html> <!-- This declares the document type as HTML -->
+ <html> <!-- This marks the beginning of the HTML document -->
 
- <head>
-     <title>Home page</title>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="./css/index.css">
-     <style>        
+ <head> <!-- This marks the beginning of the head section -->
+     <title>Home page</title> <!-- The title element sets the title of the webpage to Home page -->
+
+     <meta charset="UTF-8">   <!-- The meta charset specifies the character encoding for the document -->
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- The meta viewport sets the viewport properties for responsive web design -->
+
+     <link rel="stylesheet" href="./css/index.css"> 
+     <style> /*CSS styles*/        
          .topnav {
              overflow: hidden;
              background-color: white;

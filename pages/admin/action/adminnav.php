@@ -1,8 +1,8 @@
  <!-- top navigation -->
  <div class="topnav">
      <div class="top_nav">
-         <a href="../resetpass.php" class="user-profile">User Profile</a>
-         <a href="../../php/logout.php" class="logout">Logout</a>
+         <a href="../resetpass.php" class="user-profile">User Profile</a> <!-- Link to the user profile page -->
+         <a href="../../php/logout.php" class="logout">Logout</a> <!-- Link to the logout functionality -->
      </div>
  </div>
  <!-- side navigation -->
