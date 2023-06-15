@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <style>
 
-    </style>
+<head>
+    <title>Log</title>
 </head>
 
 <body>
