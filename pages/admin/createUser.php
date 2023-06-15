@@ -3,8 +3,59 @@
 
 <head>
     <title>Registration Form</title>
-    <link rel="stylesheet" href="../css/Register.css">
+    <!-- <link rel="stylesheet" href="../css/Register.css"> -->
     <style>
+        body {
+            background-color: #0b0544;
+            font-family: Arial, sans-serif;
+        }
+
+        .registration-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid;
+            margin-bottom: 20px;
+        }
+        /* // */
+
+        input[type="submit"] {
+            background-color: #0b0544;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
         body {
             background-color: #0b0544;
             font-family: Arial, sans-serif;
@@ -119,8 +170,7 @@
         </div>
         <!--   -->
         <h1>Staff Register</h1>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateRegister();"
-            method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateRegister();" method="POST">
             <label for="fname">First Name:</label>
             <input type="text" id="first_name" name="firstName">
             <label for="middleName">Middle Name:</label>

@@ -3,8 +3,97 @@
 
 <head>
     <title>Students department</title>
-    <link rel="stylesheet" href="../../css/admin.css" />
+    <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* top navigation */
+        .topnav {
+            background-color: #0b0544;
+            overflow: hidden;
+        }
+
+        .topnav a {
+            margin-top: 20px;
+            margin-left: 250px;
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* add styles for user profile and logout button */
+        .topnav .user-profile {
+            float: right;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .topnav .logout {
+            float: right;
+            margin-right: 5px;
+            /* reduced from 20px */
+        }
+
+        .topnav .user-profile,
+        .topnav .logout {
+            color: #f2f2f2;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav .user-profile:hover,
+        .topnav .logout:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* side navigation */
+        .sidenav {
+            margin-top: 30px;
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #0b0544;
+            ;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            margin-top: 30px;
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #f2f2f2;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* main content */
+        .main {
+            margin-left: 255px;
+            padding: 40px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -117,7 +206,7 @@
                     // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] .' '. $row['last_name'] . '</td>';
+                    echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
                     echo '<td>' . $row['name'] . '</td>';
                     echo '</tr>';
                 }
@@ -131,7 +220,7 @@
             var selectedFaculty = document.getElementById("faculty-dropdown").value;
             var tableRows = document.querySelectorAll("#student-table tbody tr");
 
-            tableRows.forEach(function (row) {
+            tableRows.forEach(function(row) {
                 var facultyCell = row.querySelector("td:nth-child(3)");
 
                 var facultyName = facultyCell.textContent.trim();
