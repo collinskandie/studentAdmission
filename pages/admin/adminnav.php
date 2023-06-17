@@ -7,7 +7,6 @@ $user =$_SESSION['user'];
         color: white;
 
     }
-
     ul {
         list-style-type: none;
         padding: 0;
@@ -96,7 +95,6 @@ $user =$_SESSION['user'];
             <li><a href="logs.php">Activity logs</a></li>
         </ul>
     </div>
-
 </div>
 
 <script>
@@ -114,7 +112,6 @@ $user =$_SESSION['user'];
                     if (activeItem) {
                         activeItem.classList.remove('active');
                     }
-
                     clickedItem.classList.add('active');
                 }
             });
