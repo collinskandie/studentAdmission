@@ -1,12 +1,13 @@
-<?php 
+<?php
 // session_start();
-$user =$_SESSION['user'];
+$user = $_SESSION['user'];
 ?><style>
     .sidebar {
         width: 200px;
         color: white;
 
     }
+
     ul {
         list-style-type: none;
         padding: 0;
@@ -54,7 +55,7 @@ $user =$_SESSION['user'];
 <div class="topnav">
     <div class="top_nav">
         <a href="../resetpass.php" class="user-profile">User Profile</a>
-        <a href="../../php/logout.php?user=<?=$user?>" class="logout">Logout</a>
+        <a href="../../php/logout.php?user=<?= $user ?>" class="logout">Logout</a>
     </div>
 </div>
 <div class="sidenav">
@@ -86,9 +87,16 @@ $user =$_SESSION['user'];
                     <li><a href="./faculties.php">Faculties</a></li>
                     <li><a href="./departments.php">Departments</a></li>
                     <li> <a href="./courses.php">Programs</a></li>
+                    <!-- added reports  -->
                     <li> <a href="./programdept.php">Programs per Department</a></li>
+                    <!-- added reports  -->
                     <li> <a href="./perfacult.php">Students per Faculty</a></li>
                     <li> <a href="./perdepart.php">Student per Department</a></li>
+                    <!-- added reports  -->
+                    <li> <a href="./admissionsperlevel.php">Admissions per level</a></li>
+                    <li> <a href="./admissions.php">Admissions per Year</a></li>
+                    <li> <a href="./admissionspersemester.php">Admissions per Semester</a></li>
+                    <!-- added reports  -->
                     <li> <a href="./perlevel.php">Student per Level</a></li>
                     <li> <a href="./students.php">Student per program</a></li>
                 </ul>
