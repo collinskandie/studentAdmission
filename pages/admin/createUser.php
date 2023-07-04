@@ -1,3 +1,6 @@
+<?php session_start();
+include('../../php/conn.php');
+?>
 <!DOCTYPE html>
 <html>
 
@@ -40,6 +43,7 @@
             border: 1px solid;
             margin-bottom: 20px;
         }
+
         /* // */
 
         input[type="submit"] {
@@ -112,8 +116,7 @@
 
 <body>
     <?php
-    session_start();
-    include('../../php/conn.php');
+
     if (isset($_POST['submit'])) {
         $first_name = mysqli_real_escape_string($conn, $_POST['firstName']);
         $middle_name = mysqli_real_escape_string($conn, $_POST['middleName']);
