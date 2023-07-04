@@ -163,7 +163,7 @@
     }
     ?>
     <div class="main">
-        <h1>Students per level</h1>
+        <h1>Admitted Students per level</h1>
         <br>
         <!-- Add the dropdown menu before the table -->
 
