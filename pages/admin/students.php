@@ -223,15 +223,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- loop through the enrollments and display each row -->
-                <?php
-                // if (mysqli_num_rows($results) == 0) {
-                //     echo "<td>No records</td>";
-                // } else {
-
-
-                // 
-                ?>
+                            
                 <?php foreach ($enrollments as $enrollment) : ?>
                     <tr>
                         <!-- student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name, semester, year -->

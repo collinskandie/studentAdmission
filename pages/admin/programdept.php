@@ -1,21 +1,25 @@
-<?php session_start();
+<?php
+// all programs per department
+session_start();
+include('../../php/conn.php');
+
 if (!$_SESSION['role']) {
     header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
-} ?>
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Courses</title>
-    <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
+
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
-
-        /* top navigation */
         .topnav {
             background-color: #0b0544;
             overflow: hidden;
@@ -30,25 +34,20 @@ if (!$_SESSION['role']) {
             padding: 14px 16px;
             text-decoration: none;
         }
-
         .topnav a:hover {
             background-color: #ddd;
             color: black;
         }
-
-        /* add styles for user profile and logout button */
         .topnav .user-profile {
             float: right;
             margin-right: 10px;
             margin-left: 10px;
         }
-
         .topnav .logout {
             float: right;
             margin-right: 5px;
-            /* reduced from 20px */
-        }
 
+        }
         .topnav .user-profile,
         .topnav .logout {
             color: #f2f2f2;
@@ -56,14 +55,11 @@ if (!$_SESSION['role']) {
             text-decoration: none;
             font-size: 17px;
         }
-
         .topnav .user-profile:hover,
         .topnav .logout:hover {
             background-color: #ddd;
             color: black;
         }
-
-        /* side navigation */
         .sidenav {
             margin-top: 30px;
             height: 100%;
@@ -77,7 +73,6 @@ if (!$_SESSION['role']) {
             overflow-x: hidden;
             padding-top: 20px;
         }
-
         .sidenav a {
             margin-top: 30px;
             padding: 6px 8px 6px 16px;
@@ -91,8 +86,6 @@ if (!$_SESSION['role']) {
             background-color: #ddd;
             color: black;
         }
-
-        /* main content */
         .main {
             margin-left: 255px;
             padding: 40px;
@@ -105,7 +98,6 @@ if (!$_SESSION['role']) {
             font-size: 14px;
             text-align: left;
         }
-
         th,
         td {
             padding: 8px;
@@ -134,12 +126,10 @@ if (!$_SESSION['role']) {
             border-radius: 4px;
             margin-right: 8px;
         }
-
         .add-btn:hover,
         .view-btn:hover {
             background-color: #004c6d;
         }
-
         .course-form {
             border: 1px solid #ccc;
             padding: 20px;
@@ -150,7 +140,6 @@ if (!$_SESSION['role']) {
             display: block;
             margin-bottom: 5px;
         }
-
         .course-form input[type='text'],
         .course-form input[type='number'],
         .course-form select,
@@ -161,7 +150,6 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             border: 1px solid #ccc;
         }
-
         .course-form input[type='submit'] {
             background-color: #4CAF50;
             color: white;
@@ -170,7 +158,6 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             cursor: pointer;
         }
-
         .course-form input[type='submit']:hover {
             background-color: #3e8e41;
         }
@@ -180,12 +167,10 @@ if (!$_SESSION['role']) {
             padding: 20px;
             margin-bottom: 20px;
         }
-
         .add-course-form label {
             display: block;
             margin-bottom: 5px;
         }
-
         .add-course-form input[type='text'],
         .add-course-form input[type='number'],
         .add-course-form select {
@@ -195,7 +180,6 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             border: 1px solid #ccc;
         }
-
         .submit_course input[type='submit'] {
             background-color: #4CAF50;
             color: white;
@@ -204,7 +188,6 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             cursor: pointer;
         }
-
         .submit_course input[type='submit']:hover {
             background-color: #3e8e41;
         }
@@ -213,64 +196,46 @@ if (!$_SESSION['role']) {
 
 <body>
     <?php
-
     include("adminnav.php");
     include("../../php/conn.php");
 
-
-
-    // Check if the course form has been submitted
-    if (isset($_POST['submit_course'])) {
-        // Get the form data
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $department_id = $_POST['department_id'];
-        $user = $_SESSION['user'];
-
-        // Insert the new course into the database
-        $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
-        if (mysqli_query($conn, $sql)) {
-            $sqllogs = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
-                VALUES ('Add new program','$user',CURDATE(), CURTIME(),'add courses','courses','admin')";
-            mysqli_query($conn, $sqllogs);
-            // If the course was successfully added, redirect to the courses page
-            echo "<script>alert('Course added suceessfully.')</script>";
-            // exit;
-        } else {
-            // If an error occurred, display an error message
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $dept_id = mysqli_real_escape_string($conn, $_POST['dept_id']);
+        $sql = "SELECT courses.*, departments.name AS department_name FROM courses 
+        JOIN departments ON courses.department_id = departments.id 
+        WHERE courses.department_id =$dept_id";
+        $result = mysqli_query($conn, $sql);
+    } else {
+        $sql = "SELECT courses.*, departments.name AS department_name
+        FROM courses JOIN departments ON courses.department_id = departments.id";
+        $result = mysqli_query($conn, $sql);
     }
     ?>
     <div class="main">
 
-        <h1>Add Program</h1>
-        <form method="post" action="courses.php" class="add-course-form">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required><br>
-
-            <label for="description">Description:</label>
-            <textarea name="description" id="description" required></textarea><br>
-
-            <label for="price">Price:</label>
-            <input type="number" name="price" id="price" required><br>
-
-            <label for="department_id">Department:</label>
-            <select name="department_id" id="department_id" required>
-                <option value="">Select a department</option>
+        <h1>Program</h1>
+        <P>Programs, filter per departments</P>
+        <p>Filter options</p>
+        <form action="" method="POST">
+            <select class="semester-dropdown" name="dept_id">
                 <?php
-                // Query the departments from the database
-                $sql = "SELECT * FROM departments";
-                $result = mysqli_query($conn, $sql);
+                $sqlprograns = "SELECT id, name FROM departments";
+                $departs = mysqli_query($conn, $sqlprograns);
 
-                // Loop through the departments and create an option for each one
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                if (mysqli_num_rows($departs) > 0) {
+                    while ($row = mysqli_fetch_assoc($departs)) {
+                        $depart = $row['name'];
+                        $d_id = $row['id'];
+                        echo "<option value=\"$d_id\">$depart</option>";
+                    }
+                } else {
+                    echo "<option value=\"\">No programs found</option>";
                 }
                 ?>
-            </select><br>
-            <input type="submit" class="submit_course" name="submit_course" value="Add Course">
+            </select>
+
+            <!-- <input type="text" id="year-input" class="semester-dropdown" name="year" placeholder="Enter a year"> -->
+            <button type="submit" class="semester-dropdown" style="color:aliceblue; background-color:blue;">Filter</button>
         </form>
         <table>
             <?php
@@ -285,22 +250,18 @@ if (!$_SESSION['role']) {
             ?>
             <thead>
                 <tr>
-                    <th>Course ID</th>
-                    <th>Course Name</th>
+                    <th>Program ID</th>
+                    <th>Program Name</th>
                     <th>Description</th>
                     <th>Price</th>
                     <th>Department</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                 </tr>
             </thead>
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-                $sql = "SELECT courses.*, departments.name AS department_name
-                FROM courses
-                JOIN departments ON courses.department_id = departments.id;
-                ";
-                $result = mysqli_query($conn, $sql);
+
 
                 // Loop through the result set and display each course as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -312,9 +273,6 @@ if (!$_SESSION['role']) {
                     echo '<td>' . $row['course_price'] . '</td>';
                     echo '<td>' . $row['department_name'] . '</td>';
                 ?>
-                    <td>
-                        <a href="./action/delete.php?course_id=<?= $row["course_id"] ?>" class="delete-btn" style="background-color: red; color:white;">Delete</a>
-                    </td>
                 <?php
                     echo '</tr>';
                 }

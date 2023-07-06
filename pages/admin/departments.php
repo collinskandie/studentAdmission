@@ -1,3 +1,8 @@
+<?php
+session_start();
+if (!$_SESSION['role']) {
+    header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
+} ?>
 <!DOCTYPE html>
 <html>
 
@@ -196,10 +201,7 @@
 
 <body>
     <?php
-    session_start();
-    if (!$_SESSION['role']) {
-        header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
-    }
+
     include("adminnav.php");
     include("../../php/conn.php");
 
