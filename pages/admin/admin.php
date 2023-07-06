@@ -6,7 +6,7 @@ session_start();
 
 <head>
   <title>Admin Panel</title>
-  <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
+  <link rel="stylesheet" href="../../css/admin.css" />
   <style>
     body {
       margin: 0;

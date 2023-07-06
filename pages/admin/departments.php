@@ -3,7 +3,7 @@
 
 <head>
     <title>Departments</title>
-    <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
+    <link rel="stylesheet" href="../../css/admin.css" />
     <style>
         body {
             margin: 0;

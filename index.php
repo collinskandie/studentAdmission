@@ -8,8 +8,10 @@
 
      <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- The meta viewport sets the viewport properties for responsive web design -->
 
-     <link rel="stylesheet" href="./css/index.css"> 
-     <style> /*CSS styles*/        
+     <link rel="stylesheet" href="./css/index.css">
+     <style> /*CSS styles*/ 
+
+     /* CSS styles for the top navigation bar */
          .topnav {
              overflow: hidden;
              background-color: white;
@@ -18,7 +20,8 @@
              top: 0;
              width: 100%;
              border-radius: 10px;
-         }        
+         }       
+         /* CSS styles for the links in the top navigation bar */ 
          .topnav a {
              float: right;
              color: black;
@@ -26,15 +29,18 @@
              padding: 14px 16px;
              text-decoration: none;
              font-size: 17px;
-         }        
+         }
+         /* CSS styles for the active link in the top navigation bar */        
          .topnav a.active {
              background-color: #4CAF50;
              color: white;
-         }        
+         } 
+         /* CSS styles for the dropdown menu in the top navigation bar */
          .topnav .dropdown {
              float: right;
              overflow: hidden;
-         }        
+         }   
+         /* CSS styles for the dropdown button in the top navigation bar */     
          .topnav .dropdown .dropbtn {
              font-size: 17px;
              border: none;
@@ -45,7 +51,7 @@
              margin: 0;
          }
 
-         
+         /* CSS styles for the dropdown content in the top navigation bar */
          .topnav .dropdown-content {
              display: none;
              position: absolute;
@@ -53,6 +59,7 @@
              min-width: 160px;
              z-index: 1;
          }         
+         /* CSS styles for the links in the dropdown content */
          .topnav .dropdown-content a {
              float: none;
              color: black;
@@ -61,9 +68,11 @@
              display: block;
              text-align: left;
          }         
+         /* CSS styles for the hover effect on links in the dropdown content */
          .topnav .dropdown-content a:hover {
              background-color: #ddd;
          }         
+         /* CSS styles to display the dropdown content on hover */
          .topnav .dropdown:hover .dropdown-content {
              display: block;
          }
@@ -177,12 +186,12 @@
 
      </div>
      <script>
-         let progress = <?php echo $level_points; ?>;
-         let progressBar = document.getElementById("progress-bar");
-         let percentage = document.getElementById("percentage");
+         let progress = <?php echo $level_points; ?>; // Assign the value of the PHP variable '$level_points' to the JavaScript variable 'progress'.
+         let progressBar = document.getElementById("progress-bar"); // Retrieve the HTML element with the id "progress-bar" and assign it to the JavaScript variable 'progressBar'.
+         let percentage = document.getElementById("percentage"); // Retrieve the HTML element with the id "percentage" and assign it to the JavaScript variable 'percentage'.
 
-         progressBar.style.width = progress + "%";
-         percentage.innerHTML = progress + "%";
+         progressBar.style.width = progress + "%"; //adjusts visual with of the bar by setting the CSS 'width' property of the 'progressBar' element to the value of 'progress' followed by the "%" symbol.
+         percentage.innerHTML = progress + "%"; //updates the displayed 'progress percentage' on the webpage.
      </script>
  </body>
 
