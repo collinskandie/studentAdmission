@@ -168,7 +168,7 @@
         <!-- Add the dropdown menu before the table -->
 
         <div class="form-group">
-            <label for="level-filter">Filter by Level of Studies:</label>
+            <label for="level-filter">Filter by Semester:</label>
             <select id="faculty-dropdown" onchange="filterByFaculty()">
                 <option value="all">All Levels</option>
                 <option value="PHD">PHD</option>
