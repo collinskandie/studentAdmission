@@ -141,29 +141,9 @@
     }
     include("adminnav.php");
     include("../../php/conn.php");
-
-    // Check if the course form has been submitted
-    if (isset($_POST['submit_course'])) {
-        // Get the form data
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $department_id = $_POST['department_id'];
-
-        // Insert the new course into the database
-        $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
-        if (mysqli_query($conn, $sql)) {
-            // If the course was successfully added, redirect to the courses page
-            header("Location: courses.php");
-            exit;
-        } else {
-            // If an error occurred, display an error message
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
-    }
     ?>
     <div class="main">
-        <h1>Admitted Students</h1>
+        <h1>Admissions </h1>
         <br>
         <!-- Add the dropdown menu before the table -->
 

@@ -142,42 +142,40 @@
     include("adminnav.php");
     include("../../php/conn.php");
 
-    // Check if the course form has been submitted
-    if (isset($_POST['submit_course'])) {
-        // Get the form data
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $department_id = $_POST['department_id'];
-
-        // Insert the new course into the database
-        $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
-        if (mysqli_query($conn, $sql)) {
-            // If the course was successfully added, redirect to the courses page
-            header("Location: courses.php");
-            exit;
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $year = mysqli_real_escape_string($conn, $_POST['year']);
+        // $year = mysqli_real_escape_string($conn, $_POST['year']);
+        if ($year == '') {
+            $sql = "SELECT * from accepted_students";
+            $result = mysqli_query($conn, $sql);
         } else {
-            // If an error occurred, display an error message
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $sql = "SELECT * from accepted_students where year=$year";
+            $result = mysqli_query($conn, $sql);
         }
+    } else {
+        $sql = "SELECT * from accepted_students";
+        $result = mysqli_query($conn, $sql);
     }
     ?>
     <div class="main">
         <h1>Admitted Students per level</h1>
         <br>
-        <!-- Add the dropdown menu before the table -->
-
-        <div class="form-group">
-            <label for="level-filter">Filter by Level of Studies:</label>
-            <select id="faculty-dropdown" onchange="filterByFaculty()">
-                <option value="all">All Levels</option>
-                <option value="PHD">PHD</option>
-                <option value="Masters">Masters</option>
-                <option value="Bachelors Degree">Bachelors Degree</option>
-                <option value="Certificate">Certificate</option>
-                <option value="Diploma">Diploma</option>
-            </select>
-        </div>
+        <form action="">
+            <div class="form-group">
+                <label for="level-filter">Filter Semester</label>
+                <select id="faculty-dropdown" 
+                <?php
+                // <!-- onchange="filterByFaculty()" -->
+                ?>
+                >
+                    <option value="all">All</option>
+                    <option value="jan-april">January - April</option>
+                    <option value="may-aug">May - August</option>
+                    <option value="sep-dec">September - December</option>
+                </select>
+            </div>
+            <button type="submit" class="view-btn">Filter</button>
+        </form>
         <table id="student-table">
             <thead>
                 <tr>

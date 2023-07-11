@@ -158,7 +158,7 @@
     }
     ?>
     <div class="main">
-        <h1>Admitted Students</h1>
+        <h1>Admissions</h1>
         <br>
         <!-- Add the dropdown menu before the table -->
 
@@ -166,7 +166,6 @@
             <form action="" method="POST">
                 <label for="level-filter">Filter by Level of Studies:</label>
                 <input type="text" id="adm_year" class="semester-dropdown" name="year">
-
                 <button type="submit" class="semester-dropdown" style="color:aliceblue; background-color:blue;">Filter</button>
             </form>
 
@@ -176,7 +175,6 @@
                 <tr>
                     <th>Student ID</th>
                     <th>Student Name</th>
-
                     <th>Year</th>
                     <th>Level</th>
                     <th>Level</th>
@@ -185,8 +183,6 @@
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-
-
                 // Loop through the result set and display each student as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<tr>';
