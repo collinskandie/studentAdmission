@@ -6,93 +6,94 @@
     <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
     <style>
         body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
-/* top navigation */
-.topnav {
-    background-color: #0b0544;
-    overflow: hidden;
-}
+        /* top navigation */
+        .topnav {
+            background-color: #0b0544;
+            overflow: hidden;
+        }
 
-.topnav a {
-    margin-top: 20px;
-    margin-left: 250px;
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+        .topnav a {
+            margin-top: 20px;
+            margin-left: 250px;
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
 
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-/* add styles for user profile and logout button */
-.topnav .user-profile {
-    float: right;
-    margin-right: 10px;
-    margin-left: 10px;
-}
+        /* add styles for user profile and logout button */
+        .topnav .user-profile {
+            float: right;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
 
-.topnav .logout {
-    float: right;
-    margin-right: 5px;
-    /* reduced from 20px */
-}
+        .topnav .logout {
+            float: right;
+            margin-right: 5px;
+            /* reduced from 20px */
+        }
 
-.topnav .user-profile,
-.topnav .logout {
-    color: #f2f2f2;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
+        .topnav .user-profile,
+        .topnav .logout {
+            color: #f2f2f2;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
 
-.topnav .user-profile:hover,
-.topnav .logout:hover {
-    background-color: #ddd;
-    color: black;
-}
+        .topnav .user-profile:hover,
+        .topnav .logout:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-/* side navigation */
-.sidenav {
-    margin-top: 30px;
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #0b0544;
-    ;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
+        /* side navigation */
+        .sidenav {
+            margin-top: 30px;
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #0b0544;
+            ;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
 
-.sidenav a {
-    margin-top: 30px;
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #f2f2f2;
-    display: block;
-}
+        .sidenav a {
+            margin-top: 30px;
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #f2f2f2;
+            display: block;
+        }
 
-.sidenav a:hover {
-    background-color: #ddd;
-    color: black;
-}
+        .sidenav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-/* main content */
-.main {
-    margin-left: 255px;   
-    padding: 40px;
-}
+        /* main content */
+        .main {
+            margin-left: 255px;
+            padding: 40px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -184,9 +185,9 @@
     ?>
     <!-- main content -->
     <div class="main">
-        <h1>Students per program</h1>
-        <p>Filter options</p>
+        <h1>Admissions per program</h1>
         <form action="" method="POST">
+            <label>Filter by program</label>
             <select class="semester-dropdown" name="course_id">
                 <?php
                 $sqlprograns = "SELECT course_id, course_name as program FROM courses";
@@ -205,7 +206,8 @@
             </select>
 
             <!-- <input type="text" id="year-input" class="semester-dropdown" name="year" placeholder="Enter a year"> -->
-            <button type="submit" class="semester-dropdown" style="color:aliceblue; background-color:blue;">Filter</button>
+            <button type="submit" class="semester-dropdown"
+                style="color:aliceblue; background-color:blue;">Filter</button>
         </form>
         <hr>
         <table>
@@ -223,20 +225,27 @@
                 </tr>
             </thead>
             <tbody>
-                            
-                <?php foreach ($enrollments as $enrollment) : ?>
+
+                <?php foreach ($enrollments as $enrollment): ?>
                     <tr>
                         <!-- student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name, semester, year -->
-                        <td><?= $enrollment['student_id'] ?></td>
-                        <td><?= $enrollment['student_name'] ?></td>
-                        <td><?= $enrollment['level_of_study'] ?></td>
+                        <td>
+                            <?= $enrollment['student_id'] ?>
+                        </td>
+                        <td>
+                            <?= $enrollment['student_name'] ?>
+                        </td>
+                        <td>
+                            <?= $enrollment['level_of_study'] ?>
+                        </td>
 
-                        <td> <?php
-                                if ($enrollment['student_type'] == "gov") {
-                                    echo ("Government Sponsered");
-                                } else {
-                                    echo ("Self-Sponsored");
-                                } ?>
+                        <td>
+                            <?php
+                            if ($enrollment['student_type'] == "gov") {
+                                echo ("Government Sponsered");
+                            } else {
+                                echo ("Self-Sponsored");
+                            } ?>
                         </td>
                         <td>
                             <?php
@@ -246,10 +255,18 @@
                                 echo ("Part Time");
                             } ?>
                         </td>
-                        <td><?= $enrollment['course_id'] ?></td>
-                        <td><?= $enrollment['course_name'] ?></td>
-                        <td><?= $enrollment['semester'] ?></td>
-                        <td><?= $enrollment['year'] ?></td>
+                        <td>
+                            <?= $enrollment['course_id'] ?>
+                        </td>
+                        <td>
+                            <?= $enrollment['course_name'] ?>
+                        </td>
+                        <td>
+                            <?= $enrollment['semester'] ?>
+                        </td>
+                        <td>
+                            <?= $enrollment['year'] ?>
+                        </td>
                     </tr>
                 <?php endforeach;
                 //  } 
@@ -268,7 +285,7 @@
         yearInput.value = currentYear;
 
         // Add an event listener to check if the input is empty
-        yearInput.addEventListener("blur", function() {
+        yearInput.addEventListener("blur", function () {
             // If the input is empty, set the value to the current year
             if (yearInput.value.trim() === "") {
                 yearInput.value = currentYear;

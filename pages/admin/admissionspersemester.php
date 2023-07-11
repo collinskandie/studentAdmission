@@ -142,71 +142,53 @@
     include("adminnav.php");
     include("../../php/conn.php");
 
-    // Check if the course form has been submitted
-    if (isset($_POST['submit_course'])) {
-        // Get the form data
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $department_id = $_POST['department_id'];
-
-        // Insert the new course into the database
-        $sql = "INSERT INTO courses (course_name, course_description, course_price, department_id) VALUES ('$name', '$description', '$price','$department_id')";
-        if (mysqli_query($conn, $sql)) {
-            // If the course was successfully added, redirect to the courses page
-            header("Location: courses.php");
-            exit;
-        } else {
-            // If an error occurred, display an error message
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
-    }
     ?>
     <div class="main">
-        <h1>Admitted Students per level</h1>
+        <h1>Admissions per semester</h1>
         <br>
-        <!-- Add the dropdown menu before the table -->
+        <?php
 
-        <div class="form-group">
-            <label for="level-filter">Filter by Semester:</label>
-            <select id="faculty-dropdown" onchange="filterByFaculty()">
-                <option value="all">All Levels</option>
-                <option value="PHD">PHD</option>
-                <option value="Masters">Masters</option>
-                <option value="Bachelors Degree">Bachelors Degree</option>
-                <option value="Certificate">Certificate</option>
-                <option value="Diploma">Diploma</option>
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $sem = mysqli_real_escape_string($conn, $_POST['semester']);
+            $sql = "SELECT * FROM accepted_students WHERE semester = '$sem'";
+            $results = mysqli_query($conn, $sql);
+        } else {
+            $sql = "SELECT * FROM accepted_students";
+            $results = mysqli_query($conn, $sql);
+        }
+        $enrollments = array();
+        ?>
+
+        <form action="" method="POST">
+            <select class="semester-dropdown" name="semester">              
+                <option value="jan-april">January to April</option>
+                <option value="may-aug">May-August</option>
+                <option value="sept-dec">September-December</option>
             </select>
-        </div>
+            <button type="submit" class="semester-dropdown"
+                style="color:aliceblue; background-color:blue;">Filter</button>
+        </form>
         <table id="student-table">
             <thead>
                 <tr>
                     <th>Student ID</th>
                     <th>Student Name</th>
                     <th>Level</th>
+                    <th>Semester</th>
+                    <th>Year</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                // Retrieve existing courses from the database
-                $sql = "SELECT a.*, s.*, e.*, c.*, d.name AS department, f.name AS faculty
-                FROM applications a INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id INNER JOIN courses c ON e.course_id = c.course_id 
-                INNER JOIN departments d ON c.department_id = d.id INNER JOIN faculties f ON d.faculty_id = f.id INNER JOIN students s ON a.student_id = s.student_id";
 
-                // Check if a filter is applied
-                // if (isset($_POST['level-filter']) && !empty($_POST['level-filter'])) {
-                //     $filter = $_POST['level-filter'];
-                //     $sql .= " WHERE s.level_of_study = '$filter'";
-                // }
-
-                $result = mysqli_query($conn, $sql);
-
-                // Loop through the result set and display each student as a table row
-                while ($row = mysqli_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($results)) {
+                    // student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name, semester, year
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
+                    echo '<td>' . $row['student_name'] . '</td>';
                     echo '<td>' . $row['level_of_study'] . '</td>';
+                    echo '<td>' . $row['semester'] . '</td>';
+                    echo '<td>' . $row['year'] . '</td>';
                     echo '</tr>';
                 }
                 ?>
@@ -214,23 +196,6 @@
         </table>
 
     </div>
-    <script>
-        function filterByFaculty() {
-            var selectedFaculty = document.getElementById("faculty-dropdown").value;
-            var tableRows = document.querySelectorAll("#student-table tbody tr");
-
-            tableRows.forEach(function(row) {
-                var facultyCell = row.querySelector("td:nth-child(3)");
-                var facultyName = facultyCell.textContent.trim();
-
-                if (selectedFaculty === "all" || facultyName === selectedFaculty) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        }
-    </script>
 </body>
 
 </html>

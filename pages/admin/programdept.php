@@ -20,6 +20,7 @@ if (!$_SESSION['role']) {
             padding: 0;
             font-family: Arial, sans-serif;
         }
+
         .topnav {
             background-color: #0b0544;
             overflow: hidden;
@@ -34,20 +35,24 @@ if (!$_SESSION['role']) {
             padding: 14px 16px;
             text-decoration: none;
         }
+
         .topnav a:hover {
             background-color: #ddd;
             color: black;
         }
+
         .topnav .user-profile {
             float: right;
             margin-right: 10px;
             margin-left: 10px;
         }
+
         .topnav .logout {
             float: right;
             margin-right: 5px;
 
         }
+
         .topnav .user-profile,
         .topnav .logout {
             color: #f2f2f2;
@@ -55,11 +60,13 @@ if (!$_SESSION['role']) {
             text-decoration: none;
             font-size: 17px;
         }
+
         .topnav .user-profile:hover,
         .topnav .logout:hover {
             background-color: #ddd;
             color: black;
         }
+
         .sidenav {
             margin-top: 30px;
             height: 100%;
@@ -73,6 +80,7 @@ if (!$_SESSION['role']) {
             overflow-x: hidden;
             padding-top: 20px;
         }
+
         .sidenav a {
             margin-top: 30px;
             padding: 6px 8px 6px 16px;
@@ -86,6 +94,7 @@ if (!$_SESSION['role']) {
             background-color: #ddd;
             color: black;
         }
+
         .main {
             margin-left: 255px;
             padding: 40px;
@@ -98,6 +107,7 @@ if (!$_SESSION['role']) {
             font-size: 14px;
             text-align: left;
         }
+
         th,
         td {
             padding: 8px;
@@ -126,10 +136,12 @@ if (!$_SESSION['role']) {
             border-radius: 4px;
             margin-right: 8px;
         }
+
         .add-btn:hover,
         .view-btn:hover {
             background-color: #004c6d;
         }
+
         .course-form {
             border: 1px solid #ccc;
             padding: 20px;
@@ -140,6 +152,7 @@ if (!$_SESSION['role']) {
             display: block;
             margin-bottom: 5px;
         }
+
         .course-form input[type='text'],
         .course-form input[type='number'],
         .course-form select,
@@ -150,6 +163,7 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+
         .course-form input[type='submit'] {
             background-color: #4CAF50;
             color: white;
@@ -158,6 +172,7 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             cursor: pointer;
         }
+
         .course-form input[type='submit']:hover {
             background-color: #3e8e41;
         }
@@ -167,10 +182,12 @@ if (!$_SESSION['role']) {
             padding: 20px;
             margin-bottom: 20px;
         }
+
         .add-course-form label {
             display: block;
             margin-bottom: 5px;
         }
+
         .add-course-form input[type='text'],
         .add-course-form input[type='number'],
         .add-course-form select {
@@ -180,6 +197,7 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+
         .submit_course input[type='submit'] {
             background-color: #4CAF50;
             color: white;
@@ -188,6 +206,7 @@ if (!$_SESSION['role']) {
             border-radius: 5px;
             cursor: pointer;
         }
+
         .submit_course input[type='submit']:hover {
             background-color: #3e8e41;
         }
@@ -213,10 +232,9 @@ if (!$_SESSION['role']) {
     ?>
     <div class="main">
 
-        <h1>Program</h1>
-        <P>Programs, filter per departments</P>
-        <p>Filter options</p>
+        <h1>Programs per department</h1>
         <form action="" method="POST">
+            <label>Filter by department</label>
             <select class="semester-dropdown" name="dept_id">
                 <?php
                 $sqlprograns = "SELECT id, name FROM departments";
@@ -235,7 +253,8 @@ if (!$_SESSION['role']) {
             </select>
 
             <!-- <input type="text" id="year-input" class="semester-dropdown" name="year" placeholder="Enter a year"> -->
-            <button type="submit" class="semester-dropdown" style="color:aliceblue; background-color:blue;">Filter</button>
+            <button type="submit" class="semester-dropdown"
+                style="color:aliceblue; background-color:blue;">Filter</button>
         </form>
         <table>
             <?php
@@ -261,7 +280,7 @@ if (!$_SESSION['role']) {
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-
+                
 
                 // Loop through the result set and display each course as a table row
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -272,8 +291,8 @@ if (!$_SESSION['role']) {
                     echo '<td>' . $row['course_description'] . '</td>';
                     echo '<td>' . $row['course_price'] . '</td>';
                     echo '<td>' . $row['department_name'] . '</td>';
-                ?>
-                <?php
+                    ?>
+                    <?php
                     echo '</tr>';
                 }
                 ?>

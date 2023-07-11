@@ -143,7 +143,7 @@
     include("../../php/conn.php");
     ?>
     <div class="main">
-        <h1>Admissions </h1>
+        <h1>Admissions per level</h1>
         <br>
         <!-- Add the dropdown menu before the table -->
 
@@ -164,20 +164,22 @@
                     <th>Student ID</th>
                     <th>Student Name</th>
                     <th>Level</th>
+                    <th>Semester</th>
+                    <th>Year</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-                $sql = "SELECT a.*, s.*, e.*, c.*, d.name AS department, f.name AS faculty
-                FROM applications a INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id INNER JOIN courses c ON e.course_id = c.course_id 
-                INNER JOIN departments d ON c.department_id = d.id INNER JOIN faculties f ON d.faculty_id = f.id INNER JOIN students s ON a.student_id = s.student_id";
-                $result = mysqli_query($conn, $sql);         
+                $sql = "SELECT * FROM accepted_students";
+                $result = mysqli_query($conn, $sql);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
+                    echo '<td>' . $row['student_name'] . '</td>';
                     echo '<td>' . $row['level_of_study'] . '</td>';
+                    echo '<td>' . $row['semester'] . '</td>';
+                    echo '<td>' . $row['year'] . '</td>';
                     echo '</tr>';
                 }
                 ?>
@@ -190,7 +192,7 @@
             var selectedFaculty = document.getElementById("faculty-dropdown").value;
             var tableRows = document.querySelectorAll("#student-table tbody tr");
 
-            tableRows.forEach(function(row) {
+            tableRows.forEach(function (row) {
                 var facultyCell = row.querySelector("td:nth-child(3)");
                 var facultyName = facultyCell.textContent.trim();
 

@@ -163,7 +163,7 @@
     }
     ?>
     <div class="main">
-        <h1>Student per faculty</h1>
+        <h1>Admissions per faculty</h1>
         <label>Filter by faculty</label>
 
         <select id="faculty-dropdown" onchange="filterByFaculty()" class="semester-dropdown">
@@ -186,22 +186,17 @@
                     <th>Student ID</th>
                     <th>Student Name</th>
                     <th>Faculty</th>
-                    <th>Department</th>
-                    <th>Course Name</th>
-                    <th>Enrollment Date</th>
+                    <th>Level</th>
+                    <th>Semester</th>
+                    <th>Year</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 // Retrieve existing courses from the database
-                $sql = "SELECT s.*, e.*, c.*, d.name AS department, f.name AS faculty
-                FROM applications a
-                INNER JOIN enrollments e ON a.enrollments_id = e.enrollment_id
-                INNER JOIN courses c ON e.course_id = c.course_id
-                INNER JOIN departments d ON c.department_id = d.id
-                INNER JOIN faculties f ON d.faculty_id = f.id
-                INNER JOIN students s ON a.student_id = s.student_id
-                ";
+                $sql = "SELECT a.*, c.*,d.name AS name FROM accepted_students a
+                INNER JOIN courses c ON a.course_id = c.course_id
+                INNER JOIN departments d ON c.department_id = d.id";
                 $result = mysqli_query($conn, $sql);
 
                 // Loop through the result set and display each course as a table row
@@ -209,11 +204,11 @@
                     // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';
                     echo '<td>' . $row['student_id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . ' ' . $row['last_name'] . '</td>';
-                    echo '<td>' . $row['faculty'] . '</td>';
-                    echo '<td>' . $row['department'] . '</td>';
-                    echo '<td>' . $row['course_name'] . '</td>';
-                    echo '<td>' . $row['enrollment_date'] . '</td>';
+                    echo '<td>' . $row['student_name'] . '</td>';
+                    echo '<td>' . $row['name'] . '</td>';
+                    echo '<td>' . $row['level_of_study'] . '</td>';
+                    echo '<td>' . $row['semester'] . '</td>';
+                    echo '<td>' . $row['year'] . '</td>';
                     echo '</tr>';
                 }
                 ?>
@@ -225,7 +220,7 @@
             var selectedFaculty = document.getElementById("faculty-dropdown").value;
             var tableRows = document.querySelectorAll("#student-table tbody tr");
 
-            tableRows.forEach(function(row) {
+            tableRows.forEach(function (row) {
                 var facultyCell = row.querySelector("td:nth-child(3)");
                 var facultyName = facultyCell.textContent.trim();
 

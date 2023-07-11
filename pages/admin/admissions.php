@@ -158,13 +158,13 @@
     }
     ?>
     <div class="main">
-        <h1>Admissions</h1>
+        <h1>Admissions per year</h1>
         <br>
         <!-- Add the dropdown menu before the table -->
 
         <div class="form-group">
             <form action="" method="POST">
-                <label for="level-filter">Filter by Level of Studies:</label>
+                <label for="level-filter">Filter by Year</label>
                 <input type="text" id="adm_year" class="semester-dropdown" name="year">
                 <button type="submit" class="semester-dropdown" style="color:aliceblue; background-color:blue;">Filter</button>
             </form>
@@ -176,7 +176,7 @@
                     <th>Student ID</th>
                     <th>Student Name</th>
                     <th>Year</th>
-                    <th>Level</th>
+                    <th>Sponsor</th>
                     <th>Level</th>
                 </tr>
             </thead>

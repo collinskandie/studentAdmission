@@ -90,14 +90,14 @@ $user = $_SESSION['user'];
                     <!-- added reports  -->
                     <li> <a href="./programdept.php">Programs per Department</a></li>
                     <!-- added reports  -->
-                    <li> <a href="./perfacult.php">Students per Faculty</a></li>
-                    <li> <a href="./perdepart.php">Student per Department</a></li>
+                    <li> <a href="./perfacult.php">Admissions per Faculty</a></li>
+                    <li> <a href="./perdepart.php">Admissions per Department</a></li>
                     <!-- added reports  -->
                     <li> <a href="./admissionsperlevel.php">Admissions per level</a></li>
                     <li> <a href="./admissions.php">Admissions per Year</a></li>
                     <li> <a href="./admissionspersemester.php">Admissions per Semester</a></li>
                     <!-- added reports  -->
-                    <li> <a href="./perlevel.php">Student per Level</a></li>
+                    
                     <li> <a href="./students.php">Student per program</a></li>
                 </ul>
             </li>
