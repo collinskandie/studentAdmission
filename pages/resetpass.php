@@ -74,7 +74,7 @@
             <!-- <label for="old-password">Old Password</label>
             <input type="password" id="old-password" name="old-password" required> -->
             <label for="new-password">New Password</label>
-            <input type="password" id="new-password" name="new-password" required>
+            <input type="password" id="new-password" name="password" required>
             <label for="confirm-new-password">Confirm New Password</label>
             <input type="password" id="confirm-new-password" name="confirm-new-password" required>
             <button type="submit">Change Password</button>
@@ -89,12 +89,11 @@
                 alert("Please enter your email");
                 return false;
             }
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailPattern.test(email)) {
-                alert("Please enter a valid email address.");
-                return false;
-            }
+            if (email.length == 0 || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+        //checks if the length of the email is equal to zero/empty, does not contain the @ symbol and dot.
+          alert("Please enter a valid email address.");
+          return false;
+      }
             if (password == "") {
                 alert("Please enter a password.");
                 return false;

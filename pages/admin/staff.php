@@ -188,16 +188,7 @@
     $facultiesSql = "SELECT * FROM staff";
     $facultiesResult = mysqli_query($conn, $facultiesSql);
     $faculties = mysqli_fetch_all($facultiesResult, MYSQLI_ASSOC);
-
-    // Fetch departments for each faculty
-    // $departmentsSql = "SELECT * FROM departments";
-    // $departmentsResult = mysqli_query($conn, $departmentsSql);
-    // $departments = mysqli_fetch_all($departmentsResult, MYSQLI_ASSOC);
-
-    // // Fetch programs for each department
-    // $programsSql = "SELECT * FROM courses";
-    // $programsResult = mysqli_query($conn, $programsSql);
-    // $programs = mysqli_fetch_all($programsResult, MYSQLI_ASSOC);
+    
     ?>
 
     <div class="main">

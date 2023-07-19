@@ -196,7 +196,7 @@ if (!$_SESSION['role']) {
                     <th>Course ID</th>
                     <th>Course Name</th>
                     <th>Enrollment Date</th>
-                    <th>Approved Status</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -224,9 +224,9 @@ if (!$_SESSION['role']) {
                             <td>
                                 <?= $enrollment['course_name'] ?>
                             </td>
-                            <td></td>
+                            <td><?= $enrollment['enrollment_date'] ?></td>
                             <td>
-                                <?= $enrollment['approved_status'] ?>
+                                <?= $enrollment['status'] ?>
                             </td>
                             <td>
                                 <a href="./action/appaprrove.php?enrollment_id=<?= $enrollment['application_id'] ?>" class="approve-btn">Details</a>

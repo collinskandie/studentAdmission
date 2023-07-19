@@ -79,7 +79,7 @@
       <label for="confirm-password">Confirm Password:</label>
       <input type="password" id="confirm_password" name="confirm-password">
       <input type="submit" name="submit" value="Register">
-      <p>Already have an account <a href="/pages/login.php">Login</a></p>
+      <p>Already have an account <a href="./login.php">Login</a></p>
     </form>
   </div>
   <script>
@@ -102,10 +102,10 @@
         alert("Please enter your email");
         return false;
       }
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address.");
-        return false;
+      if (email.length == 0 || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+        //checks if the length of the email is equal to zero/empty, does not contain the @ symbol and dot.
+          alert("Please enter a valid email address.");
+          return false;
       }
 
       if (password == "") {

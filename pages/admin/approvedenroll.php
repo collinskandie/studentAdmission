@@ -179,7 +179,7 @@
           <th>Course ID</th>
           <th>Course Name</th>
           <th>Enrollment Date</th>
-          <th>Approved Status</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>

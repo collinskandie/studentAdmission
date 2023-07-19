@@ -1,7 +1,8 @@
 <?php
 // session_start();
 $user = $_SESSION['user'];
-?><style>
+?>
+<style>
     .sidebar {
         width: 200px;
         color: white;
@@ -87,18 +88,13 @@ $user = $_SESSION['user'];
                     <li><a href="./faculties.php">Faculties</a></li>
                     <li><a href="./departments.php">Departments</a></li>
                     <li> <a href="./courses.php">Programs</a></li>
-                    <!-- added reports  -->
                     <li> <a href="./programdept.php">Programs per Department</a></li>
-                    <!-- added reports  -->
                     <li> <a href="./perfacult.php">Admissions per Faculty</a></li>
                     <li> <a href="./perdepart.php">Admissions per Department</a></li>
-                    <!-- added reports  -->
                     <li> <a href="./admissionsperlevel.php">Admissions per level</a></li>
                     <li> <a href="./admissions.php">Admissions per Year</a></li>
                     <li> <a href="./admissionspersemester.php">Admissions per Semester</a></li>
-                    <!-- added reports  -->
-                    
-                    <li> <a href="./students.php">Student per program</a></li>
+                    <li> <a href="./students.php">Admissions per program</a></li>
                 </ul>
             </li>
             <li><a href="logs.php">Activity logs</a></li>
@@ -107,11 +103,11 @@ $user = $_SESSION['user'];
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var items = document.querySelectorAll('#nav li');
 
         for (var i = 0; i < items.length; i++) {
-            items[i].addEventListener('click', function(e) {
+            items[i].addEventListener('click', function (e) {
                 var clickedItem = e.target.parentElement;
 
                 if (clickedItem.classList.contains('active')) {

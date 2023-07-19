@@ -375,7 +375,7 @@
             </form>
         </div>
     </div>
-    <!-- <script src="../js/validations.js"></script> -->
+    <!-- <script src="../js/validations.js"></script> --> 
     <script>
         let progress = 25; // Set the initial progress here
         let progressBar = document.getElementById("progress-bar");

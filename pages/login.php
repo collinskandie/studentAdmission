@@ -60,7 +60,8 @@ session_start();
     }
   </style>
   <script>
-    <?php if (isset($_GET['error_message'])) : ?>
+    <?php if (isset($_GET['error_message'])) : ?> 
+      // checks if the error_message parameter is set in the URL's query string. If it is set, the code inside the if statement is executed.
       var success_message = "<?php echo $_GET['error_message']; ?>";
       alert(success_message);
     <?php endif; ?>
@@ -74,10 +75,10 @@ session_start();
 <body>
   <?php
   // session_start();
-  if (isset($_SESSION['user'])) {
-    header("Location: ../index.php");
+  if (isset($_SESSION['user'])) { // checks if the $_SESSION['user'] variable is set, indicating that the user is already logged in
+    header("Location: ../index.php"); //function that redirects logged in user to the homepage
   }
-  if (isset($errors) && !empty($errors)) { ?>
+  if (isset($errors) && !empty($errors)) { ?> <!--checks if the $errors variable is set and not empty -->
     <div style="color: red">
       <?php foreach ($errors as $error) { ?>
         <p><?php echo $error; ?></p>
@@ -93,10 +94,8 @@ session_start();
       <form action="../php/login.php" onsubmit="return validateForm();" method="POST">
         <label for="email">Email</label>
         <input type="text" id="email" name="email" />
-        <span id="emailError" class="error"></span><br />
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" />
-        <span id="usernameError" class="error"></span><br />
         <input type="submit" name="submit" value="submit" />
         <p>New user <a href="../pages/Register.php">Register</a></p>
         <p><a href="../pages/admin/adminlogin.php">Admin login</a></p>
@@ -108,16 +107,12 @@ session_start();
       function validateForm() {
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
-        if (email == "") {
-          alert("Please enter your email");
-          return false;
-        }
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailPattern.test(email)) {
+        if (email.length == 0 || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
           alert("Please enter a valid email address.");
           return false;
         }
+        
+
         if (password == "") {
           alert("Please enter a password.");
           return false;

@@ -1,4 +1,10 @@
-﻿<?php session_start(); ?>
+﻿<?php session_start();
+include('../php/conn.php');
+$id = $_SESSION['user'];
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit;
+} ?>
 <!DOCTYPE html>
 <html>
 
@@ -348,8 +354,6 @@
 
 <body>
     <?php
-    include('../php/conn.php');
-    $id = $_SESSION['user'];
     $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
     $results = mysqli_query($conn, $sqlUser);
     if (mysqli_num_rows($results) == 1) {
@@ -365,10 +369,6 @@
     ?>
 
     <?php
-    if (!isset($_SESSION['user'])) {
-        header('Location: login.php');
-        exit;
-    };
 
     $sql = "SELECT CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) AS fullname, email, phone FROM students WHERE student_id='$id'";
     $result = mysqli_query($conn, $sql);
@@ -441,6 +441,7 @@
                 //update progress
                 $level = "Final";
                 $level_points = 80;
+                $student_id = $_SESSION['user'];
                 $message = "Your Application has been completely, wait for admission letter to be issued!";
                 $updateProgressSql = "UPDATE progress SET progress_level = '$level', progress_points = $level_points, message = '$message' WHERE student_id = $id";
                 mysqli_query($conn, $updateProgressSql);
@@ -451,7 +452,7 @@
                 header("Location: ../index.php?message=" . urlencode($success_message));
                 // header("Location: ../index.php?message=" . urlencode($success_message));
             } else {
-                echo "Problems";
+                // echo "Problems";
             }
         }
         $success_message = "Successfully Applied for the course, proceed to download your admission letter";
@@ -461,7 +462,9 @@
     <div class="topnav">
         <a href="../php/logout.php">Logout</a>
         <div class="dropdown">
-            <button class="dropbtn"><?php echo $userName; ?></button>
+            <button class="dropbtn">
+                <?php echo $userName; ?>
+            </button>
             <div class="dropdown-content">
                 <a href="../pages/resetpass.php">Change Password</a>
             </div>
@@ -475,7 +478,9 @@
                     auto;">
         </div>
         <div class="page-content" style="text-align: center;">
-            <h3>Welcome <?= $fullname ?></h3>
+            <h3>Welcome
+                <?= $fullname ?>
+            </h3>
             <h5>Your progress</h5>
             <div class="progress">
                 <div class="bar" id="progress-bar"></div>
@@ -483,7 +488,8 @@
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateApplication();" method="POST">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
+                onsubmit="return validateApplication();" method="POST">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">
@@ -605,7 +611,8 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="relationship">Sponsor:</label>
-                            <input type="text" id="sponsrelationship" name="sponsrelationship" placeholder="e.g Parent/Bank/NGO">
+                            <input type="text" id="sponsrelationship" name="sponsrelationship"
+                                placeholder="e.g Parent/Bank/NGO">
                         </div>
                     </div>
                     <div class="column">
@@ -655,7 +662,8 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="program">Program of Interest:</label>
-                                <input type="text" id="program" name="program" value="<?php echo ($course); ?>" readonly>
+                                <input type="text" id="program" name="program" value="<?php echo ($course); ?>"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -707,7 +715,8 @@
                     <div class="column">
                         <div class="form-row">
                             <label for="certNo">Certificate No</label>
-                            <input type="text" id="certNo" name="certNo" placeholder="School leaving certificate number">
+                            <input type="text" id="certNo" name="certNo"
+                                placeholder="School leaving certificate number">
                         </div>
                     </div>
                 </div>

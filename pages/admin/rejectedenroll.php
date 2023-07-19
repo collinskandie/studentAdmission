@@ -152,11 +152,14 @@
   include("../../php/conn.php");
 
   $sql = "SELECT enrollments.*, CONCAT(students.first_name, ' ', COALESCE(students.middle_name, ''), ' ', students.last_name) AS studentName, courses.course_name 
-		FROM enrollments 
-		INNER JOIN students ON enrollments.student_id = students.student_id 
-		INNER JOIN courses ON enrollments.course_id = courses.course_id where approved_status ='Declined'";
+        FROM enrollments 
+        INNER JOIN students ON enrollments.student_id = students.student_id 
+        INNER JOIN courses ON enrollments.course_id = courses.course_id 
+        WHERE approved_status ='Declined' OR approved_status = 'Rejected'";
+
   $results = mysqli_query($conn, $sql);
   $enrollments = array();
+
 
   // Check if any rows were returned
   if (mysqli_num_rows($results) > 0) {
@@ -178,7 +181,7 @@
           <th>Course ID</th>
           <th>Course Name</th>
           <th>Enrollment Date</th>
-          <th>Approved Status</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -190,21 +193,36 @@
         } else {
 
 
-        ?>
-          <?php foreach ($enrollments as $enrollment) : ?>
+          ?>
+          <?php foreach ($enrollments as $enrollment): ?>
             <tr>
-              <td><?= $enrollment['enrollment_id'] ?></td>
-              <td><?= $enrollment['student_id'] ?></td>
-              <td><?= $enrollment['studentName'] ?></td>
-              <td><?= $enrollment['course_id'] ?></td>
-              <td><?= $enrollment['course_name'] ?></td>
-              <td><?= $enrollment['enrollment_date'] ?></td>
-              <td><?= $enrollment['approved_status'] ?></td>
               <td>
-                <a href="./action/approve.php?enrollment_id=<?= $enrollment['enrollment_id'] ?>" class="approve-btn">Details</a>
+                <?= $enrollment['enrollment_id'] ?>
+              </td>
+              <td>
+                <?= $enrollment['student_id'] ?>
+              </td>
+              <td>
+                <?= $enrollment['studentName'] ?>
+              </td>
+              <td>
+                <?= $enrollment['course_id'] ?>
+              </td>
+              <td>
+                <?= $enrollment['course_name'] ?>
+              </td>
+              <td>
+                <?= $enrollment['enrollment_date'] ?>
+              </td>
+              <td>
+                <?= $enrollment['approved_status'] ?>
+              </td>
+              <td>
+                <a href="./action/approve.php?enrollment_id=<?= $enrollment['enrollment_id'] ?>"
+                  class="approve-btn">Details</a>
               </td>
             </tr>
-        <?php endforeach;
+          <?php endforeach;
         } ?>
       </tbody>
     </table>

@@ -139,33 +139,33 @@ session_start();
   FROM enrollments
   WHERE approved_status = 'Declined'";
   $results = mysqli_query($conn, $sql);
-  $row = mysqli_fetch_assoc($results);
+  $row = mysqli_fetch_assoc($results); // mysqli_fetch_assoc is used to fetch a result row as an associative array
   //
   $accp = "SELECT COUNT(*) AS accepted_students_count
   FROM enrollments
   WHERE approved_status = 'Approved'";
   $resul = mysqli_query($conn, $accp);
-  $accepted = mysqli_fetch_assoc($resul);
+  $accepted = mysqli_fetch_assoc($resul);  // mysqli_fetch_assoc is used to fetch a result row as an associative array
   //all students
   $allstudents = "SELECT COUNT(*) AS all_students
   FROM enrollments where approved_status = 'Pending' ";
   $students = mysqli_query($conn, $allstudents);
-  $all_students = mysqli_fetch_assoc($students);
+  $all_students = mysqli_fetch_assoc($students);  // mysqli_fetch_assoc is used to fetch a result row as an associative array
   //all stuff
   $allstaff = "SELECT COUNT(*) AS all_staff
   FROM staff";
   $staff = mysqli_query($conn, $allstaff);
-  $allstaff = mysqli_fetch_assoc($staff);
+  $allstaff = mysqli_fetch_assoc($staff);  // mysqli_fetch_assoc is used to fetch a result row as an associative array
   //all courses
   $coursesCount = "SELECT COUNT(*) AS all_courses
   FROM courses";
   $allcourses = mysqli_query($conn, $coursesCount);
-  $courses = mysqli_fetch_assoc($allcourses);
+  $courses = mysqli_fetch_assoc($allcourses);  // mysqli_fetch_assoc is used to fetch a result row as an associative array
   //all application
   $application = "SELECT COUNT(*) AS all_application
   FROM applications";
   $applications = mysqli_query($conn, $application);
-  $appAll = mysqli_fetch_assoc($applications);
+  $appAll = mysqli_fetch_assoc($applications);  // mysqli_fetch_assoc is used to fetch a result row as an associative array
   //all application pending approval
   $pending = "SELECT COUNT(*) AS all_pending
   FROM enrollments
@@ -204,7 +204,7 @@ session_start();
   $approvedApp = mysqli_fetch_assoc($ApprovedApp);
   //rejected application
   $declinedApplication = "SELECT COUNT(*) AS declined
-  FROM applications where status ='Declined' ";
+  FROM applications where status ='Rejected' or status ='Declined' ";
   $DeclineApp = mysqli_query($conn, $declinedApplication);
   $declindApp = mysqli_fetch_assoc($DeclineApp);
 

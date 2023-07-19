@@ -1,4 +1,14 @@
-</html>
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: ./login.php');
+    exit;
+}
+
+
+
+include('../php/conn.php');
+?>
 <!DOCTYPE html>
 <html>
 
@@ -6,211 +16,8 @@
     <title>Application Letter</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../css/index.css"> -->
-    <!-- <link rel="stylesheet" href="../css/application.css"> -->
-    <style>
-        /* index.css  */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b0544;
-        }
-
-        .container {
-            margin: 50px auto;
-            max-width: 80%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        img {
-            display: block;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-top: 0;
-            text-align: center;
-        }
-
-        .progress {
-            background-color: #ddd;
-            border-radius: 5px;
-            height: 20px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .bar {
-            background-color: #0b0544;
-            height: 100%;
-            width: 0%;
-        }
-
-        .percentage {
-            color: #0b0544;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .btn {
-            background-color: #0b0544;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto 0;
-        }
-
-        .btn-action {
-            background-color: #0b0544;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin-top: 50px;
-            margin: 20px auto 0;
-        }
-
-        .btn:hover {
-            background-color: #0b0544;
-        }
-
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-
-        .topnav a {
-            float: right;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        .topnav a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-
-        .topnav .dropdown {
-            float: right;
-            overflow: hidden;
-        }
-
-
-        .topnav .dropdown .dropbtn {
-            font-size: 17px;
-            border: none;
-            outline: none;
-            color: white;
-            padding: 14px 16px;
-            background-color: inherit;
-            margin: 0;
-        }
-
-
-        .topnav .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            z-index: 1;
-        }
-
-
-        .topnav .dropdown-content a {
-            float: none;
-            color: rgb(238, 238, 238);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-
-        .topnav .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-
-
-        .topnav .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* applications.css  */
-        body {
-            background-color: #0b0544;
-        }
-
-        form {
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        .form-row {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="date"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        button[type="submit"] {
-            background-color: #0b0544;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .columns-container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .column {
-            flex: 1;
-            margin: 2px;
-            /* margin: 0 10px; */
-        }
-    </style>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/application.css">
     <style>
         body {
             background-color: #0b0544;
@@ -348,8 +155,6 @@
 
 <body>
     <?php
-    session_start();
-    include('../php/conn.php');
     $id = $_SESSION['user'];
     $sqlUser = "SELECT * FROM students WHERE student_id='$id'";
     $results = mysqli_query($conn, $sqlUser);
@@ -361,7 +166,9 @@
     <div class="topnav">
         <a href="../php/logout.php">Logout</a>
         <div class="dropdown">
-            <button class="dropbtn"><?= $userName; ?></button>
+            <button class="dropbtn">
+                <?= $userName; ?>
+            </button>
             <div class="dropdown-content">
                 <a href="../pages/resetpass.php">Change Password</a>
             </div>
@@ -396,16 +203,34 @@
         </div>
         <div class="page-content">
             <h1>Admission Letter</h1>
-            <p>Dear <?= $firstName; ?> <?= $lastName; ?></p>
-            <p>We are pleased to inform you that you have been admitted into our institution for the <strong><?= $myApplication['level_of_study'] ?></strong> program in <strong><?= $enrollment['course_name'] ?></strong>. Your classes will begin on <strong>1st June 2023</strong>. Please ensure that you are present and punctual for all your classes.</p>
-            <p>Program: <strong><?= $enrollment['course_name'] ?></strong> </p>
-            <p>Student ID: <strong><?= $id ?></strong></p>
-            <p>Tuition: <strong>KSH <?= $enrollment['course_price'] ?></strong></p>
+            <p>Dear
+                <?= $firstName; ?>
+                <?= $lastName; ?>
+            </p>
+            <p>We are pleased to inform you that you have been admitted into our institution for the <strong>
+                    <?= $myApplication['level_of_study'] ?>
+                </strong> program in <strong>
+                    <?= $enrollment['course_name'] ?>
+                </strong>. Your classes will begin on <strong>1st June 2023</strong>. Please ensure that you are present
+                and punctual for all your classes.</p>
+            <p>Program: <strong>
+                    <?= $enrollment['course_name'] ?>
+                </strong> </p>
+            <p>Student ID: <strong>
+                    <?= $id ?>
+                </strong></p>
+            <p>Tuition: <strong>KSH
+                    <?= $enrollment['course_price'] ?>
+                </strong></p>
             <p>Please note that payment is due by <strong>1st June 2023</strong> to secure your enrollment.
-                If you have any questions or concerns about your financial aid package, please contact our financial aid office.</p>
-            <p>We encourage you to take advantage of the many resources available to you as a student, including our academic advising services,
-                career center, and student organizations. Our campus is also home to a variety of cultural and athletic events,
-                so be sure to check out our calendar of events for opportunities to get involved and connect with your fellow students.</p>
+                If you have any questions or concerns about your financial aid package, please contact our financial aid
+                office.</p>
+            <p>We encourage you to take advantage of the many resources available to you as a student, including our
+                academic advising services,
+                career center, and student organizations. Our campus is also home to a variety of cultural and athletic
+                events,
+                so be sure to check out our calendar of events for opportunities to get involved and connect with your
+                fellow students.</p>
             <p>Your enrollment details are as follows:</p>
             <p>Best regards,</p>
             <p>The Admission Team</p>

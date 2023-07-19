@@ -155,7 +155,7 @@
     // 	FROM enrollments 
     // 	INNER JOIN students ON enrollments.student_id = students.student_id 
     // 	INNER JOIN courses ON enrollments.course_id = courses.course_id where approved_status ='Pending'";
-    $sql = "SELECT a.*, e.*, s.student_id, CONCAT(s.first_name, ' ', COALESCE(s.middle_name, ''), ' ', s.last_name) AS studentName, e.course_id, c.course_name
+    $sql = "SELECT a.*, e.enrollment_id,e.enrollment_date, s.student_id, CONCAT(s.first_name, ' ', COALESCE(s.middle_name, ''), ' ', s.last_name) AS studentName, e.course_id, c.course_name
     FROM applications a JOIN students s ON a.student_id = s.student_id JOIN enrollments e ON a.enrollments_id = e.enrollment_id
     JOIN courses c ON e.course_id = c.course_id WHERE a.status = 'Approved'";
 
@@ -173,7 +173,7 @@
     ?>
     <!-- main content -->
     <div class="main">
-        <h1>Pending Approval</h1>
+        <h1>Approved applications</h1>
         <table>
             <thead>
                 <tr>
@@ -183,7 +183,7 @@
                     <th>Course ID</th>
                     <th>Course Name</th>
                     <th>Enrollment Date</th>
-                    <th>Approved Status</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -203,8 +203,8 @@
                             <td><?= $enrollment['studentName'] ?></td>
                             <td><?= $enrollment['course_id'] ?></td>
                             <td><?= $enrollment['course_name'] ?></td>
-                            <td></td>
-                            <td><?= $enrollment['approved_status'] ?></td>
+                            <td><?= $enrollment['enrollment_date'] ?></td>
+                            <td><?= $enrollment['status'] ?></td>
                             <td>
                                 <a href="./action/appaprrove.php?enrollment_id=<?= $enrollment['application_id'] ?>" class="approve-btn">Details</a>
                             </td>
