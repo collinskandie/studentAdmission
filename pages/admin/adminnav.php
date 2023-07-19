@@ -92,6 +92,10 @@ $user = $_SESSION['user'];
                     <li> <a href="./perfacult.php">Admissions per Faculty</a></li>
                     <li> <a href="./perdepart.php">Admissions per Department</a></li>
                     <li> <a href="./admissionsperlevel.php">Admissions per level</a></li>
+                    <li> <a href="./admissionlevelandyear.php">Admissions per level and year</a></li>
+                    <li> <a href="./admissionperfacultyperyear.php">Admissions per faculty and year</a></li>
+                    <li> <a href="./perlevelfaculty-year.php">Admissions per faculty, level and year</a></li>
+                    <li> <a href="./admisionsperprogramperyear.php">Admissions per Program and year</a></li>
                     <li> <a href="./admissions.php">Admissions per Year</a></li>
                     <li> <a href="./admissionspersemester.php">Admissions per Semester</a></li>
                     <li> <a href="./students.php">Admissions per program</a></li>
@@ -103,11 +107,11 @@ $user = $_SESSION['user'];
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var items = document.querySelectorAll('#nav li');
 
         for (var i = 0; i < items.length; i++) {
-            items[i].addEventListener('click', function (e) {
+            items[i].addEventListener('click', function(e) {
                 var clickedItem = e.target.parentElement;
 
                 if (clickedItem.classList.contains('active')) {

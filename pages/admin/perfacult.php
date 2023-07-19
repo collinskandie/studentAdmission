@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Courses</title>
+    <title>Programs</title>
     <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
     <style>
         body {
