@@ -1,6 +1,7 @@
 <?php
 //opening tag used to indicate the beginning of a PHP code in a PHP file.
 session_start();
+include('../php/conn.php');
 //function used to create a session or resume an existing session
 //a session is what stores the data and all requests made by a user in a website
 ?>
@@ -9,7 +10,7 @@ session_start();
 <!--declares document type as HTML5-->
 <!--HTML5 standard is the latest version of HTML-->
 <html>
-  <!--marks beginning of HTML document-->
+<!--marks beginning of HTML document-->
 
 <head>
   <!--contains metadata for the document such as title, character encoding, css styles etc..-->
@@ -69,7 +70,7 @@ session_start();
     }
   </style>
   <script>
-    <?php if (isset($_GET['error_message'])) : ?> 
+    <?php if (isset($_GET['error_message'])) : ?>
       // checks if the error_message parameter is set in the URL's query string. If it is set, the code inside the if statement is executed.
       var success_message = "<?php echo $_GET['error_message']; ?>";
       alert(success_message);
@@ -87,6 +88,42 @@ session_start();
   if (isset($_SESSION['user'])) { // checks if the $_SESSION['user'] variable is set, indicating that the user is already logged in
     header("Location: ../index.php"); //function that redirects logged in user to the homepage
   }
+  //login code
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['password']);
+
+    $stmt = $conn->prepare("SELECT * FROM students WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+      $row = $result->fetch_assoc();
+      if (password_verify($password, $row['password'])) {
+        $_SESSION['user'] = $row['student_id'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['username'] = $row['firt_name'];
+        $user = $_SESSION['user'];
+        $success_message = "Successful login";
+        //record action on logs table
+        $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+          VALUES ('login','$user',CURDATE(), CURTIME(),'Authentication','students','student')";
+        mysqli_query($conn, $sql);
+        header("Location: ../index.php?success_message=" . urlencode($success_message));
+        exit();
+      } else {
+        $error_message = "Invalid password";
+      }
+    } else {
+      $error_message = "Invalid email";
+    }
+
+    error_log("Login error: " . $error_message);
+    header("Location: ./login.php?error_message=" . urlencode("Invalid email or password"));
+    exit();
+  }
   if (isset($errors) && !empty($errors)) { ?> <!--checks if the $errors variable is set and not empty -->
     <div style="color: red">
       <?php foreach ($errors as $error) { ?>
@@ -100,7 +137,7 @@ session_start();
         <img src="../imgs/logo.png" style="display: block; margin: 0 auto" />
       </div>
       <h1>Login</h1>
-      <form action="../php/login.php" onsubmit="return validateForm();" method="POST">
+      <form action="" onsubmit="return validateForm();" method="POST">
         <label for="email">Email</label>
         <input type="text" id="email" name="email" />
         <label for="password">Password:</label>
@@ -120,7 +157,7 @@ session_start();
           alert("Please enter a valid email address.");
           return false;
         }
-        
+
 
         if (password == "") {
           alert("Please enter a password.");
