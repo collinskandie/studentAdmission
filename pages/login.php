@@ -1,10 +1,19 @@
 <?php
+//opening tag used to indicate the beginning of a PHP code in a PHP file.
 session_start();
+//function used to create a session or resume an existing session
+//a session is what stores the data and all requests made by a user in a website
 ?>
+<!--closing tag in PHP used to indicate the end of the PHP code block-->
 <!DOCTYPE html>
+<!--declares document type as HTML5-->
+<!--HTML5 standard is the latest version of HTML-->
 <html>
+  <!--marks beginning of HTML document-->
 
 <head>
+  <!--contains metadata for the document such as title, character encoding, css styles etc..-->
+  <!--metadata is-->
   <meta charset="UTF-8" />
   <title>Login Page</title>
   <style>
