@@ -13,7 +13,7 @@ session_start();
 
 <head>
   <!--contains metadata for the document such as title, character encoding, css styles etc..-->
-  <!--metadata is-->
+  <!--metadata is data that provides additional information about other data, included in the head tag in a html document-->
   <meta charset="UTF-8" />
   <title>Login Page</title>
   <style>

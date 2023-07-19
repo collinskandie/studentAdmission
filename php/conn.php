@@ -3,8 +3,8 @@
 // Database connection
 $host = "localhost";
 $database = "online_enrollment";
-$username = "root";
-$password = "Collin@Admin";
+$username = "omao";
+$password = "omao";
 $conn = mysqli_connect($host, $username, $password, $database);
 
 // Check the connection
