@@ -1,8 +1,24 @@
+<?php
+session_start();
+if (!$_SESSION['role']) {
+    header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
+}
+include("adminnav.php");
+include("../../php/conn.php");
+
+// Check if any rows were returned
+// if (mysqli_num_rows($results) > 0) {
+//     // Loop through the rows and add them to the enrollments array
+//     while ($row = mysqli_fetch_assoc($results)) {
+//         $enrollments[] = $row;
+//     }
+// }
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Admin Panel</title>
+    <title> Admin - Admitted students</title>
     <!-- <link rel="stylesheet" href="../../css/admin.css" /> -->
     <style>
         body {
@@ -118,8 +134,7 @@
             background-color: #f5f5f5;
         }
 
-        .approve-btn,
-        .decline-btn,
+        .add-btn,
         .view-btn {
             display: inline-block;
             padding: 6px 12px;
@@ -132,13 +147,7 @@
             margin-right: 8px;
         }
 
-        .approve-btn:hover,
-        .decline-btn:hover,
-        .view-btn:hover {
-            background-color: #004c6d;
-        }
-
-        .semester-dropdown {
+        .level-dropdown {
             padding: 8px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -146,7 +155,7 @@
             width: 200px;
         }
 
-        .semester-dropdown option {
+        .level-dropdown option {
             padding: 8px;
         }
     </style>
@@ -154,114 +163,107 @@
 
 <body>
     <?php
-    session_start();
-    if (!$_SESSION['role']) {
-
-        header("Location: ../../index.php?error_message=" . urlencode("You are not authorized to view this page"));
-    }
-
-    include("adminnav.php");
-    include("../../php/conn.php");
-
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        $sem = mysqli_real_escape_string($conn, $_POST['semester']);
-        $year = mysqli_real_escape_string($conn, $_POST['year']);
+        $level = $_POST['level'];
+        $year = $_POST['year'];
 
         // Check if the year is empty
         if (empty($year)) {
             $year = 2023; // Assign the default value 2023
         }
 
-        $sql = "SELECT * FROM accepted_students WHERE semester = '$sem' AND year = $year";
-        $results = mysqli_query($conn, $sql);
+        $sql = "SELECT * FROM accepted_students WHERE level_of_study = '$level' AND year = $year";
+        $result = mysqli_query($conn, $sql);
     } else {
         $sql = "SELECT * FROM accepted_students";
-        $results = mysqli_query($conn, $sql);
+        $result = mysqli_query($conn, $sql);
     }
     $enrollments = array();
-
-
-    // Check if any rows were returned
-    if (mysqli_num_rows($results) > 0) {
-        // Loop through the rows and add them to the enrollments array
-        while ($row = mysqli_fetch_assoc($results)) {
-            $enrollments[] = $row;
-        }
-    }
     ?>
-    <!-- main content -->
+
     <div class="main">
-        <h1>Sessions</h1>
+        <h1>Admissions per level and year</h1>
+        <br>
         <p>Filter options</p>
         <form action="" method="POST">
-            <select class="semester-dropdown" name="semester">
-                <option value="jan-april">January to April</option>
-                <option value="may-aug">May-August</option>
-                <option value="sept-dec">September-December</option>
+            <select class="level-dropdown" name="level">
+                <option>Filter by Level</option>
+                <option value="PHD">PHD</option>
+                <option value="Masters">Masters</option>
+                <option value="Bachelors Degree">Bachelors Degree</option>
+                <option value="Certificate">Certificate</option>
+                <option value="Diploma">Diploma</option>
             </select>
             <input type="text" id="year-input" class="semester-dropdown" name="year" placeholder="Enter a year -- 2023">
             <button type="submit" class="semester-dropdown" style="color:aliceblue; background-color:blue;">Filter</button>
         </form>
         <hr>
-        <table>
+        <table id="student-table">
             <thead>
                 <tr>
-                    <th>Studen ID</th>
+                    <th>Student ID</th>
                     <th>Student Name</th>
-                    <th>Level of study</th>
-                    <th>Student type </th>
-                    <th>Mode</th>
-                    <th>Program Id</th>
-                    <th>Program Name</th>
+                    <th>Level</th>
                     <th>Semester</th>
                     <th>Year</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- loop through the enrollments and display each row -->
                 <?php
-                if (mysqli_num_rows($results) == 0) {
-                    echo "<td colspan='9'>No records</td>";
+                // Retrieve existing courses from the database
+                if (mysqli_num_rows($result) == 0) {
+                    echo '<tr>';
+                    echo '<td colspan="6" style="text-align:center;">No data</td>';
+                    echo '</tr>';
                 } else {
 
-
-                    // 
-                ?>
-                    <?php foreach ($enrollments as $enrollment) : ?>
-                        <tr>
-                            <!-- student_id, student_name, level_of_study, student_type, study_mode, course_id, course_name, semester, year -->
-                            <td><?= $enrollment['student_id'] ?></td>
-                            <td><?= $enrollment['student_name'] ?></td>
-                            <td><?= $enrollment['level_of_study'] ?></td>
-
-                            <td> <?php
-                                    if ($enrollment['student_type'] == "gov") {
-                                        echo ("Government Sponsered");
-                                    } else {
-                                        echo ("Self-Sponsored");
-                                    } ?>
-                            </td>
-                            <td>
-                                <?php
-                                if ($enrollment['study_mode'] == "full-time") {
-                                    echo ("Full Time");
-                                } else {
-                                    echo ("Part Time");
-                                } ?>
-                            </td>
-                            <td><?= $enrollment['course_id'] ?></td>
-                            <td><?= $enrollment['course_name'] ?></td>
-                            <td><?= $enrollment['semester'] ?></td>
-                            <td><?= $enrollment['year'] ?></td>
-                        </tr>
-                <?php endforeach;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $row['student_id'] . '</td>';
+                        echo '<td>' . $row['student_name'] . '</td>';
+                        echo '<td>' . $row['level_of_study'] . '</td>';
+                        echo '<td>' . $row['semester'] . '</td>';
+                        echo '<td>' . $row['year'] . '</td>';
+                        echo '</tr>';
+                    }
                 }
                 ?>
             </tbody>
         </table>
-    </div>
 
+    </div>
+    <script>
+        function filterByLevel() {
+            var selectedFaculty = document.getElementById("level-dropdown").value;
+            var tableRows = document.querySelectorAll("#student-table tbody tr");
+
+            tableRows.forEach(function(row) {
+                var facultyCell = row.querySelector("td:nth-child(3)");
+                var facultyName = facultyCell.textContent.trim();
+
+                if (selectedFaculty === "all" || facultyName === selectedFaculty) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function filterByYear() {
+            var selectedYear = document.getElementById("year").value;
+            var tableRows = document.querySelectorAll("#student-table tbody tr");
+            tableRows.forEach(function(row) {
+                var facultyCell = row.querySelector("td:nth-child(5)");
+                var dataYear = facultyCell.textContent.trim();
+
+                if (dataYear === selectedYear) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

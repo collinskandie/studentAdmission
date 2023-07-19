@@ -2,9 +2,9 @@
 
 // Database connection
 $host = "localhost";
-$username = "omao";
-$password = "omao";
 $database = "online_enrollment";
+$username = "root";
+$password = "Collin@Admin";
 $conn = mysqli_connect($host, $username, $password, $database);
 
 // Check the connection
