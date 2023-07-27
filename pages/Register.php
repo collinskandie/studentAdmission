@@ -79,7 +79,7 @@
       /*border-radius controls the curvature of an element's corners*/
       /*this line of code rounds the corners of the 3 input fields by 5px border radius making it smooth and appear slightly curved*/
       border: 1px solid;
-      ///*apply a 1px solid border around the input fields*/ 
+      /*apply a 1px solid border around the input fields*/ 
       margin-bottom: 20px;
       /*adds 20px of space below each input field*/
     }
