@@ -3,6 +3,7 @@
 <!--HTML5 standard is the latest version of HTML-->
 <html>
 <!--marks beginning of HTML document-->
+
 <head>
   <!--contains metadata for the document such as title, character encoding, css styles etc..-->
   <!--metadata is data that provides additional information about other data, included in the head tag in a html document-->
@@ -16,9 +17,10 @@
       background-color: #0b0544;
       /*sets background color of an HTML element to a specified color using the code*/
       font-family: Arial, sans-serif;
-       /*used to specify the font family for text content within an HTML element*/
+      /*used to specify the font family for text content within an HTML element*/
       /*Arial is the preffered font family to be used and incase it is not available, sans-serif is used as the generic font family/alternative*/
     }
+
     /*marks end of body element*/
 
     .registration-box {
@@ -49,6 +51,7 @@
       /*text-align property is commonly used to control the alignment of text within an element*/
       /*setting the property to center aligns it at the center of its container*/
     }
+
     /*marks end of h1 styles*/
 
     /*code that applies a flexbox layout for the form element for its child elements to be verically arranged*/
@@ -59,11 +62,12 @@
       flex-direction: column;
       /*sets main axis of the flex container to be vertical*/
     }
+
     /*end of form container*/
 
     label {
       margin-top: 10px;
-       /*margin-top property adds space between the top edge of the <label> element and the preceding content or element*/
+      /*margin-top property adds space between the top edge of the <label> element and the preceding content or element*/
       /*set to 10px ie applies a margin of 10px to the top of all <label> elements on the web page*/
       /*The margin creates visual separation, making the form elements more readable and enhancing the overall design.*/
     }
@@ -79,10 +83,11 @@
       /*border-radius controls the curvature of an element's corners*/
       /*this line of code rounds the corners of the 3 input fields by 5px border radius making it smooth and appear slightly curved*/
       border: 1px solid;
-      /*apply a 1px solid border around the input fields*/ 
+      /*apply a 1px solid border around the input fields*/
       margin-bottom: 20px;
       /*adds 20px of space below each input field*/
     }
+
     /*end of text, email and password input fields styling*/
 
     input[type="submit"] {
@@ -102,13 +107,15 @@
       font-weight: bold;
       /*sets the font weight of the button text to bold*/
     }
-        /*marks end of button styling*/
+
+    /*marks end of button styling*/
 
     input[type="submit"]:hover {
       /*styling for the submit button when hovered over*/
       background-color: #3e8e41;
       /*sets background color to a different one when hovering over the button*/
     }
+
     /*end of hover styling*/
   </style>
   <!--end of registration page styling-->
@@ -123,7 +130,7 @@
     <h1>CUEA Online Admission</h1>
     <!--contains the main heading/heading1 of the webpage-->
     <div style="text-align: center;">
-    <!--justifies the heading/text to be at the centre of the web page-->
+      <!--justifies the heading/text to be at the centre of the web page-->
       <img src="../imgs/logo.png" style="display: block; margin: 0 auto;">
       <!--contains the path to the image source that contains the logo used-->
     </div>
@@ -283,19 +290,31 @@
       }
 
       function isPasswordValid(password) {
-        if (!/\d/.test(password) || !/[A-Z]/.test(password) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password) || password.length < 8) {
+        let hasNumber = false;
+        let hasUpperCase = false;
+        let hasSymbol = false;
+
+        for (const char of password) {
+          if (!hasNumber && !isNaN(char)) {
+            hasNumber = true;
+          } else if (!hasUpperCase && char === char.toUpperCase() && char !== char.toLowerCase()) {
+            hasUpperCase = true;
+          } else if (!hasSymbol && isSymbol(char)) {
+            hasSymbol = true;
+          }
+
+          if (hasNumber && hasUpperCase && hasSymbol) {
+            break; // All conditions met, no need to continue checking
+          }
+        }
+
+        if (!(hasNumber && hasUpperCase && hasSymbol) || password.length < 8) {
           alert("Password must have at least one number, one uppercase letter, and one symbol.");
           return false;
         }
+
         return true;
       }
-
-      // // Usage
-      // var password = "YourPassword123!";
-      // if (!isPasswordValid(password)) {
-      //   // Handle invalid password
-      // }
-
     }
   </script>
 </body>
