@@ -90,10 +90,10 @@
                 return false;
             }
             if (email.length == 0 || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-        //checks if the length of the email is equal to zero/empty, does not contain the @ symbol and dot.
-          alert("Please enter a valid email address.");
-          return false;
-      }
+                //checks if the length of the email is equal to zero/empty, does not contain the @ symbol and dot.
+                alert("Please enter a valid email address.");
+                return false;
+            }
             if (password == "") {
                 alert("Please enter a password.");
                 return false;
@@ -105,6 +105,14 @@
             if (password != confirmPassword) {
                 alert("Passwords do not match.");
                 return false;
+            }
+
+            function isPasswordValid(password) {
+                if (!/\d/.test(password) || !/[A-Z]/.test(password) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password) || password.length < 8) {
+                    alert("Password must have at least one number, one uppercase letter, and one symbol.");
+                    return false;
+                }
+                return true;
             }
         }
     </script>

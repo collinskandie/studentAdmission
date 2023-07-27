@@ -488,8 +488,7 @@ if (!isset($_SESSION['user'])) {
             <div class="percentage" id="percentage"></div>
         </div>
         <div style="align-content:center; margin-top: 50px;">
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
-                onsubmit="return validateApplication();" method="POST">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateApplication();" method="POST">
                 <h2>Student Application Form</h2>
                 <h3>Student details</h3>
                 <div class="form-row">
@@ -611,8 +610,7 @@ if (!isset($_SESSION['user'])) {
                     <div class="column">
                         <div class="form-row">
                             <label for="relationship">Sponsor:</label>
-                            <input type="text" id="sponsrelationship" name="sponsrelationship"
-                                placeholder="e.g Parent/Bank/NGO">
+                            <input type="text" id="sponsrelationship" name="sponsrelationship" placeholder="e.g Parent/Bank/NGO">
                         </div>
                     </div>
                     <div class="column">
@@ -662,8 +660,7 @@ if (!isset($_SESSION['user'])) {
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="program">Program of Interest:</label>
-                                <input type="text" id="program" name="program" value="<?php echo ($course); ?>"
-                                    readonly>
+                                <input type="text" id="program" name="program" value="<?php echo ($course); ?>" readonly>
                             </div>
                         </div>
                     </div>
@@ -715,8 +712,7 @@ if (!isset($_SESSION['user'])) {
                     <div class="column">
                         <div class="form-row">
                             <label for="certNo">Certificate No</label>
-                            <input type="text" id="certNo" name="certNo"
-                                placeholder="School leaving certificate number">
+                            <input type="text" id="certNo" name="certNo" placeholder="School leaving certificate number">
                         </div>
                     </div>
                 </div>
@@ -788,8 +784,7 @@ if (!isset($_SESSION['user'])) {
                 alert("Please enter your email");
                 return false;
             }
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
+            if (email.indexOf('@') === -1 || email.indexOf('.') === -1 || email.indexOf(' ') !== -1) {
                 alert("Please enter a valid email address.");
                 return false;
             }
