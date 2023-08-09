@@ -130,6 +130,8 @@
                 $sql = "SELECT a.*,s.*, c.*, d.name AS department, f.name AS faculty
                 FROM enrollments a                
                 INNER JOIN courses c ON a.course_id = c.course_id
+                /*INNER JOIN is a type of db operation used to combine rows from two or more tables based on a related column between them*/
+                /*an alias is another name assigned to a column or a table temporarily to make reports nmore relevant to a user*/
                 INNER JOIN departments d ON c.department_id = d.id
                 INNER JOIN faculties f ON d.faculty_id = f.id
                 INNER JOIN students s ON a.student_id = s.student_id
@@ -137,6 +139,7 @@
                 ";
                 $result = mysqli_query($conn, $sql);
                 // Loop through the result set and display each course as a table row
+                //executes the sql statement and establishes the db connection
                 while ($row = mysqli_fetch_assoc($result)) {
                     // course_id, course_name, course_description, course_price, department_id
                     echo '<tr>';

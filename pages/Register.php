@@ -250,44 +250,73 @@
     function validateRegister() {
       //JS function named called when the registration form is submitted for validation.
       var firstName = document.getElementById("first_name").value;
+      // Retrieves the value entered in the "first_name" input field and stores it in the variable "firstName".
       var lastName = document.getElementById("last_name").value;
+      // Retrieves the value entered in the "last_name" input field and stores it in the variable "lastName".
       var email = document.getElementById("email").value;
+      // Retrieves the value entered in the "email" input field and stores it in the variable "email".
       var password = document.getElementById("password").value;
+      // Retrieves the value entered in the "password" input field and stores it in the variable "password".
       var confirmPassword = document.getElementById("confirm_password").value;
+      // Retrieves the value entered in the "confirm_password" input field and stores it in the variable "confirmPassword".
 
       if (firstName == "") {
+        // Checks if the "firstName" variable is empty (i.e., the first name is not entered by the user).
         alert("Please enter your first name");
+        // If the first name is empty, display an alert with the message "Please enter your first name".
         return false;
+         // Return false to prevent the form submission, as the required field is not filled out.
       }
       if (lastName == "") {
+        // Checks if the "lastName" variable is empty (i.e., the last name is not entered by the user).
         alert("Last name cannot be blank");
+        // If the last name is empty, display an alert with the message "Last name cannot be blank".
         return false;
+        // Return false to prevent the form submission, as the required field is not filled out.
       }
       if (email == "") {
+        // Checks if the "email" variable is empty (i.e., the email is not entered by the user).
         alert("Please enter your email");
+        // If the email is empty, display an alert with the message "Email Address cannot be blank".
         return false;
+        // Return false to prevent the form submission, as the required field is not filled out.
       }
       if (email.length == 0 || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-        //checks if the length of the email is equal to zero/empty, does not contain the @ symbol and dot.
+        // Checks if the "email" variable is empty or if it does not contain the '@' symbol or a dot ('.') character.
         alert("Please enter a valid email address.");
+         // If the email is empty or does not have the correct format, display an alert with the message "Please enter a valid email address."
         return false;
+        // Return false to prevent the form submission, as the required field is not filled out.
       }
 
       if (password == "") {
+        // Checks if the "password" variable is empty (i.e., the password is not entered by the user)
         alert("Please enter your password");
+        // If the password is empty, display an alert with the message "Please enter your password"
         return false;
+        // Return false to prevent the form submission, as the required field is not filled out.
       }
       if (password != confirmPassword) {
+        // Checks if the "password" variable is not equal to the "confirmPassword" variable, indicating that the passwords do not match.
         alert("Passwords do not match.");
+        // If the passwords do not match, display an alert with the message "Passwords do not match."
         return false;
+        // Return false to prevent the form submission, as the required field is not filled out.
+
       }
 
       function isPasswordValid(password) {
+        // nested function named to check the password complexity.
+        // a nested function is a function defined within another function
         if (!/\d/.test(password) || !/[A-Z]/.test(password) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password) || password.length < 8) {
+          // checks If the password does not contain a digit,an uppercase letter,a symbol and is less than 8 characters long
           alert("Password must have at least one number, one uppercase letter, and one symbol.");
+          //if the conditions are not met an alert message is displayed saying "Password must have at least one number, one uppercase letter, and one symbol."
           return false;
+          // Return false to prevent the form submission, as the required field is not filled out.
         }
         return true;
+         // If all complexity requirements are met, return true to indicate that the password is valid.
       }
 
     }
