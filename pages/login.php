@@ -214,7 +214,7 @@ include('../php/conn.php');
         //sets user variable in the session to store the 'student_id' information
         $_SESSION['email'] = $row['email'];
         //sets email variable in the session to store the 'email' information
-        $_SESSION['username'] = $row['firt_name'];
+        $_SESSION['username'] = $row['first_name'];
         //sets username variable in the session to store the 'username' information
         $user = $_SESSION['user'];
         // Gets the user ID/information stored in the user session and stores it in a variable called $user
