@@ -4,15 +4,106 @@ session_start();
 //function used to create a session or resume an existing session
 //a session is what stores the data and all requests made by a user in a website
 include('../php/conn.php');
+
+if (isset($_SESSION['user'])) { 
+  // checks if the $_SESSION['user'] variable is set, indicating that the user is already logged in
+  //$_SESSION is a superglobal array in PHP that is used to store and manage session data across multiple pages of a web application
+  header("Location: ../index.php"); 
+  //function that redirects logged in user to the index page
+}
+
+//login code
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //REQUEST_METHOD is a PHP predefined variable that holds the request method used to access the current script.
+  //checks whether the current HTTP request method is 'POST' 
+  //$_SERVER is a PHP superglobal array that provides information about the server environment and the current request.
+  //The 'GET' method appends form data to the URL, while the 'POST' method sends the data in the request body.
+  //$_POST is a PHP superglobal array that is used to retrieve data that has been sent to the server using the HTTP POST method
+  $email = htmlspecialchars($_POST['email']);
+  //used to sanitize & protect against cross-site scripting (XSS) attacks when handling form data submitted via the POST method
+  //htmlspecialchars() function is a PHP function used to convert special characters to their corresponding HTML entities.
+  //the sanitized value is assigned to the variable email
+  $password = htmlspecialchars($_POST['password']);
+  //used to sanitize & protect against cross-site scripting (XSS) attacks when handling form data submitted via the POST method
+  //htmlspecialchars() function is a PHP function used to convert special characters to their corresponding HTML entities.
+  //the sanitized value is assigned to the variable password
+
+  $stmt = $conn->prepare("SELECT * FROM students WHERE email=?");
+  //$stmt is a declared variable that holds the db connection and an SQL statement
+  //$conn holds the db connection object
+  //prepare() method is used on the db connection object to create a prepared statement used to execute SQL queries with placeholders for dynamic values
+  $stmt->bind_param("s", $email);
+  //binds the value of the email variable to the prepared statement
+  //"s" specifies data type of emai as string and $email contains the actual value that will replace the placeholder in the prepared statement.
+  $stmt->execute();
+  //method used to execute the prepared statement
+  $result = $stmt->get_result();
+  //method used to obtain the result set from a prepared statement after executing it
+
+  if ($result->num_rows == 1) {
+    //checks if email is available and valid/has been fetched
+    $row = $result->fetch_assoc();
+    //used to fetch a single row from the result set obtained after executing a prepared statement with get_result()
+
+    if (password_verify($password, $row['password'])) {
+      // Check if the provided password matches the hashed password stored in the database
+      //password_verify() function is used for password verification ie confirming if it matches the stored password.
+      //the function compares the provided plain text password with the hashed password
+      // If the verification is successful, the user is considered authenticated.
+      $_SESSION['user'] = $row['student_id'];
+      //sets user variable in the session to store the 'student_id' information
+      $_SESSION['email'] = $row['email'];
+      //sets email variable in the session to store the 'email' information
+      $_SESSION['username'] = $row['first_name'];
+      //sets username variable in the session to store the 'username' information
+      $user = $_SESSION['user'];
+      // Gets the user ID/information stored in the user session and stores it in a variable called $user
+      $success_message = "Successful login";
+      //declares a variable called success_message that contains/stores the message "Successful message"
+      
+      //record action on logs table
+      $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
+        VALUES ('login','$user',CURDATE(), CURTIME(),'Authentication','students','student')";
+        //$sql is a variable that holds the sql statement to be used to insert info in the logs table
+        //data inserted into the logs table is for record keeping
+      mysqli_query($conn, $sql);
+      //function used to execute the connection query that establishes a connection to the db 
+      //and execute the sql statement in the $sql variable to populate the logs table with the action
+      header("Location: ../index.php?success_message=" . urlencode($success_message));
+      //redirects the user to the index page if the log is successful
+      //.(dot) is used to concatenate
+      //urlencode() function is used to execute/print the message stored in the $success_message variable as it redirects.
+      exit();
+    } else {
+      //condition to be followed if the preceeding if statement is false is the password doesnt match the stored password
+      $error_message = "Invalid password";
+      //the error message to be printed if the password does not match
+      //$error_message is the variable that stores the output for unsuccessful log in which is "Invalid password"
+    }
+  } else {
+    //condition to be followed if the preceeding if statement is false is the email doesnt match the stored email
+    $error_message = "Invalid email";
+    header("Location: ./login.php?error_message=" . urlencode("Invalid email or password"));
+    //the error message to be printed if the email values do not match
+    //$error_message is the variable that stores the output for unsuccessful log in which is "Invalid email"
+  }
+
+  // error_log("Login error: " . $error_message);
+  //error_log is the function that records the log in error message in the server's error log
+  //getting to this point means the login has been unsuccessful either due to wrong email or password
+  // header("Location: ./login.php?error_message=" . urlencode("Invalid email or password"));
+  //redirects the user the login page with an erroe message in the urlencode() function
+  exit();
+}
 /*include is a php construct used to import the contents of another file to the current PHP script to allow code reuse.*/
 /*the content in the () specifies the path to the file one wants to include in this case it is the conn.php file*/
 
 ?>
 <!--closing tag in PHP used to indicate the end of the PHP code block-->
-<!DOCTYPE html>
+
 <!--declares document type as HTML5-->
 <!--HTML5 standard is the latest version of HTML-->
-<html>
+
 <!--marks beginning of HTML document-->
 
 <head>
@@ -166,94 +257,8 @@ include('../php/conn.php');
   <!--contains php code that checks if user is logged in-->
   <?php
   //start of php code
-  if (isset($_SESSION['user'])) { 
-    // checks if the $_SESSION['user'] variable is set, indicating that the user is already logged in
-    //$_SESSION is a superglobal array in PHP that is used to store and manage session data across multiple pages of a web application
-    header("Location: ../index.php"); 
-    //function that redirects logged in user to the index page
-  }
-  //login code
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //REQUEST_METHOD is a PHP predefined variable that holds the request method used to access the current script.
-    //checks whether the current HTTP request method is 'POST' 
-    //$_SERVER is a PHP superglobal array that provides information about the server environment and the current request.
-    //The 'GET' method appends form data to the URL, while the 'POST' method sends the data in the request body.
-    //$_POST is a PHP superglobal array that is used to retrieve data that has been sent to the server using the HTTP POST method
-    $email = htmlspecialchars($_POST['email']);
-    //used to sanitize & protect against cross-site scripting (XSS) attacks when handling form data submitted via the POST method
-    //htmlspecialchars() function is a PHP function used to convert special characters to their corresponding HTML entities.
-    //the sanitized value is assigned to the variable email
-    $password = htmlspecialchars($_POST['password']);
-    //used to sanitize & protect against cross-site scripting (XSS) attacks when handling form data submitted via the POST method
-    //htmlspecialchars() function is a PHP function used to convert special characters to their corresponding HTML entities.
-    //the sanitized value is assigned to the variable password
-
-    $stmt = $conn->prepare("SELECT * FROM students WHERE email=?");
-    //$stmt is a declared variable that holds the db connection and an SQL statement
-    //$conn holds the db connection object
-    //prepare() method is used on the db connection object to create a prepared statement used to execute SQL queries with placeholders for dynamic values
-    $stmt->bind_param("s", $email);
-    //binds the value of the email variable to the prepared statement
-    //"s" specifies data type of emai as string and $email contains the actual value that will replace the placeholder in the prepared statement.
-    $stmt->execute();
-    //method used to execute the prepared statement
-    $result = $stmt->get_result();
-    //method used to obtain the result set from a prepared statement after executing it
-
-    if ($result->num_rows == 1) {
-      //checks if email is available and valid/has been fetched
-      $row = $result->fetch_assoc();
-      //used to fetch a single row from the result set obtained after executing a prepared statement with get_result()
-
-      if (password_verify($password, $row['password'])) {
-        // Check if the provided password matches the hashed password stored in the database
-        //password_verify() function is used for password verification ie confirming if it matches the stored password.
-        //the function compares the provided plain text password with the hashed password
-        // If the verification is successful, the user is considered authenticated.
-        $_SESSION['user'] = $row['student_id'];
-        //sets user variable in the session to store the 'student_id' information
-        $_SESSION['email'] = $row['email'];
-        //sets email variable in the session to store the 'email' information
-        $_SESSION['username'] = $row['first_name'];
-        //sets username variable in the session to store the 'username' information
-        $user = $_SESSION['user'];
-        // Gets the user ID/information stored in the user session and stores it in a variable called $user
-        $success_message = "Successful login";
-        //declares a variable called success_message that contains/stores the message "Successful message"
-        
-        //record action on logs table
-        $sql = "INSERT INTO logs (actions, actionby, actiondate, actiontime, category, actiontable,user_role) 
-          VALUES ('login','$user',CURDATE(), CURTIME(),'Authentication','students','student')";
-          //$sql is a variable that holds the sql statement to be used to insert info in the logs table
-          //data inserted into the logs table is for record keeping
-        mysqli_query($conn, $sql);
-        //function used to execute the connection query that establishes a connection to the db 
-        //and execute the sql statement in the $sql variable to populate the logs table with the action
-        header("Location: ../index.php?success_message=" . urlencode($success_message));
-        //redirects the user to the index page if the log is successful
-        //.(dot) is used to concatenate
-        //urlencode() function is used to execute/print the message stored in the $success_message variable as it redirects.
-        exit();
-      } else {
-        //condition to be followed if the preceeding if statement is false is the password doesnt match the stored password
-        $error_message = "Invalid password";
-        //the error message to be printed if the password does not match
-        //$error_message is the variable that stores the output for unsuccessful log in which is "Invalid password"
-      }
-    } else {
-      //condition to be followed if the preceeding if statement is false is the email doesnt match the stored email
-      $error_message = "Invalid email";
-      //the error message to be printed if the email values do not match
-      //$error_message is the variable that stores the output for unsuccessful log in which is "Invalid email"
-    }
-
-    error_log("Login error: " . $error_message);
-    //error_log is the function that records the log in error message in the server's error log
-    //getting to this point means the login has been unsuccessful either due to wrong email or password
-    header("Location: ./login.php?error_message=" . urlencode("Invalid email or password"));
-    //redirects the user the login page with an erroe message in the urlencode() function
-    exit();
-  }
+ 
+  
   if (isset($errors) && !empty($errors)) { ?> 
   <!--checks if the $errors variable is set and not empty/null -->
   <!--isset() function checks if the variable exists, and the !empty() function checks if it contains any data-->
