@@ -3,6 +3,7 @@
 <!--HTML5 standard is the latest version of HTML-->
 <html>
 <!--marks beginning of HTML document-->
+
 <head>
   <!--contains metadata for the document such as title, character encoding, css styles etc..-->
   <!--metadata is data that provides additional information about other data, included in the head tag in a html document-->
@@ -16,9 +17,10 @@
       background-color: #0b0544;
       /*sets background color of an HTML element to a specified color using the code*/
       font-family: Arial, sans-serif;
-       /*used to specify the font family for text content within an HTML element*/
+      /*used to specify the font family for text content within an HTML element*/
       /*Arial is the preffered font family to be used and incase it is not available, sans-serif is used as the generic font family/alternative*/
     }
+
     /*marks end of body element*/
 
     .registration-box {
@@ -49,6 +51,7 @@
       /*text-align property is commonly used to control the alignment of text within an element*/
       /*setting the property to center aligns it at the center of its container*/
     }
+
     /*marks end of h1 styles*/
 
     /*code that applies a flexbox layout for the form element for its child elements to be verically arranged*/
@@ -59,11 +62,12 @@
       flex-direction: column;
       /*sets main axis of the flex container to be vertical*/
     }
+
     /*end of form container*/
 
     label {
       margin-top: 10px;
-       /*margin-top property adds space between the top edge of the <label> element and the preceding content or element*/
+      /*margin-top property adds space between the top edge of the <label> element and the preceding content or element*/
       /*set to 10px ie applies a margin of 10px to the top of all <label> elements on the web page*/
       /*The margin creates visual separation, making the form elements more readable and enhancing the overall design.*/
     }
@@ -79,10 +83,11 @@
       /*border-radius controls the curvature of an element's corners*/
       /*this line of code rounds the corners of the 3 input fields by 5px border radius making it smooth and appear slightly curved*/
       border: 1px solid;
-      /*apply a 1px solid border around the input fields*/ 
+      /*apply a 1px solid border around the input fields*/
       margin-bottom: 20px;
       /*adds 20px of space below each input field*/
     }
+
     /*end of text, email and password input fields styling*/
 
     input[type="submit"] {
@@ -102,13 +107,15 @@
       font-weight: bold;
       /*sets the font weight of the button text to bold*/
     }
-        /*marks end of button styling*/
+
+    /*marks end of button styling*/
 
     input[type="submit"]:hover {
       /*styling for the submit button when hovered over*/
       background-color: #3e8e41;
       /*sets background color to a different one when hovering over the button*/
     }
+
     /*end of hover styling*/
   </style>
   <!--end of registration page styling-->
@@ -123,7 +130,7 @@
     <h1>CUEA Online Admission</h1>
     <!--contains the main heading/heading1 of the webpage-->
     <div style="text-align: center;">
-    <!--justifies the heading/text to be at the centre of the web page-->
+      <!--justifies the heading/text to be at the centre of the web page-->
       <img src="../imgs/logo.png" style="display: block; margin: 0 auto;">
       <!--contains the path to the image source that contains the logo used-->
     </div>
@@ -131,21 +138,21 @@
     <h1>Register</h1>
     <!--sets heading 1/main heading of the webpage to Register-->
     <form action="../php/register.php" onsubmit="return validateRegister();" method="POST">
-    <!--The form element starts with an "action" attribute that points to the PHP file responsible for processing the form data(../php/register.php)-->
-     <!--The "onsubmit" attribute calls the JS function "validateRegister()" to perform client-side validation before submitting the form-->
-     <!--The "method" attribute is set to "POST" to send the form data securely-->
+      <!--The form element starts with an "action" attribute that points to the PHP file responsible for processing the form data(../php/register.php)-->
+      <!--The "onsubmit" attribute calls the JS function "validateRegister()" to perform client-side validation before submitting the form-->
+      <!--The "method" attribute is set to "POST" to send the form data securely-->
 
-     <!--label-input pairs used to capture users information-->
+      <!--label-input pairs used to capture users information-->
       <label for="fname">First Name:</label>
       <!--The <label> element is used to associate a label with an input element.
            It provides a textual description for the input field, 
            making it easier for users to understand what information is expected in the field.
           In this case, the Label First Name helps us know we expect a users first name in corresponding the input field-->
-           <!--for attribute in the <label> element is used to specify the id of the associated input element.
+      <!--for attribute in the <label> element is used to specify the id of the associated input element.
              In this case, it is for="fname"-->
-             <!--the label is what the user will see on their end to guide them on what to insert in the input field ie First Name in this case--> 
+      <!--the label is what the user will see on their end to guide them on what to insert in the input field ie First Name in this case-->
       <input type="text" id="first_name" name="firstName">
-              <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
+      <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
       in this case, it creates a text field-->
       <!--type="text":sets the input type to "text," meaning it's a single-line text input field where users can enter text.-->
       <!--The id attribute provides a unique identifier for the input element being first_name in this case-->
@@ -156,11 +163,11 @@
            It provides a textual description for the input field, 
            making it easier for users to understand what information is expected in the field.
           In this case, the Label Middle Name helps us know we expect a users middle name in the corresponding input field-->
-           <!--for attribute in the <label> element is used to specify the id of the associated input element.
+      <!--for attribute in the <label> element is used to specify the id of the associated input element.
              In this case, it is for="middleName"-->
-             <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Middle Name in this case--> 
+      <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Middle Name in this case-->
       <input type="text" id="middle_name" name="middleName">
-              <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
+      <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
       in this case, it creates a text field-->
       <!--type="text":sets the input type to "text," meaning it's a single-line text input field where users can enter text.-->
       <!--The id attribute provides a unique identifier for the input element being middle_name in this case-->
@@ -171,11 +178,11 @@
            It provides a textual description for the input field, 
            making it easier for users to understand what information is expected in the field.
           In this case, the Label Last Name helps us know we expect a users last name in the corresponding input field-->
-           <!--for attribute in the <label> element is used to specify the id of the associated input element.
+      <!--for attribute in the <label> element is used to specify the id of the associated input element.
              In this case, it is for="lastName"-->
-             <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Last Name in this case--> 
+      <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Last Name in this case-->
       <input type="text" id="last_name" name="lastName">
-              <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
+      <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
       in this case, it creates a text field-->
       <!--type="text":sets the input type to "text," meaning it's a single-line text input field where users can enter text.-->
       <!--The id attribute provides a unique identifier for the input element being last_name in this case-->
@@ -186,11 +193,11 @@
            It provides a textual description for the input field, 
            making it easier for users to understand what information is expected in the field.
           In this case, the Label Email helps us know we expect a users email address in the corresponding input field-->
-           <!--for attribute in the <label> element is used to specify the id of the associated input element.
+      <!--for attribute in the <label> element is used to specify the id of the associated input element.
              In this case, it is for="email"-->
-             <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Email in this case--> 
+      <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Email in this case-->
       <input type="text" id="email" name="email">
-              <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
+      <!--<input> is an element used to create various types of form controls, eg text fields, checkboxes, radio buttons, etc
       in this case, it creates a text field-->
       <!--type="text":sets the input type to "text," meaning it's a single-line text input field where users can enter text.-->
       <!--The id attribute provides a unique identifier for the input element being email in this case-->
@@ -201,46 +208,46 @@
            It provides a textual description for the input field, 
            making it easier for users to understand what information is expected in the field.
           In this case, the Label Password helps us know we expect a users password in corresponding the input field-->
-           <!--for attribute in the <label> element is used to specify the id of the associated input element.
+      <!--for attribute in the <label> element is used to specify the id of the associated input element.
              In this case, it is for="Password"-->
-             <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Password in this case--> 
+      <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Password in this case-->
       <input type="password" id="password" name="password">
-              <!--<input> is an element used to create various types of form controls.-->
-        <!--type="password": The type attribute specifies the type of input field to be created. 
+      <!--<input> is an element used to create various types of form controls.-->
+      <!--type="password": The type attribute specifies the type of input field to be created. 
         In this case, it's set to "password," which creates a password input field.-->
-        <!--id="password": The id attribute provides a unique identifier for the input field.-->
-        <!--name="password": The name attribute is used to specify the name of the input field which is password in this case.
+      <!--id="password": The id attribute provides a unique identifier for the input field.-->
+      <!--name="password": The name attribute is used to specify the name of the input field which is password in this case.
          When the form is submitted, the name-value pair of this input field will be sent to the server-->
       <label for="confirm-password">Confirm Password:</label>
       <!--The <label> element is used to associate a label with an input element.
            It provides a textual description for the input field, 
            making it easier for users to understand what information is expected in the field.
           In this case, the Label Confirm Password helps us know we expect the user to reenter their password for confirmation in the corresponding input field-->
-           <!--for attribute in the <label> element is used to specify the id of the associated input element.
+      <!--for attribute in the <label> element is used to specify the id of the associated input element.
              In this case, it is for="confirm-password"-->
-             <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Confirm Password in this case--> 
+      <!--the label is what the user will see on their end to guide them on what to insert in the input field ie Confirm Password in this case-->
       <input type="password" id="confirm_password" name="confirm-password">
-              <!--<input> ia an element used to create various types of form controls.-->
-        <!--type="password": The type attribute specifies the type of input field to be created. 
+      <!--<input> ia an element used to create various types of form controls.-->
+      <!--type="password": The type attribute specifies the type of input field to be created. 
         In this case, it's set to "password," which creates a password input field.-->
-        <!--id="confirm_password": The id attribute provides a unique identifier for the input field.-->
-        <!--name="confirm-password": The name attribute is used to specify the name of the input field ie confirm-password in this case.
+      <!--id="confirm_password": The id attribute provides a unique identifier for the input field.-->
+      <!--name="confirm-password": The name attribute is used to specify the name of the input field ie confirm-password in this case.
          When the form is submitted, the name-value pair of this input field will be sent to the server-->
       <input type="submit" name="submit" value="Register">
       <!--<input> is an element used to create various types of form controls.-->
-        <!--type="submit": The type attribute specifies the type of input field to be created.
+      <!--type="submit": The type attribute specifies the type of input field to be created.
          In this case, it's set to "submit," which creates a submit button.-->
-         <!--name="submit": The name attribute is used to specify the name of the input field.
+      <!--name="submit": The name attribute is used to specify the name of the input field.
           When the form is submitted, the name-value pair of this input field will be sent to the server.
            In this case, it will be used as the key to identify the submit button when processing the form data on the server side.-->
-           <!--The value attribute sets the text displayed on the submit button.
+      <!--The value attribute sets the text displayed on the submit button.
             In this case, it is "Register" which is the visible text on the button.-->
       <p>Already have an account <a href="./login.php">Login</a></p>
       <!--The <p> element is used to create a paragraph of text.-->
-          <!--"Already have an account": This is the text that will be displayed in the paragraph.-->
-          <!--<a> is an anchor  element that creates a hyperlink to a specified URL-->
-          <!--When users click on the specified link, they will be taken to the "Login" page in this case.-->
-          <!--</p>tag to close the paragraph and </a> is the tag to close the anchor-->
+      <!--"Already have an account": This is the text that will be displayed in the paragraph.-->
+      <!--<a> is an anchor  element that creates a hyperlink to a specified URL-->
+      <!--When users click on the specified link, they will be taken to the "Login" page in this case.-->
+      <!--</p>tag to close the paragraph and </a> is the tag to close the anchor-->
     </form>
     <!--marks end of the form element-->
   </div>
@@ -265,7 +272,7 @@
         alert("Please enter your first name");
         // If the first name is empty, display an alert with the message "Please enter your first name".
         return false;
-         // Return false to prevent the form submission, as the required field is not filled out.
+        // Return false to prevent the form submission, as the required field is not filled out.
       }
       if (lastName == "") {
         // Checks if the "lastName" variable is empty (i.e., the last name is not entered by the user).
@@ -284,7 +291,7 @@
       if (email.length == 0 || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
         // Checks if the "email" variable is empty or if it does not contain the '@' symbol or a dot ('.') character.
         alert("Please enter a valid email address.");
-         // If the email is empty or does not have the correct format, display an alert with the message "Please enter a valid email address."
+        // If the email is empty or does not have the correct format, display an alert with the message "Please enter a valid email address."
         return false;
         // Return false to prevent the form submission, as the required field is not filled out.
       }
@@ -296,6 +303,10 @@
         return false;
         // Return false to prevent the form submission, as the required field is not filled out.
       }
+      if (!isPasswordValid(password)) {
+        alert("Password must have at least one number, one uppercase letter, and one symbol.");
+        return false;
+      }
       if (password != confirmPassword) {
         // Checks if the "password" variable is not equal to the "confirmPassword" variable, indicating that the passwords do not match.
         alert("Passwords do not match.");
@@ -305,20 +316,20 @@
 
       }
 
-      function isPasswordValid(password) {
-        // nested function named to check the password complexity.
-        // a nested function is a function defined within another function
-        if (!/\d/.test(password) || !/[A-Z]/.test(password) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password) || password.length < 8) {
-          // checks If the password does not contain a digit,an uppercase letter,a symbol and is less than 8 characters long
-          alert("Password must have at least one number, one uppercase letter, and one symbol.");
-          //if the conditions are not met an alert message is displayed saying "Password must have at least one number, one uppercase letter, and one symbol."
-          return false;
-          // Return false to prevent the form submission, as the required field is not filled out.
-        }
-        return true;
-         // If all complexity requirements are met, return true to indicate that the password is valid.
-      }
+    }
 
+    function isPasswordValid(password) {
+      // nested function named to check the password complexity.
+      // a nested function is a function defined within another function
+      if (!/\d/.test(password) || !/[A-Z]/.test(password) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password) || password.length < 8) {
+        // checks If the password does not contain a digit,an uppercase letter,a symbol and is less than 8 characters long
+        alert("Password must have at least one number, one uppercase letter, and one symbol.");
+        //if the conditions are not met an alert message is displayed saying "Password must have at least one number, one uppercase letter, and one symbol."
+        return false;
+        // Return false to prevent the form submission, as the required field is not filled out.
+      }
+      return true;
+      // If all complexity requirements are met, return true to indicate that the password is valid.
     }
   </script>
 </body>
